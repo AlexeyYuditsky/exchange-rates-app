@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.exchange_rates_currency_converter
+package com.alexeyyuditsky.exchange_rates
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

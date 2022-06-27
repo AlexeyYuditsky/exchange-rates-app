@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.exchange_rates_currency_converter
+package com.alexeyyuditsky.exchange_rates
 
 import org.junit.Test
 
