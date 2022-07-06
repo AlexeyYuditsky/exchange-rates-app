@@ -4,7 +4,7 @@ import com.alexeyyuditsky.exchange_rates.model.ConvertedRoot
 import com.alexeyyuditsky.exchange_rates.model.Currency
 import com.alexeyyuditsky.exchange_rates.model.ResponseRoot
 import com.squareup.moshi.FromJson
-import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.declaredMemberProperties
 
 class MoshiAdapter {
 
@@ -14,14 +14,17 @@ class MoshiAdapter {
         val valuePropertiesList = mutableListOf<Float>()
 
         val properties = responseRoot.currencies::class
-        properties.memberProperties.forEach {
+        properties.declaredMemberProperties.forEach {
             namePropertiesList.add(it.name)
-            valuePropertiesList.add((it.call(responseRoot.currencies) as String).toFloat())
+            valuePropertiesList.add((it.call(responseRoot.currencies) as Float))
         }
 
         val currenciesList = mutableListOf<Currency>()
 
         repeat(namePropertiesList.size) {
+            // позволяет не отображать валюту которой вдруг не стало на сервере
+            if (valuePropertiesList[it] == 0f) return@repeat
+
             currenciesList.add(
                 Currency(
                     name = namePropertiesList[it],

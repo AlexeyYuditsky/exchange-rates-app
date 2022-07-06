@@ -1,11 +1,14 @@
 package com.alexeyyuditsky.exchange_rates.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.Currency
+import com.alexeyyuditsky.exchange_rates.utils.log
 
 class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHolder>() {
 
@@ -25,8 +28,19 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHol
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         val currency = currencies[position]
         holder.binding.apply {
-            currencyName.text = currency.name
+            currencyName.text = holder.itemView.context.getString(R.string.currency_name, currency.name)
             currencyValue.text = currency.value.toString()
+            differenceValue.text =
+                if (currency.yesterdayValue > 0f) {
+                    differenceValue.setTextColor(Color.parseColor("#FF00FF0C"))
+                    "+${currency.yesterdayValue}"
+                } else if (currency.yesterdayValue == 0f) {
+                    differenceValue.setTextColor(Color.parseColor("#FF000000"))
+                    currency.yesterdayValue.toString()
+                } else {
+                    differenceValue.setTextColor(Color.parseColor("#FFFF0000"))
+                    currency.yesterdayValue.toString()
+                }
         }
     }
 

@@ -8,7 +8,9 @@ val yesterdayDate by lazy { yesterdayDate() }
 
 fun currentDate(): String {
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    return sdf.format(Date())
+    val cal = Calendar.getInstance()
+    cal.add(Calendar.DATE, 0)
+    return sdf.format(cal.time)
 }
 
 fun yesterdayDate(): String {
