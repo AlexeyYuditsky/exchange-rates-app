@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
-import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
+import com.alexeyyuditsky.exchange_rates.databinding.CurrencyLayoutBinding
 import com.alexeyyuditsky.exchange_rates.model.Currency
-import com.alexeyyuditsky.exchange_rates.utils.log
 
 class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHolder>() {
 
@@ -21,7 +20,7 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHol
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCurrencyBinding.inflate(inflater, parent, false)
+        val binding = CurrencyLayoutBinding.inflate(inflater, parent, false)
         return CurrencyViewHolder(binding)
     }
 
@@ -30,22 +29,25 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHol
         holder.binding.apply {
             currencyName.text = holder.itemView.context.getString(R.string.currency_name, currency.name)
             currencyValue.text = currency.value.toString()
-            differenceValue.text =
-                if (currency.yesterdayValue > 0f) {
-                    differenceValue.setTextColor(Color.parseColor("#FF00FF0C"))
-                    "+${currency.yesterdayValue}"
-                } else if (currency.yesterdayValue == 0f) {
-                    differenceValue.setTextColor(Color.parseColor("#FF000000"))
-                    currency.yesterdayValue.toString()
-                } else {
-                    differenceValue.setTextColor(Color.parseColor("#FFFF0000"))
-                    currency.yesterdayValue.toString()
-                }
+            differenceValue.text = preparationColorTextView(currency, this)
         }
     }
 
     override fun getItemCount(): Int = currencies.size
 
-    class CurrencyViewHolder(val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root)
+    private fun preparationColorTextView(currency: Currency, binding: CurrencyLayoutBinding): String {
+        return if (currency.yesterdayValue > 0f) {
+            binding.differenceValue.setTextColor(Color.parseColor("#FF00FF0C"))
+            "+${currency.yesterdayValue}"
+        } else if (currency.yesterdayValue == 0f) {
+            binding.differenceValue.setTextColor(Color.parseColor("#FF000000"))
+            currency.yesterdayValue.toString()
+        } else {
+            binding.differenceValue.setTextColor(Color.parseColor("#FFFF0000"))
+            currency.yesterdayValue.toString()
+        }
+    }
+
+    class CurrencyViewHolder(val binding: CurrencyLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

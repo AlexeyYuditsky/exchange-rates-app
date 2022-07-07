@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/favorite_currencies"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/favorite_currencies" />
+
+    <item
+        android:id="@+id/converter"
+        android:icon="@drawable/ic_converter"
+        android:title="@string/converter" />
+
+    <item
+        android:id="@+id/all_currencies"
+        android:icon="@drawable/ic_currencies"
+        android:title="@string/all_currencies" />
+
+    <item
+        android:id="@+id/all_cryptocurrencies"
+        android:icon="@drawable/ic_cryptocurrencies"
+        android:title="@string/all_cryptocurrencies" />
+
+</menu>

@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Exchange rates</string>
     <string name="currency_name">%1$s:⠀</string>
-    <string name="need_correct_time">For further operation of the application,
-        you need to correct the date and time on the device</string>
+    <string name="need_correct_time">For further operation of the application,you need to correct the date and time on the device</string>
     <string name="change_date_and_time">Change date and time</string>
+    <string name="favorite_currencies">Favorite currencies</string>
+    <string name="converter">Converter</string>
+    <string name="all_cryptocurrencies">All cryptocurrencies</string>
+    <string name="all_currencies">All currencies</string>
 
 </resources>

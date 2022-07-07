@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/all_currencies"
+    app:startDestination="@id/allCurrenciesFragment">
+
+    <fragment
+        android:id="@+id/allCurrenciesFragment"
+        android:name="com.alexeyyuditsky.exchange_rates.screens.all_currencies.AllCurrenciesFragment"
+        android:label="fragment_all_currencies"
+        tools:layout="@layout/fragment_all_currencies" />
+
+</navigation>
