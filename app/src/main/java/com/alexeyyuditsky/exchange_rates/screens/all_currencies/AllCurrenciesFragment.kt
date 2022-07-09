@@ -14,11 +14,11 @@ import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.Singletons
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
-import com.alexeyyuditsky.exchange_rates.utils.currentDate
-import com.alexeyyuditsky.exchange_rates.utils.currentRubleExchangeRate
-import com.alexeyyuditsky.exchange_rates.utils.yesterdayDate
-import com.alexeyyuditsky.exchange_rates.utils.yesterdayRubleExchangeRate
+import com.alexeyyuditsky.exchange_rates.model.Currency
+import com.alexeyyuditsky.exchange_rates.utils.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
 
@@ -44,8 +44,16 @@ class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initData() = lifecycleScope.launch {
-        val yesterdayConvertedCurrency = Singletons.retrofitApi.getCurrencies(yesterdayDate)
-        val currentConvertedCurrency = Singletons.retrofitApi.getCurrencies(currentDate)
+        val yesterdayConvertedCurrency = withContext(Dispatchers.IO) {
+            Singletons.retrofitApi.getCurrencies(yesterdayDate)
+
+        }
+        val currentConvertedCurrency = withContext(Dispatchers.IO) {
+            Singletons.retrofitApi.getCurrencies(currentDate)
+        }
+
+        viewModel.yesterdayCurrencyList.clear()
+        viewModel.currentCurrencyList.clear()
 
         viewModel.yesterdayCurrencyList.addAll(yesterdayConvertedCurrency.currencies)
         viewModel.currentCurrencyList.addAll(currentConvertedCurrency.currencies)
