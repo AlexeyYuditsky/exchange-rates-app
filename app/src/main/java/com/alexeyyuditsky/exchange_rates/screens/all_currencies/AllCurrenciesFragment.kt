@@ -1,9 +1,9 @@
 package com.alexeyyuditsky.exchange_rates.screens.all_currencies
 
-import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.RequiresApi
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,13 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
-import com.alexeyyuditsky.exchange_rates.Singletons
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
 import com.alexeyyuditsky.exchange_rates.utils.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
 
@@ -30,43 +27,17 @@ class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
         binding = FragmentAllCurrenciesBinding.bind(view)
 
         setupAdapter()
-        initData()
         observeAdapter()
     }
 
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL))
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun initData() = lifecycleScope.launch {
-        val yesterdayConvertedCurrency = withContext(Dispatchers.IO) {
-            Singletons.retrofitApi.getCurrencies(yesterdayDate)
-        }
-
-        val currentConvertedCurrency = withContext(Dispatchers.IO) {
-            Singletons.retrofitApi.getCurrencies(currentDate)
-        }
-
-        yesterdayCurrenciesList.clear()
-        viewModel.currentCurrenciesList.clear()
-
-        yesterdayCurrenciesList.addAll(yesterdayConvertedCurrency.currencies)
-        viewModel.currentCurrenciesList.addAll(currentConvertedCurrency.currencies)
-
-        yesterdayCurrenciesList.forEach { if (it.name == "rub") yesterdayRubleExchangeRate = it.value }
-        viewModel.currentCurrenciesList.forEach { if (it.name == "rub") currentRubleExchangeRate = it.value }
-
-        /*yesterdayCurrenciesList.removeIf { it.name == "rub" }
-        viewModel.currentCurrenciesList.removeIf { it.name == "rub" }
-
-        yesterdayCurrenciesList.forEach { if (it.name == "usd") it.name = "rub" }
-        viewModel.currentCurrenciesList.forEach { if (it.name == "usd") it.name = "rub" }*/
-
-        viewModel.initCurrencies()
-
-        binding.currenciesDateTextView.text = currentConvertedCurrency.date
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                binding.recyclerView.context,
+                RecyclerView.VERTICAL
+            )
+        )
     }
 
     private fun observeAdapter() = lifecycleScope.launch {

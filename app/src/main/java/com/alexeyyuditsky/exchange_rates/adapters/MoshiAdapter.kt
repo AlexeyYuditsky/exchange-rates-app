@@ -11,7 +11,7 @@ import kotlin.reflect.full.declaredMemberProperties
 class MoshiAdapter {
 
     @FromJson
-    fun fromJson(responseRoot: ResponseRoot): ConvertedRoot {
+    private fun fromJson(responseRoot: ResponseRoot): ConvertedRoot {
         return ConvertedRoot(
             date = responseRoot.date,
             currencies = createCurrenciesList(responseRoot.currencies)
@@ -22,7 +22,7 @@ class MoshiAdapter {
         val rubleExchangeRate = findRubleExchangeRate(currencies)
 
         return currencies::class.declaredMemberProperties
-            // exclude the ruble exchange rate from the list || exclude currency that are missing from the server
+            // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
             .filter { it.name != "rub" && it.call(currencies).toString() != "0.0" }
             .map {
                 Currency(
