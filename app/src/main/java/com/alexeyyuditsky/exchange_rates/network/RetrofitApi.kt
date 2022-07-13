@@ -1,7 +1,5 @@
 package com.alexeyyuditsky.exchange_rates.network
 
-import com.alexeyyuditsky.exchange_rates.model.ConvertedRoot
-import com.alexeyyuditsky.exchange_rates.utils.currentDate
 import retrofit2.http.GET
 import retrofit2.http.Path
 

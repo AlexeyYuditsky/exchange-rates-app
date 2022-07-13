@@ -14,7 +14,6 @@ import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.Singletons
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
-import com.alexeyyuditsky.exchange_rates.model.Currency
 import com.alexeyyuditsky.exchange_rates.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,35 +36,33 @@ class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
 
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL)
-        )
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL))
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initData() = lifecycleScope.launch {
         val yesterdayConvertedCurrency = withContext(Dispatchers.IO) {
             Singletons.retrofitApi.getCurrencies(yesterdayDate)
-
         }
+
         val currentConvertedCurrency = withContext(Dispatchers.IO) {
             Singletons.retrofitApi.getCurrencies(currentDate)
         }
 
-        viewModel.yesterdayCurrencyList.clear()
-        viewModel.currentCurrencyList.clear()
+        yesterdayCurrenciesList.clear()
+        viewModel.currentCurrenciesList.clear()
 
-        viewModel.yesterdayCurrencyList.addAll(yesterdayConvertedCurrency.currencies)
-        viewModel.currentCurrencyList.addAll(currentConvertedCurrency.currencies)
+        yesterdayCurrenciesList.addAll(yesterdayConvertedCurrency.currencies)
+        viewModel.currentCurrenciesList.addAll(currentConvertedCurrency.currencies)
 
-        viewModel.yesterdayCurrencyList.forEach { if (it.name == "rub") yesterdayRubleExchangeRate = it.value }
-        viewModel.currentCurrencyList.forEach { if (it.name == "rub") currentRubleExchangeRate = it.value }
+        yesterdayCurrenciesList.forEach { if (it.name == "rub") yesterdayRubleExchangeRate = it.value }
+        viewModel.currentCurrenciesList.forEach { if (it.name == "rub") currentRubleExchangeRate = it.value }
 
-        viewModel.currentCurrencyList.removeIf { it.name == "rub" }
-        viewModel.yesterdayCurrencyList.removeIf { it.name == "rub" }
+        /*yesterdayCurrenciesList.removeIf { it.name == "rub" }
+        viewModel.currentCurrenciesList.removeIf { it.name == "rub" }
 
-        viewModel.currentCurrencyList.forEach { if (it.name == "usd") it.name = "rub" }
-        viewModel.yesterdayCurrencyList.forEach { if (it.name == "usd") it.name = "rub" }
+        yesterdayCurrenciesList.forEach { if (it.name == "usd") it.name = "rub" }
+        viewModel.currentCurrenciesList.forEach { if (it.name == "usd") it.name = "rub" }*/
 
         viewModel.initCurrencies()
 

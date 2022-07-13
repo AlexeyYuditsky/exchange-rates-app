@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.exchange_rates.model
+package com.alexeyyuditsky.exchange_rates.network
 
 import com.squareup.moshi.Json
 
@@ -278,7 +278,6 @@ class ConvertedRoot(
 )
 
 data class Currency(
-    var name: String,
-    var value: Float,
-    var yesterdayValue: Float = 0f
+    val name: String,
+    val value: Float,
 )
