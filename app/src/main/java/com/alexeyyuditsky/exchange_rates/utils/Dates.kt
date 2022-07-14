@@ -3,9 +3,6 @@ package com.alexeyyuditsky.exchange_rates.utils
 import java.text.SimpleDateFormat
 import java.util.*
 
-val currentDate = currentDate()
-val yesterdayDate = yesterdayDate()
-
 fun currentDate(): String {
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val cal = Calendar.getInstance()

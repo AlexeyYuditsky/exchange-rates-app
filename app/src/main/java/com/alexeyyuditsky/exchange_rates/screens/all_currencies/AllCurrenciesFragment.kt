@@ -14,6 +14,7 @@ import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
 import com.alexeyyuditsky.exchange_rates.utils.*
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
@@ -28,6 +29,13 @@ class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
 
         setupAdapter()
         observeAdapter()
+        observeCurrenciesDate()
+    }
+
+    private fun observeCurrenciesDate() = lifecycleScope.launch {
+        viewModel.currencyDateFlow.collectLatest {
+            binding.currenciesDateTextView.text = it
+        }
     }
 
     private fun setupAdapter() {
@@ -41,7 +49,7 @@ class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
     }
 
     private fun observeAdapter() = lifecycleScope.launch {
-        viewModel.currentCurrencyListFlow.collect {
+        viewModel.currentCurrencyListFlow.collectLatest {
             adapter.currencies = it
             binding.shimmerFrameLayout.stopShimmer()
             binding.shimmerFrameLayout.isVisible = false
