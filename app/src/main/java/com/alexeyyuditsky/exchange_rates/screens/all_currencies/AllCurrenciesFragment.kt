@@ -14,9 +14,11 @@ import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
 import com.alexeyyuditsky.exchange_rates.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
 
     private val viewModel by viewModels<AllCurrenciesViewModel>()
