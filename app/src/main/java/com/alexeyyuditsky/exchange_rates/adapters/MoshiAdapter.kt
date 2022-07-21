@@ -1,27 +1,33 @@
 package com.alexeyyuditsky.exchange_rates.adapters
 
-import com.alexeyyuditsky.exchange_rates.network.ConvertedRoot
-import com.alexeyyuditsky.exchange_rates.network.Currency
-import com.alexeyyuditsky.exchange_rates.network.ResponseCurrencies
-import com.alexeyyuditsky.exchange_rates.network.ResponseRoot
+import com.alexeyyuditsky.exchange_rates.network.*
 import com.alexeyyuditsky.exchange_rates.utils.log
 import com.squareup.moshi.FromJson
+import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
 
 class MoshiAdapter {
 
     @FromJson
-    private fun fromJson(responseRoot: ResponseRoot): ConvertedRoot {
+    private fun fromJson(
+        responseRoot: ResponseRoot
+    ): ConvertedRoot {
+
+        log("fromJson")
+
         return ConvertedRoot(
             date = responseRoot.date,
             currencies = createCurrenciesList(responseRoot.currencies)
         )
     }
 
-    private fun createCurrenciesList(currencies: ResponseCurrencies): List<Currency> {
-        val rubleExchangeRate = findRubleExchangeRate(currencies)
+    private fun createCurrenciesList(
+        currencies: ResponseCurrencies
+    ): List<Currency> {
+        val declaredMemberProperties = currencies::class.declaredMemberProperties
+        val rubleExchangeRate = findRubleExchangeRate(declaredMemberProperties, currencies)
 
-        return currencies::class.declaredMemberProperties
+        return declaredMemberProperties
             // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
             .filter { it.name != "rub" && it.call(currencies).toString() != "0.0" }
             .map {
@@ -32,8 +38,11 @@ class MoshiAdapter {
             }
     }
 
-    private fun findRubleExchangeRate(currencies: ResponseCurrencies): Float {
-        return currencies::class.declaredMemberProperties
+    private fun findRubleExchangeRate(
+        declaredMemberProperties: Collection<KProperty1<out ResponseCurrencies, *>>,
+        currencies: ResponseCurrencies
+    ): Float {
+        return declaredMemberProperties
             .first { it.name == "rub" }
             .call(currencies)
             .toString()
