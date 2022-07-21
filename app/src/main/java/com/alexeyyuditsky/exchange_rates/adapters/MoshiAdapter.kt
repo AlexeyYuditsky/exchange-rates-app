@@ -11,15 +11,10 @@ class MoshiAdapter {
     @FromJson
     private fun fromJson(
         responseRoot: ResponseRoot
-    ): ConvertedRoot {
-
-        log("fromJson")
-
-        return ConvertedRoot(
-            date = responseRoot.date,
-            currencies = createCurrenciesList(responseRoot.currencies)
-        )
-    }
+    ): ConvertedRoot = ConvertedRoot(
+        date = responseRoot.date,
+        currencies = createCurrenciesList(responseRoot.currencies)
+    )
 
     private fun createCurrenciesList(
         currencies: ResponseCurrencies
@@ -29,11 +24,13 @@ class MoshiAdapter {
 
         return declaredMemberProperties
             // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
-            .filter { it.name != "rub" && it.call(currencies).toString() != "0.0" }
+            .filter {
+                it.name != "rub" && it.call(currencies) != null
+            }
             .map {
                 Currency(
                     name = it.name,
-                    value = rubleExchangeRate / it.call(currencies).toString().toFloat()
+                    value = (rubleExchangeRate / it.call(currencies).toString().toFloat()).toString()
                 )
             }
     }

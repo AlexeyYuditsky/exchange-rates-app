@@ -27,7 +27,7 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHol
         val currency = currencies[position]
         holder.binding.apply {
             currencyName.text = holder.itemView.context.getString(R.string.currency_name, currency.name)
-            currencyValue.text = currency.value.toString()
+            currencyValue.text = currency.value
         }
     }
 
