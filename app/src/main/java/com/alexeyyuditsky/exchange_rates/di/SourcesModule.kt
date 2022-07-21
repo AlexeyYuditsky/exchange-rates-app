@@ -14,6 +14,6 @@ abstract class SourcesModule {
     @Binds
     abstract fun bindCurrenciesSource(
         retrofitCurrenciesSource: RetrofitCurrenciesSource
-    ) :CurrenciesSource
+    ): CurrenciesSource
 
 }

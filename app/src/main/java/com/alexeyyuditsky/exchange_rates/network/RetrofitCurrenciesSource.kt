@@ -2,6 +2,7 @@ package com.alexeyyuditsky.exchange_rates.network
 
 import com.alexeyyuditsky.exchange_rates.utils.getCurrentDate
 import com.alexeyyuditsky.exchange_rates.utils.getYesterdayDate
+import com.alexeyyuditsky.exchange_rates.utils.log
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -15,11 +16,17 @@ class RetrofitCurrenciesSource @Inject constructor(
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
 
     override suspend fun getCurrencies(): ConvertedRoot {
+        getCurrencyNames()
+
         return try {
             currenciesApi.getCurrencies(getCurrentDate())
         } catch (e: HttpException) {
             currenciesApi.getCurrencies(getYesterdayDate())
         }
+    }
+
+    private suspend fun getCurrencyNames() {
+        val res = currenciesApi.getCurrencyNames()
     }
 
 }
