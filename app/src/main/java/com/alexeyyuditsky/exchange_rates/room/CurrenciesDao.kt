@@ -1,10 +1,7 @@
 package com.alexeyyuditsky.exchange_rates.room
 
-import androidx.paging.PagingData
-import androidx.paging.PagingSource
 import androidx.room.*
 import com.alexeyyuditsky.exchange_rates.room.entities.CurrencyDbEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CurrenciesDao {

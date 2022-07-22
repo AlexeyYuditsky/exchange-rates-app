@@ -1,9 +1,7 @@
 package com.alexeyyuditsky.exchange_rates.screens.all_currencies
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
-import com.alexeyyuditsky.exchange_rates.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

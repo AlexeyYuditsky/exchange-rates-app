@@ -1,15 +1,14 @@
 package com.alexeyyuditsky.exchange_rates.adapters
 
 import com.alexeyyuditsky.exchange_rates.network.*
-import com.alexeyyuditsky.exchange_rates.utils.log
 import com.squareup.moshi.FromJson
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
 
-class MoshiAdapter {
+class MoshiAdapterCurrencyValues {
 
     @FromJson
-    private fun fromJson(
+    fun fromJson(
         responseRoot: ResponseRoot
     ): ConvertedRoot = ConvertedRoot(
         date = responseRoot.date,

@@ -9,6 +9,6 @@ interface CurrenciesApi {
     suspend fun getCurrencies(@Path("date") date: String): ConvertedRoot
 
     @GET("latest/currencies.min.json")
-    suspend fun getCurrencyNames(): ResponseCurrencies
+    suspend fun getCurrencyNames(): List<String>
 
 }

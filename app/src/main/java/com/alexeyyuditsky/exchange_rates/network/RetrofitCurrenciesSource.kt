@@ -16,7 +16,18 @@ class RetrofitCurrenciesSource @Inject constructor(
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
 
     override suspend fun getCurrencies(): ConvertedRoot {
-        getCurrencyNames()
+        val currencyNames = currenciesApi.getCurrencyNames()
+        val currencyValues = currenciesApi.getCurrencies(getCurrentDate()).currencies
+
+        val tempList = currencyNames.zip(currencyValues) { fullName, currency ->
+            CurrencyForDb(
+                shortName = currency.name,
+                fullName = fullName,
+                value = currency.value
+            )
+        }
+
+        log(tempList)
 
         return try {
             currenciesApi.getCurrencies(getCurrentDate())
@@ -25,8 +36,10 @@ class RetrofitCurrenciesSource @Inject constructor(
         }
     }
 
-    private suspend fun getCurrencyNames() {
-        val res = currenciesApi.getCurrencyNames()
-    }
+    private data class CurrencyForDb(
+        val shortName: String,
+        val fullName: String,
+        val value: String
+    )
 
 }

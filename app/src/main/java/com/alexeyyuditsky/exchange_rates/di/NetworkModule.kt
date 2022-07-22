@@ -1,6 +1,7 @@
 package com.alexeyyuditsky.exchange_rates.di
 
-import com.alexeyyuditsky.exchange_rates.adapters.MoshiAdapter
+import com.alexeyyuditsky.exchange_rates.adapters.MoshiAdapterCurrencyValues
+import com.alexeyyuditsky.exchange_rates.adapters.MoshiAdapterCurrencyNames
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -21,7 +22,8 @@ class NetworkModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
-            .add(MoshiAdapter())
+            .add(MoshiAdapterCurrencyValues())
+            .add(MoshiAdapterCurrencyNames())
             .build()
     }
 

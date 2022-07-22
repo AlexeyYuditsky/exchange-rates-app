@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "exchange-rates-currency-converter"
+rootProject.name = "exchange_rates"
 include ':app'
