@@ -145,6 +145,7 @@ class ResponseCurrencies(
     @field:Json(name = "kwd") val kwd: String, // валюта ("Kuwaiti dinar")
     @field:Json(name = "kyd") val kyd: String, // валюта ("Cayman Islands dollar")
     @field:Json(name = "kzt") val kzt: String, // валюта ("Kazakhstani tenge")
+    @field:Json(name = "lak") val lak: String, // валюта ("Laotian Kip")
     @field:Json(name = "lbp") val lbp: String, // валюта ("Lebanese pound")
     @field:Json(name = "leo") val leo: String, // криптовалюта ("LEOcoin")
     @field:Json(name = "link") val link: String, // криптовалюта ("ChainLink")
@@ -244,11 +245,11 @@ class ResponseCurrencies(
     @field:Json(name = "usdt") val usdt: String, // криптовалюта ("Tether")
     @field:Json(name = "uyu") val uyu: String, // валюта ("Tether")
     @field:Json(name = "uzs") val uzs: String, // валюта ("Uzbekistani som")
-    @field:Json(name = "vef") val vef: String, // валюта ("Sovereign Bolivar")
     @field:Json(name = "vet") val vet: String, // криптовалюта ("Vechain")
     @field:Json(name = "vnd") val vnd: String, // валюта ("Vietnamese dong")
     @field:Json(name = "vuv") val vuv: String, // валюта ("Vanuatu vatu")
     @field:Json(name = "waves") val waves: String, // криптовалюта ("Waves")
+    @field:Json(name = "wbtc") val wbtc: String, // криптовалюта ("Wrapped Bitcoin")
     @field:Json(name = "wemix") val wemix: String, // криптовалюта ("WEMIX")
     @field:Json(name = "wst") val wst: String, // валюта ("Samoan tala")
     @field:Json(name = "xaf") val xaf: String, // валюта ("Central African CFA franc")
@@ -279,5 +280,6 @@ class ConvertedRoot(
 
 data class Currency(
     val name: String,
-    val value: String
+    val value: String,
+    val isCryptocurrency: Boolean
 )

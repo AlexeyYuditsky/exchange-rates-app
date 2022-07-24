@@ -7,6 +7,7 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.math.min
 
 @Singleton
 class RetrofitCurrenciesSource @Inject constructor(
@@ -17,17 +18,14 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     override suspend fun getCurrencies(): ConvertedRoot {
         val currencyNames = currenciesApi.getCurrencyNames()
-        val currencyValues = currenciesApi.getCurrencies(getCurrentDate()).currencies
+        val currencyCurrentValues = currenciesApi.getCurrencies(getCurrentDate()).currencies
+        val currencyYesterdayValues = currenciesApi.getCurrencies(getYesterdayDate()).currencies
 
-        val tempList = currencyNames.zip(currencyValues) { fullName, currency ->
-            CurrencyForDb(
-                shortName = currency.name,
-                fullName = fullName,
-                value = currency.value
-            )
-        }
+        val currencyListForDb = getCurrencyListForDb(currencyNames, currencyCurrentValues, currencyYesterdayValues)
+        val currencyList = currencyListForDb.filter { !it.isCryptocurrency }
+        val cryptocurrencyList = currencyListForDb.filter { it.isCryptocurrency }
 
-        log(tempList)
+
 
         return try {
             currenciesApi.getCurrencies(getCurrentDate())
@@ -36,10 +34,35 @@ class RetrofitCurrenciesSource @Inject constructor(
         }
     }
 
+    private fun getCurrencyListForDb(
+        currencyNames: List<String>,
+        currencyCurrentValues: List<Currency>,
+        currencyYesterdayValues: List<Currency>
+    ): List<CurrencyForDb> {
+        if (currencyNames.size != currencyCurrentValues.size)
+            throw IllegalStateException("currencyNames and currencyCurrentValues lists are not equals")
+
+        val list = mutableListOf<CurrencyForDb>()
+        repeat(currencyNames.size) {
+            list.add(
+                CurrencyForDb(
+                    shortName = currencyCurrentValues[it].name,
+                    fullName = currencyNames[it],
+                    valueToday = currencyCurrentValues[it].value,
+                    valueTodayMinusYesterday = currencyCurrentValues[it].value.toFloat() - currencyYesterdayValues[it].value.toFloat(),
+                    isCryptocurrency = currencyCurrentValues[it].isCryptocurrency
+                )
+            )
+        }
+        return list
+    }
+
     private data class CurrencyForDb(
         val shortName: String,
         val fullName: String,
-        val value: String
+        val valueToday: String,
+        val valueTodayMinusYesterday: Float,
+        val isCryptocurrency: Boolean
     )
 
 }
