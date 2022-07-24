@@ -7,10 +7,10 @@ import com.alexeyyuditsky.exchange_rates.room.entities.CurrencyDbEntity
 interface CurrenciesDao {
 
     @Insert(entity = CurrencyDbEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllCurrencies(currenciesList: List<CurrencyDbEntity>)
+    suspend fun insertAllCurrencies(currenciesList: List<CurrencyDbEntity>)
 
-   /* @Query("SELECT * FROM currencies")
-    fun getCurrencies(): Flow<PagingData<CurrencyDbEntity>>*/
+    @Query("SELECT * FROM currencies")
+    suspend fun getCurrencies(): List<CurrencyDbEntity>
 
     @Query("DELETE FROM currencies")
     fun deleteAllCurrencies()

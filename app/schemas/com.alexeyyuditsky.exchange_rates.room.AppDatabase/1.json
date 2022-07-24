@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "40f344c482319b3c63fe82b019fccc6f",
+    "identityHash": "3a3b50106557d0afc9290382a96688ca",
     "entities": [
       {
         "tableName": "currencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL COLLATE NOCASE, `value` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `shortName` TEXT NOT NULL COLLATE NOCASE, `fullName` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueTodayMinusYesterday` REAL NOT NULL, `isCryptocurrency` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,15 +15,33 @@
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "shortName",
+            "columnName": "shortName",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "value",
-            "columnName": "value",
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valueToday",
+            "columnName": "valueToday",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valueTodayMinusYesterday",
+            "columnName": "valueTodayMinusYesterday",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCryptocurrency",
+            "columnName": "isCryptocurrency",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -35,13 +53,22 @@
         },
         "indices": [
           {
-            "name": "index_currencies_name",
+            "name": "index_currencies_shortName",
             "unique": true,
             "columnNames": [
-              "name"
+              "shortName"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_currencies_name` ON `${TABLE_NAME}` (`name`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_currencies_shortName` ON `${TABLE_NAME}` (`shortName`)"
+          },
+          {
+            "name": "index_currencies_fullName",
+            "unique": true,
+            "columnNames": [
+              "fullName"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_currencies_fullName` ON `${TABLE_NAME}` (`fullName`)"
           }
         ],
         "foreignKeys": []
@@ -50,7 +77,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '40f344c482319b3c63fe82b019fccc6f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a3b50106557d0afc9290382a96688ca')"
     ]
   }
 }

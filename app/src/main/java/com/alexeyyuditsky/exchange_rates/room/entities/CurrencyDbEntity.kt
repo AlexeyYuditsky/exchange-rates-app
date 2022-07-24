@@ -8,16 +8,20 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "currencies",
     indices = [
-        Index("name", unique = true)
+        Index("shortName", unique = true),
+        Index("fullName", unique = true)
     ]
 )
 data class CurrencyDbEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(collate = ColumnInfo.NOCASE) val name: String,
-    val value: Float
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(collate = ColumnInfo.NOCASE) val shortName: String,
+    @ColumnInfo(collate = ColumnInfo.NOCASE) val fullName: String,
+    val valueToday: String,
+    val valueTodayMinusYesterday: Float,
+    val isCryptocurrency: Boolean
 ) {
 
-    fun toCurrency(): Currency = Currency(
+    /*fun toCurrency(): Currency = Currency(
         name = name,
         value = value
     )
@@ -28,6 +32,6 @@ data class CurrencyDbEntity(
             name = name,
             value = value
         )
-    }
+    }*/
 
 }

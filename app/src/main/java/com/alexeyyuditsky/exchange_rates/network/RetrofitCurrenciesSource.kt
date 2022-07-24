@@ -1,5 +1,7 @@
 package com.alexeyyuditsky.exchange_rates.network
 
+import com.alexeyyuditsky.exchange_rates.room.CurrenciesDao
+import com.alexeyyuditsky.exchange_rates.room.entities.CurrencyDbEntity
 import com.alexeyyuditsky.exchange_rates.utils.getCurrentDate
 import com.alexeyyuditsky.exchange_rates.utils.getYesterdayDate
 import com.alexeyyuditsky.exchange_rates.utils.log
@@ -11,7 +13,8 @@ import kotlin.math.min
 
 @Singleton
 class RetrofitCurrenciesSource @Inject constructor(
-    retrofit: Retrofit
+    retrofit: Retrofit,
+    private val currenciesDao: CurrenciesDao
 ) : CurrenciesSource {
 
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
@@ -25,7 +28,10 @@ class RetrofitCurrenciesSource @Inject constructor(
         val currencyList = currencyListForDb.filter { !it.isCryptocurrency }
         val cryptocurrencyList = currencyListForDb.filter { it.isCryptocurrency }
 
+        currenciesDao.insertAllCurrencies(currencyList)
 
+        val res = currenciesDao.getCurrencies()
+        log(res)
 
         return try {
             currenciesApi.getCurrencies(getCurrentDate())
@@ -38,14 +44,14 @@ class RetrofitCurrenciesSource @Inject constructor(
         currencyNames: List<String>,
         currencyCurrentValues: List<Currency>,
         currencyYesterdayValues: List<Currency>
-    ): List<CurrencyForDb> {
+    ): List<CurrencyDbEntity> {
         if (currencyNames.size != currencyCurrentValues.size)
             throw IllegalStateException("currencyNames and currencyCurrentValues lists are not equals")
 
-        val list = mutableListOf<CurrencyForDb>()
+        val list = mutableListOf<CurrencyDbEntity>()
         repeat(currencyNames.size) {
             list.add(
-                CurrencyForDb(
+                CurrencyDbEntity(
                     shortName = currencyCurrentValues[it].name,
                     fullName = currencyNames[it],
                     valueToday = currencyCurrentValues[it].value,
@@ -56,13 +62,5 @@ class RetrofitCurrenciesSource @Inject constructor(
         }
         return list
     }
-
-    private data class CurrencyForDb(
-        val shortName: String,
-        val fullName: String,
-        val valueToday: String,
-        val valueTodayMinusYesterday: Float,
-        val isCryptocurrency: Boolean
-    )
 
 }
