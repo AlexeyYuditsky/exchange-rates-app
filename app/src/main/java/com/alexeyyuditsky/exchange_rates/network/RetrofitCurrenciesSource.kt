@@ -5,62 +5,59 @@ import com.alexeyyuditsky.exchange_rates.room.entities.CurrencyDbEntity
 import com.alexeyyuditsky.exchange_rates.utils.getCurrentDate
 import com.alexeyyuditsky.exchange_rates.utils.getYesterdayDate
 import com.alexeyyuditsky.exchange_rates.utils.log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.math.min
 
 @Singleton
 class RetrofitCurrenciesSource @Inject constructor(
-    retrofit: Retrofit,
-    private val currenciesDao: CurrenciesDao
+    private val currenciesDao: CurrenciesDao,
+    retrofit: Retrofit
 ) : CurrenciesSource {
 
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
 
-    override suspend fun getCurrencies(): ConvertedRoot {
-        val currencyNames = currenciesApi.getCurrencyNames()
-        val currencyCurrentValues = currenciesApi.getCurrencies(getCurrentDate()).currencies
-        val currencyYesterdayValues = currenciesApi.getCurrencies(getYesterdayDate()).currencies
+    private lateinit var currenciesDate: String
+    private lateinit var currencyNames: List<String>
+    private lateinit var currencyCurrentValues: List<Currency>
+    private lateinit var currencyYesterdayValues: List<Currency>
 
-        val currencyListForDb = getCurrencyListForDb(currencyNames, currencyCurrentValues, currencyYesterdayValues)
-        val currencyList = currencyListForDb.filter { !it.isCryptocurrency }
-        val cryptocurrencyList = currencyListForDb.filter { it.isCryptocurrency }
+    override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
+        val convertedRoot = currenciesApi.getCurrencies(getCurrentDate())
+        currenciesDate = convertedRoot.date
+        currencyNames = currenciesApi.getCurrencyNames()
+        currencyCurrentValues = convertedRoot.currencies
+        currencyYesterdayValues = currenciesApi.getCurrencies(getYesterdayDate()).currencies
+
+        insertCurrenciesIntoDatabase()
+    }
+
+    override suspend fun insertCurrenciesIntoDatabase() = withContext(Dispatchers.IO) {
+        val currencyList = mutableListOf<CurrencyDbEntity>()
+        val cryptocurrencyList = mutableListOf<CurrencyDbEntity>()
+
+        currencyCurrentValues.forEachIndexed { index, currency ->
+            val currencyDbEntity = CurrencyDbEntity(
+                shortName = currency.name,
+                fullName = currencyNames[index],
+                valueToday = currency.value,
+                valueTodayMinusYesterday = currency.value.toFloat() - currencyYesterdayValues[index].value.toFloat()
+            )
+            if (currency.isCryptocurrency) cryptocurrencyList.add(currencyDbEntity)
+            else currencyList.add(currencyDbEntity)
+        }
 
         currenciesDao.insertAllCurrencies(currencyList)
-
-        val res = currenciesDao.getCurrencies()
-        log(res)
-
-        return try {
-            currenciesApi.getCurrencies(getCurrentDate())
-        } catch (e: HttpException) {
-            currenciesApi.getCurrencies(getYesterdayDate())
-        }
+        currenciesDao.insertAllCryptocurrencies(cryptocurrencyList)
     }
 
-    private fun getCurrencyListForDb(
-        currencyNames: List<String>,
-        currencyCurrentValues: List<Currency>,
-        currencyYesterdayValues: List<Currency>
-    ): List<CurrencyDbEntity> {
-        if (currencyNames.size != currencyCurrentValues.size)
-            throw IllegalStateException("currencyNames and currencyCurrentValues lists are not equals")
-
-        val list = mutableListOf<CurrencyDbEntity>()
-        repeat(currencyNames.size) {
-            list.add(
-                CurrencyDbEntity(
-                    shortName = currencyCurrentValues[it].name,
-                    fullName = currencyNames[it],
-                    valueToday = currencyCurrentValues[it].value,
-                    valueTodayMinusYesterday = currencyCurrentValues[it].value.toFloat() - currencyYesterdayValues[it].value.toFloat(),
-                    isCryptocurrency = currencyCurrentValues[it].isCryptocurrency
-                )
-            )
-        }
-        return list
+    override suspend fun getCurrenciesFromDatabase() = withContext(Dispatchers.IO) {
+        return@withContext currenciesDao.getCurrencies().map { it.toUICurrency() }
     }
+
+    override fun getCurrenciesDate(): String = currenciesDate
 
 }

@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.CurrencyLayoutBinding
-import com.alexeyyuditsky.exchange_rates.network.Currency
+import com.alexeyyuditsky.exchange_rates.room.entities.UICurrency
 
 class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHolder>() {
 
-    var currencies: List<Currency> = emptyList()
+    var currencies: List<UICurrency> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -26,8 +26,9 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHol
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         val currency = currencies[position]
         holder.binding.apply {
-            currencyName.text = holder.itemView.context.getString(R.string.currency_name, currency.name)
-            currencyValue.text = currency.value
+            currencyName.text = holder.itemView.context.getString(R.string.currency_name, currency.shortName)
+            currencyValue.text = currency.valueToday
+            currencyValueTodayMinusYesterday.text = currency.valueTodayMinusYesterday.toString()
         }
     }
 

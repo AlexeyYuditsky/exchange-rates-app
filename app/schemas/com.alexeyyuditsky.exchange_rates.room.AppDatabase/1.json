@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3a3b50106557d0afc9290382a96688ca",
+    "identityHash": "66556d3bdae1bcab9c04d2d7cba3def7",
     "entities": [
       {
         "tableName": "currencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `shortName` TEXT NOT NULL COLLATE NOCASE, `fullName` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueTodayMinusYesterday` REAL NOT NULL, `isCryptocurrency` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `shortName` TEXT NOT NULL COLLATE NOCASE, `fullName` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueTodayMinusYesterday` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -37,12 +37,6 @@
             "columnName": "valueTodayMinusYesterday",
             "affinity": "REAL",
             "notNull": true
-          },
-          {
-            "fieldPath": "isCryptocurrency",
-            "columnName": "isCryptocurrency",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -72,12 +66,75 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "cryptocurrencies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `shortName` TEXT NOT NULL COLLATE NOCASE, `fullName` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueTodayMinusYesterday` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shortName",
+            "columnName": "shortName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valueToday",
+            "columnName": "valueToday",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valueTodayMinusYesterday",
+            "columnName": "valueTodayMinusYesterday",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_cryptocurrencies_shortName",
+            "unique": true,
+            "columnNames": [
+              "shortName"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cryptocurrencies_shortName` ON `${TABLE_NAME}` (`shortName`)"
+          },
+          {
+            "name": "index_cryptocurrencies_fullName",
+            "unique": true,
+            "columnNames": [
+              "fullName"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cryptocurrencies_fullName` ON `${TABLE_NAME}` (`fullName`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a3b50106557d0afc9290382a96688ca')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '66556d3bdae1bcab9c04d2d7cba3def7')"
     ]
   }
 }

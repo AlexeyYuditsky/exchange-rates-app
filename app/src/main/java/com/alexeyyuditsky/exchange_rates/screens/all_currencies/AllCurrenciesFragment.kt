@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,10 +41,7 @@ class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                binding.recyclerView.context,
-                RecyclerView.VERTICAL
-            )
+            DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL)
         )
     }
 
