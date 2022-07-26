@@ -10,6 +10,6 @@ interface CurrenciesSource {
 
     suspend fun getCurrenciesFromDatabase(): List<UICurrency>
 
-    fun getCurrenciesDate(): String
+    suspend fun getCurrenciesDate(): String
 
 }

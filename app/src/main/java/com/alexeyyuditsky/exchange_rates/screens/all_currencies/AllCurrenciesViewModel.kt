@@ -28,7 +28,6 @@ class AllCurrenciesViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            currenciesSource.getCurrenciesFromNetwork()
             _currentCurrencyListFlow.emit(currenciesSource.getCurrenciesFromDatabase())
             _currencyDateFlow.emit(currenciesSource.getCurrenciesDate())
         }

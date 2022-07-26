@@ -24,16 +24,13 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
 
-    private lateinit var currenciesDate: String
     private lateinit var currencyNames: List<String>
     private lateinit var currencyCurrentValues: List<Currency>
     private lateinit var currencyYesterdayValues: List<Currency>
 
     override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
-        val convertedRoot = currenciesApi.getCurrencies(getCurrentDate())
-        currenciesDate = convertedRoot.date
         currencyNames = currenciesApi.getCurrencyNames()
-        currencyCurrentValues = convertedRoot.currencies
+        currencyCurrentValues = currenciesApi.getCurrencies(getCurrentDate()).currencies
         currencyYesterdayValues = currenciesApi.getCurrencies(getYesterdayDate()).currencies
 
         insertCurrenciesIntoDatabase()
@@ -66,7 +63,9 @@ class RetrofitCurrenciesSource @Inject constructor(
         return@withContext currenciesDao.getCurrencies().map { it.toUICurrency() }
     }
 
-    override fun getCurrenciesDate(): String = currenciesDate
+    override suspend fun getCurrenciesDate(): String = withContext(Dispatchers.IO) {
+        return@withContext currenciesApi.getCurrencies(getCurrentDate()).date
+    }
 
     private fun calculateValues(currency: String, todayValue: Float, yesterdayValue: Float): String {
         val df = DecimalFormat("#.##")

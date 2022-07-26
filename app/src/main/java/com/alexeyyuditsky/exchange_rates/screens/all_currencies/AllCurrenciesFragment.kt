@@ -33,16 +33,14 @@ class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
     }
 
     private fun observeCurrenciesDate() = lifecycleScope.launch {
-        viewModel.currencyDateFlow.collectLatest {
+        viewModel.currencyDateFlow.collect {
             binding.currenciesDateTextView.text = it
         }
     }
 
     private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL)
-        )
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL))
     }
 
     private fun observeAdapter() = lifecycleScope.launch {
