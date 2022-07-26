@@ -9,8 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Retrofit
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.math.ceil
+import kotlin.math.round
 
 @Singleton
 class RetrofitCurrenciesSource @Inject constructor(
@@ -44,7 +48,11 @@ class RetrofitCurrenciesSource @Inject constructor(
                 shortName = currency.name,
                 fullName = currencyNames[index],
                 valueToday = currency.value,
-                valueTodayMinusYesterday = currency.value.toFloat() - currencyYesterdayValues[index].value.toFloat()
+                valueTodayMinusYesterday = calculateValues(
+                    currency.name,
+                    currency.value.toFloat(),
+                    currencyYesterdayValues[index].value.toFloat()
+                )
             )
             if (currency.isCryptocurrency) cryptocurrencyList.add(currencyDbEntity)
             else currencyList.add(currencyDbEntity)
@@ -59,5 +67,11 @@ class RetrofitCurrenciesSource @Inject constructor(
     }
 
     override fun getCurrenciesDate(): String = currenciesDate
+
+    private fun calculateValues(currency: String, todayValue: Float, yesterdayValue: Float): String {
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.FLOOR
+        return df.format(todayValue - yesterdayValue)
+    }
 
 }

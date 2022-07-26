@@ -25,9 +25,10 @@ class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHol
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         val currency = currencies[position]
+        val context = holder.itemView.context
         holder.binding.apply {
-            currencyName.text = holder.itemView.context.getString(R.string.currency_name, currency.shortName)
-            currencyValue.text = currency.valueToday
+            currencyValueTextView.text = context.getString(R.string.currency_value, currency.valueToday)
+            currencyNameTextView.text = context.getString(R.string.currency_name, currency.shortName, currency.fullName)
             currencyValueTodayMinusYesterday.text = currency.valueTodayMinusYesterday.toString()
         }
     }

@@ -6,34 +6,56 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/currencyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
+    <ImageView
+        android:id="@+id/currencyImageView"
+        android:layout_width="65dp"
+        android:layout_height="43dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/aud"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Rub: " />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/currencyValue"
+        android:id="@+id/currencyValueTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/currencyName"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="55.50334" />
-
-    <TextView
-        android:id="@+id/currency_value_today_minus_yesterday"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:gravity="end"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/currencyImageView"
+        app:layout_constraintTop_toTopOf="@+id/currencyImageView"
+        tools:text="1$ = 52.9843₽" />
+
+    <TextView
+        android:id="@+id/currencyNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        app:autoSizeMinTextSize="8sp"
+        app:autoSizeStepGranularity="0.1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyImageView"
+        app:layout_constraintStart_toStartOf="@+id/currencyValueTextView"
+        app:layout_constraintTop_toBottomOf="@+id/currencyValueTextView"
+        tools:text="(AUD) Австралийский доллар" />
+
+    <TextView
+        android:id="@+id/currencyValueTodayMinusYesterday"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyImageView"
+        app:layout_constraintEnd_toStartOf="@+id/arrowImageView"
+        app:layout_constraintTop_toTopOf="@+id/currencyImageView"
+        tools:text="+0.3545"
+        tools:textColor="#43EA80" />
+
+    <ImageView
+        android:id="@+id/arrowImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/currencyValue"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="+3.4543" />
+        app:layout_constraintTop_toTopOf="@+id/currencyImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

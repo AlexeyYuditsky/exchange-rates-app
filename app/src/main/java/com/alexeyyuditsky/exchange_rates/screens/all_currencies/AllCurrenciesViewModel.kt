@@ -35,4 +35,3 @@ class AllCurrenciesViewModel @Inject constructor(
     }
 
 }
-
