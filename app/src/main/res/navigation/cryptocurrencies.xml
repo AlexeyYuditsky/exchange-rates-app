@@ -2,13 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/all_cryptocurrencies"
-    app:startDestination="@id/allCryptocurrenciesFragment">
+    android:id="@+id/cryptocurrencies"
+    app:startDestination="@id/cryptocurrenciesFragment">
 
     <fragment
-        android:id="@+id/allCryptocurrenciesFragment"
+        android:id="@+id/cryptocurrenciesFragment"
         android:name="com.alexeyyuditsky.exchange_rates.screens.cryptocurrencies.CryptocurrenciesFragment"
-        android:label="fragment_all_cryptocurrencies"
+        android:label="fragment_cryptocurrencies"
         tools:layout="@layout/fragment_cryptocurrencies" />
 
 </navigation>

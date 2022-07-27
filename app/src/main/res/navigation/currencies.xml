@@ -2,13 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/all_currencies"
-    app:startDestination="@id/allCurrenciesFragment">
+    android:id="@+id/currencies"
+    app:startDestination="@id/currenciesFragment">
 
     <fragment
-        android:id="@+id/allCurrenciesFragment"
+        android:id="@+id/currenciesFragment"
         android:name="com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesFragment"
-        android:label="fragment_all_currencies"
+        android:label="fragment_currencies"
         tools:layout="@layout/fragment_currencies" />
 
 </navigation>

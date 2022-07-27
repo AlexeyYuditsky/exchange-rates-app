@@ -24,9 +24,9 @@ interface CurrenciesDao {
     suspend fun getCryptocurrencies(): List<CryptocurrencyDbEntity>
 
     @Insert(entity = CurrencyDbEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllCurrencies(currenciesList: List<CurrencyDbEntity>): List<Long>
+    suspend fun insertCurrencies(currenciesList: List<CurrencyDbEntity>): List<Long>
 
     @Insert(entity = CryptocurrencyDbEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllCryptocurrencies(cryptocurrenciesList: List<CurrencyDbEntity>)
+    suspend fun insertCryptocurrencies(cryptocurrenciesList: List<CurrencyDbEntity>)
 
 }

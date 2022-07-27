@@ -6,7 +6,7 @@
 
     <include app:graph="@navigation/favorite_currencies" />
     <include app:graph="@navigation/converter" />
-    <include app:graph="@navigation/all_currencies" />
-    <include app:graph="@navigation/all_cryptocurrencies" />
+    <include app:graph="@navigation/currencies" />
+    <include app:graph="@navigation/cryptocurrencies" />
 
 </navigation>

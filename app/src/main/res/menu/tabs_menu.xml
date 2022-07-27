@@ -12,12 +12,12 @@
         android:title="@string/converter" />
 
     <item
-        android:id="@+id/all_currencies"
+        android:id="@+id/currencies"
         android:icon="@drawable/ic_currencies"
         android:title="@string/currencies" />
 
     <item
-        android:id="@+id/all_cryptocurrencies"
+        android:id="@+id/cryptocurrencies"
         android:icon="@drawable/ic_cryptocurrencies"
         android:title="@string/cryptocurrencies" />
 

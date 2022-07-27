@@ -52,8 +52,8 @@ class RetrofitCurrenciesSource @Inject constructor(
             else currencyList.add(currencyDbEntity)
         }
 
-        currenciesDao.insertAllCurrencies(currencyList)
-        currenciesDao.insertAllCryptocurrencies(cryptocurrencyList)
+        currenciesDao.insertCurrencies(currencyList)
+        currenciesDao.insertCryptocurrencies(cryptocurrencyList)
     }
 
     private fun calculateValues(currency: String, todayValue: Float, yesterdayValue: Float): String {
