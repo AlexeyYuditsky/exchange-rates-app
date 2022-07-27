@@ -1,6 +1,6 @@
 package com.alexeyyuditsky.exchange_rates.model.currencies
 
-data class UICurrency(
+data class Currency(
     val id: Long,
     val shortName: String,
     val fullName: String,

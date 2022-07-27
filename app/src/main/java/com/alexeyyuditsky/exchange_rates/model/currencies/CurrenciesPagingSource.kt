@@ -3,13 +3,13 @@ package com.alexeyyuditsky.exchange_rates.model.currencies
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 
-typealias CurrenciesPageLoader = suspend (pageIndex: Int, pageSize: Int) -> List<UICurrency>
+typealias CurrenciesPageLoader = suspend (pageIndex: Int, pageSize: Int) -> List<Currency>
 
 class CurrenciesPagingSource(
     private val loader: CurrenciesPageLoader
-) : PagingSource<Int, UICurrency>() {
+) : PagingSource<Int, Currency>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UICurrency> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Currency> {
         // get the index of page to be loaded (it may be NULL, in this case let's load the first page with index = 0)
         val pageIndex = params.key ?: 0
 
@@ -30,7 +30,7 @@ class CurrenciesPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, UICurrency>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Currency>): Int? {
         // get the most recently accessed index in the users list:
         val anchorPosition = state.anchorPosition ?: return null
         // convert item index to page index:

@@ -5,11 +5,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.alexeyyuditsky.exchange_rates.model.currencies.CurrenciesPageLoader
 import com.alexeyyuditsky.exchange_rates.model.currencies.CurrenciesPagingSource
-import com.alexeyyuditsky.exchange_rates.model.currencies.UICurrency
+import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
-import com.alexeyyuditsky.exchange_rates.utils.log
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,7 +18,7 @@ class RoomCurrenciesRepository @Inject constructor(
     private val currenciesDao: CurrenciesDao
 ) : CurrenciesRepository {
 
-    override fun getPagedCurrencies(searchBy: String): Flow<PagingData<UICurrency>> {
+    override fun getPagedCurrencies(searchBy: String): Flow<PagingData<Currency>> {
         val loader: CurrenciesPageLoader = { pageIndex, pageSize ->
             getCurrencies(pageIndex, pageSize, searchBy)
         }
@@ -35,7 +33,7 @@ class RoomCurrenciesRepository @Inject constructor(
         ).flow
     }
 
-    private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: String): List<UICurrency> =
+    private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: String): List<Currency> =
         withContext(Dispatchers.IO) {
             // calculate offset value required by DAO
             val offset = pageIndex * pageSize
@@ -44,7 +42,7 @@ class RoomCurrenciesRepository @Inject constructor(
             val currencies = currenciesDao.getCurrencies(pageSize, offset, searchBy)
 
             // map CurrencyDbEntity to UICurrency
-            return@withContext currencies.map { it.toUICurrency() }
+            return@withContext currencies.map(CurrencyDbEntity::toCurrency)
         }
 
     private companion object {

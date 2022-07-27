@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.alexeyyuditsky.exchange_rates.model.currencies.UICurrency
+import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 
 @Entity(
     tableName = "currencies",
@@ -21,7 +21,7 @@ data class CurrencyDbEntity(
     val valueTodayMinusYesterday: String
 ) {
 
-    fun toUICurrency(): UICurrency = UICurrency(
+    fun toCurrency(): Currency = Currency(
         id = id,
         shortName = shortName,
         fullName = fullName,

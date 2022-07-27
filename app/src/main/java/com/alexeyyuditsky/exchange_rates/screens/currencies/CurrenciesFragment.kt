@@ -1,8 +1,7 @@
-package com.alexeyyuditsky.exchange_rates.screens.all_currencies
+package com.alexeyyuditsky.exchange_rates.screens.currencies
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,8 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
-import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
-import com.alexeyyuditsky.exchange_rates.utils.log
+import com.alexeyyuditsky.exchange_rates.databinding.FragmentCurrenciesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -22,14 +20,14 @@ import kotlinx.coroutines.launch
 @FlowPreview
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
+class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
 
-    private val viewModel by viewModels<AllCurrenciesViewModel>()
-    private lateinit var binding: FragmentAllCurrenciesBinding
+    private val viewModel by viewModels<CurrenciesViewModel>()
+    private lateinit var binding: FragmentCurrenciesBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentAllCurrenciesBinding.bind(view)
+        binding = FragmentCurrenciesBinding.bind(view)
 
         setupCurrenciesList()
     }

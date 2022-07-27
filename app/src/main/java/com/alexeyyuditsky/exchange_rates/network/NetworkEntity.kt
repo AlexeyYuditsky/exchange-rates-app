@@ -275,10 +275,10 @@ class ResponseCurrencies(
 
 class ConvertedRoot(
     val date: String,
-    val currencies: List<Currency>
+    val currencies: List<CurrencyNetworkEntity>
 )
 
-data class Currency(
+data class CurrencyNetworkEntity(
     val name: String,
     val value: String,
     val isCryptocurrency: Boolean

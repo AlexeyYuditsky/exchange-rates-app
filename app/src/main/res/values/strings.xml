@@ -6,7 +6,7 @@
     <string name="change_date_and_time">Change date and time</string>
     <string name="favorite_currencies">Favorite currencies</string>
     <string name="converter">Converter</string>
-    <string name="all_cryptocurrencies">All cryptocurrencies</string>
-    <string name="all_currencies">All currencies</string>
+    <string name="cryptocurrencies">Cryptocurrencies</string>
+    <string name="currencies">Currencies</string>
 
 </resources>

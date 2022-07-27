@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/allCurrenciesFragment"
-        android:name="com.alexeyyuditsky.exchange_rates.screens.all_currencies.AllCurrenciesFragment"
+        android:name="com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesFragment"
         android:label="fragment_all_currencies"
-        tools:layout="@layout/fragment_all_currencies" />
+        tools:layout="@layout/fragment_currencies" />
 
 </navigation>

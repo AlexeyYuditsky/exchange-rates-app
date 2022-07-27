@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
-import com.alexeyyuditsky.exchange_rates.model.currencies.UICurrency
-import com.alexeyyuditsky.exchange_rates.utils.log
+import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 
 /**
  * Adapter for rendering users list in a RecyclerView.
  */
-class CurrenciesAdapter : PagingDataAdapter<UICurrency, CurrenciesAdapter.Holder>(UsersDiffCallback()) {
+class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(UsersDiffCallback()) {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = getItem(position) ?: return
@@ -35,13 +34,13 @@ class CurrenciesAdapter : PagingDataAdapter<UICurrency, CurrenciesAdapter.Holder
 
 }
 
-class UsersDiffCallback : DiffUtil.ItemCallback<UICurrency>() {
+class UsersDiffCallback : DiffUtil.ItemCallback<Currency>() {
 
-    override fun areItemsTheSame(oldItem: UICurrency, newItem: UICurrency): Boolean {
+    override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: UICurrency, newItem: UICurrency): Boolean {
+    override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean {
         return oldItem == newItem
     }
 

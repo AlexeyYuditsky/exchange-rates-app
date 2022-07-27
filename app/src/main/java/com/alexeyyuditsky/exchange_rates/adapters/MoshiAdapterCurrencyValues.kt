@@ -17,7 +17,7 @@ class MoshiAdapterCurrencyValues {
 
     private fun createCurrenciesList(
         currencies: ResponseCurrencies
-    ): List<Currency> {
+    ): List<CurrencyNetworkEntity> {
         val declaredMemberProperties = currencies::class.declaredMemberProperties
         val rubleExchangeRate = findRubleExchangeRate(declaredMemberProperties, currencies)
 
@@ -27,7 +27,7 @@ class MoshiAdapterCurrencyValues {
                 it.name != "rub" && it.call(currencies) != null
             }
             .map {
-                Currency(
+                CurrencyNetworkEntity(
                     name = it.name,
                     value = (rubleExchangeRate / it.call(currencies).toString().toFloat()).toString(),
                     isCryptocurrency = cryptocurrencyNames.contains(it.name)

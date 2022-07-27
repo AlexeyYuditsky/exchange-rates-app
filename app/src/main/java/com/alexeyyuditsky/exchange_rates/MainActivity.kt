@@ -3,18 +3,10 @@ package com.alexeyyuditsky.exchange_rates
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.forEach
-import androidx.core.view.forEachIndexed
-import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.alexeyyuditsky.exchange_rates.databinding.ActivityMainBinding
-import com.alexeyyuditsky.exchange_rates.screens.all_currencies.AllCurrenciesViewModel
-import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

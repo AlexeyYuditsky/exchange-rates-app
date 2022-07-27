@@ -4,7 +4,6 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.Curr
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrencyDbEntity
 import com.alexeyyuditsky.exchange_rates.utils.getCurrentDate
 import com.alexeyyuditsky.exchange_rates.utils.getYesterdayDate
-import com.alexeyyuditsky.exchange_rates.utils.log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -22,8 +21,8 @@ class RetrofitCurrenciesSource @Inject constructor(
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
 
     private lateinit var currencyNames: List<String>
-    private lateinit var currencyCurrentValues: List<Currency>
-    private lateinit var currencyYesterdayValues: List<Currency>
+    private lateinit var currencyCurrentValues: List<CurrencyNetworkEntity>
+    private lateinit var currencyYesterdayValues: List<CurrencyNetworkEntity>
 
     override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
         currencyNames = currenciesApi.getCurrencyNames()
