@@ -1,9 +1,10 @@
-package com.alexeyyuditsky.exchange_rates.room
+package com.alexeyyuditsky.exchange_rates.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrenciesDao
 import com.alexeyyuditsky.exchange_rates.room.entities.CryptocurrencyDbEntity
-import com.alexeyyuditsky.exchange_rates.room.entities.CurrencyDbEntity
+import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrencyDbEntity
 
 @Database(
     version = 1,

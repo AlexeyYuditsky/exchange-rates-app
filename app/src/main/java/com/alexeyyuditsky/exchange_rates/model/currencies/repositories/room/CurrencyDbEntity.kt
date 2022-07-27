@@ -1,10 +1,10 @@
-package com.alexeyyuditsky.exchange_rates.room.entities
+package com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.alexeyyuditsky.exchange_rates.network.RetrofitCurrenciesSource
+import com.alexeyyuditsky.exchange_rates.model.currencies.UICurrency
 
 @Entity(
     tableName = "currencies",
@@ -14,7 +14,7 @@ import com.alexeyyuditsky.exchange_rates.network.RetrofitCurrenciesSource
     ]
 )
 data class CurrencyDbEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(collate = ColumnInfo.NOCASE) val shortName: String,
     @ColumnInfo(collate = ColumnInfo.NOCASE) val fullName: String,
     val valueToday: String,
@@ -22,6 +22,7 @@ data class CurrencyDbEntity(
 ) {
 
     fun toUICurrency(): UICurrency = UICurrency(
+        id = id,
         shortName = shortName,
         fullName = fullName,
         valueToday = valueToday,
@@ -29,10 +30,3 @@ data class CurrencyDbEntity(
     )
 
 }
-
-data class UICurrency(
-    val shortName: String,
-    val fullName: String,
-    val valueToday: String,
-    val valueTodayMinusYesterday: String
-)

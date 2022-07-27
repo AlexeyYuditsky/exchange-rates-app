@@ -1,40 +1,48 @@
 package com.alexeyyuditsky.exchange_rates.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
-import com.alexeyyuditsky.exchange_rates.databinding.CurrencyLayoutBinding
-import com.alexeyyuditsky.exchange_rates.room.entities.UICurrency
+import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
+import com.alexeyyuditsky.exchange_rates.model.currencies.UICurrency
+import com.alexeyyuditsky.exchange_rates.utils.log
 
-class CurrenciesAdapter : RecyclerView.Adapter<CurrenciesAdapter.CurrencyViewHolder>() {
+/**
+ * Adapter for rendering users list in a RecyclerView.
+ */
+class CurrenciesAdapter : PagingDataAdapter<UICurrency, CurrenciesAdapter.Holder>(UsersDiffCallback()) {
 
-    var currencies: List<UICurrency> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = CurrencyLayoutBinding.inflate(inflater, parent, false)
-        return CurrencyViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        val currency = currencies[position]
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val currency = getItem(position) ?: return
         val context = holder.itemView.context
         holder.binding.apply {
             currencyValueTextView.text = context.getString(R.string.currency_value, currency.valueToday)
             currencyNameTextView.text = context.getString(R.string.currency_name, currency.shortName, currency.fullName)
-            currencyValueTodayMinusYesterday.text = currency.valueTodayMinusYesterday.toString()
+            currencyValueTodayMinusYesterday.text = currency.valueTodayMinusYesterday
         }
     }
 
-    override fun getItemCount(): Int = currencies.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemCurrencyBinding.inflate(inflater, parent, false)
+        return Holder(binding)
+    }
 
-    class CurrencyViewHolder(val binding: CurrencyLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    class Holder(val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root)
+
+}
+
+class UsersDiffCallback : DiffUtil.ItemCallback<UICurrency>() {
+
+    override fun areItemsTheSame(oldItem: UICurrency, newItem: UICurrency): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: UICurrency, newItem: UICurrency): Boolean {
+        return oldItem == newItem
+    }
 
 }

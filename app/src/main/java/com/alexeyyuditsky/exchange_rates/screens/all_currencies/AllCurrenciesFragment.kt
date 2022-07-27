@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
@@ -13,48 +14,45 @@ import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentAllCurrenciesBinding
 import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class AllCurrenciesFragment : Fragment(R.layout.fragment_all_currencies) {
 
     private val viewModel by viewModels<AllCurrenciesViewModel>()
     private lateinit var binding: FragmentAllCurrenciesBinding
-    private val adapter = CurrenciesAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAllCurrenciesBinding.bind(view)
 
-        setupAdapter()
-        observeAdapter()
-        observeCurrenciesDate()
+        setupCurrenciesList()
     }
 
-    private fun observeCurrenciesDate() = lifecycleScope.launch {
-        viewModel.currencyDateFlow.collect {
-            binding.currenciesDateTextView.text = it
-        }
-    }
+    private fun setupCurrenciesList() {
+        val adapter = CurrenciesAdapter()
 
-    private fun setupAdapter() {
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL))
+        (binding.recyclerView.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                binding.recyclerView.context,
+                RecyclerView.VERTICAL
+            )
+        )
+
+        observeCurrencies(adapter)
     }
 
-    private fun observeAdapter() = lifecycleScope.launch {
-        viewModel.currentCurrencyListFlow.collectLatest {
-            adapter.currencies = it
-            binding.shimmerFrameLayout.stopShimmer()
-            binding.shimmerFrameLayout.isVisible = false
-            binding.recyclerView.isVisible = true
+    private fun observeCurrencies(adapter: CurrenciesAdapter) = lifecycleScope.launch {
+        viewModel.currenciesFlow.collectLatest { pagingData ->
+            adapter.submitData(pagingData)
         }
-    }
-
-    override fun onPause() {
-        binding.shimmerFrameLayout.stopShimmer()
-        super.onPause()
     }
 
 }
