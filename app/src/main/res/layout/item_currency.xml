@@ -24,27 +24,26 @@
         android:layout_marginEnd="8dp"
         android:textColor="@color/black"
         android:textSize="19sp"
-        app:layout_constraintBottom_toTopOf="@id/currencyFullNameTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyValueTextView"
         app:layout_constraintEnd_toStartOf="@+id/currencyValueTextView"
         app:layout_constraintStart_toEndOf="@+id/currencyImageView"
-        app:layout_constraintTop_toTopOf="@+id/currencyImageView"
-        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintTop_toTopOf="@+id/currencyValueTextView"
         tools:text="USD" />
 
     <TextView
         android:id="@+id/currencyFullNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
         android:lines="1"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:autoSizeMinTextSize="6sp"
         app:autoSizeStepGranularity="0.1sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toBottomOf="@+id/currencyImageView"
-        app:layout_constraintEnd_toStartOf="@+id/currencyDifferenceTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyDifferenceTextView"
+        app:layout_constraintEnd_toEndOf="@+id/currencyShortNameTextView"
         app:layout_constraintStart_toStartOf="@+id/currencyShortNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/currencyShortNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/currencyDifferenceTextView"
         tools:text="US Dollar" />
 
     <TextView
@@ -53,9 +52,10 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/currencyShortNameTextView"
+        app:layout_constraintBottom_toTopOf="@+id/currencyDifferenceTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/currencyShortNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/currencyImageView"
+        app:layout_constraintVertical_chainStyle="spread"
         tools:text="59.3749" />
 
     <TextView
@@ -63,9 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/currencyFullNameTextView"
-        app:layout_constraintEnd_toEndOf="@+id/currencyValueTextView"
-        app:layout_constraintTop_toTopOf="@+id/currencyFullNameTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currencyValueTextView"
         tools:text="-0.0315"
         tools:textColor="@color/red" />
 
