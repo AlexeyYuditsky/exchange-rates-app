@@ -5,5 +5,5 @@ data class Currency(
     val shortName: String,
     val fullName: String,
     val valueToday: String,
-    val valueTodayMinusYesterday: String
+    val valueDifference: String
 )

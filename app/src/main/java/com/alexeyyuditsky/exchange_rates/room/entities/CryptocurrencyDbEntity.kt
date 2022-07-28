@@ -17,5 +17,5 @@ data class CryptocurrencyDbEntity(
     @ColumnInfo(collate = ColumnInfo.NOCASE) val shortName: String,
     @ColumnInfo(collate = ColumnInfo.NOCASE) val fullName: String,
     val valueToday: String,
-    val valueTodayMinusYesterday: Float
+    val valueDifference: Float
 )

@@ -2,13 +2,13 @@ package com.alexeyyuditsky.exchange_rates.network
 
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrenciesDao
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrencyDbEntity
+import com.alexeyyuditsky.exchange_rates.utils.FORMAT
 import com.alexeyyuditsky.exchange_rates.utils.getCurrentDate
 import com.alexeyyuditsky.exchange_rates.utils.getYesterdayDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,11 +42,7 @@ class RetrofitCurrenciesSource @Inject constructor(
                 shortName = currency.name,
                 fullName = currencyNames[index],
                 valueToday = currency.value,
-                valueTodayMinusYesterday = calculateValues(
-                    currency.name,
-                    currency.value.toFloat(),
-                    currencyYesterdayValues[index].value.toFloat()
-                )
+                valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value)
             )
             if (currency.isCryptocurrency) cryptocurrencyList.add(currencyDbEntity)
             else currencyList.add(currencyDbEntity)
@@ -56,10 +52,17 @@ class RetrofitCurrenciesSource @Inject constructor(
         currenciesDao.insertCryptocurrencies(cryptocurrencyList)
     }
 
-    private fun calculateValues(currency: String, todayValue: Float, yesterdayValue: Float): String {
-        val df = DecimalFormat("#.####")
-        df.roundingMode = RoundingMode.FLOOR
-        return df.format(todayValue - yesterdayValue)
+    private fun calculateValues(todayValue: String, yesterdayValue: String): String {
+        return FORMAT.format(Locale.ROOT, todayValue.toBigDecimal() - yesterdayValue.toBigDecimal())
     }
+
+}
+
+fun main() {
+    val a = 0.123123f
+    val b = 0.12312200f
+    val c = FORMAT.format(Locale.ROOT, a.toBigDecimal() - b.toBigDecimal())
+    println(c)
+
 
 }

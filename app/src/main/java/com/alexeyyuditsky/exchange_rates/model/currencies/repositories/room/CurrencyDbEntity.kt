@@ -18,7 +18,7 @@ data class CurrencyDbEntity(
     @ColumnInfo(collate = ColumnInfo.NOCASE) val shortName: String,
     @ColumnInfo(collate = ColumnInfo.NOCASE) val fullName: String,
     val valueToday: String,
-    val valueTodayMinusYesterday: String
+    val valueDifference: String
 ) {
 
     fun toCurrency(): Currency = Currency(
@@ -26,7 +26,7 @@ data class CurrencyDbEntity(
         shortName = shortName,
         fullName = fullName,
         valueToday = valueToday,
-        valueTodayMinusYesterday = valueTodayMinusYesterday
+        valueDifference = valueDifference
     )
 
 }

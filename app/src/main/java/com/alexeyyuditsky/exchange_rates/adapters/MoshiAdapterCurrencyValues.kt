@@ -1,9 +1,12 @@
 package com.alexeyyuditsky.exchange_rates.adapters
 
 import com.alexeyyuditsky.exchange_rates.network.*
+import com.alexeyyuditsky.exchange_rates.utils.FORMAT
+import com.alexeyyuditsky.exchange_rates.utils.log
 import com.squareup.moshi.FromJson
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.*
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
 
@@ -26,6 +29,8 @@ class MoshiAdapterCurrencyValues {
         val df = DecimalFormat("#.####")
         df.roundingMode = RoundingMode.FLOOR
 
+        // курс рубля: 59.374973
+
         return declaredMemberProperties
             // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
             .filter {
@@ -34,7 +39,7 @@ class MoshiAdapterCurrencyValues {
             .map {
                 CurrencyNetworkEntity(
                     name = it.name.uppercase(),
-                    value = df.format((rubleExchangeRate / it.call(currencies).toString().toFloat())),
+                    value = FORMAT.format(Locale.ROOT, rubleExchangeRate / it.call(currencies).toString().toFloat()),
                     isCryptocurrency = cryptocurrencyNames.contains(it.name)
                 )
             }

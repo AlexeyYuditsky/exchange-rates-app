@@ -42,7 +42,7 @@
         app:autoSizeStepGranularity="0.1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/currencyImageView"
-        app:layout_constraintEnd_toStartOf="@+id/currencyValueTodayMinusYesterdayTextView"
+        app:layout_constraintEnd_toStartOf="@+id/currencyDifferenceTextView"
         app:layout_constraintStart_toStartOf="@+id/currencyShortNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/currencyShortNameTextView"
         tools:text="US Dollar" />
@@ -59,14 +59,14 @@
         tools:text="59.3749" />
 
     <TextView
-        android:id="@+id/currencyValueTodayMinusYesterdayTextView"
+        android:id="@+id/currencyDifferenceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/red"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/currencyFullNameTextView"
         app:layout_constraintEnd_toEndOf="@+id/currencyValueTextView"
         app:layout_constraintTop_toTopOf="@+id/currencyFullNameTextView"
-        tools:text="-0.0315" />
+        tools:text="-0.0315"
+        tools:textColor="@color/red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
