@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        log("Приложение запущено")
         installSplashScreen().apply { setKeepOnScreenCondition { viewModel.isLoading.value } }
         setContentView(binding.root)
 

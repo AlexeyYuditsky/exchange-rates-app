@@ -57,7 +57,7 @@ class RetrofitCurrenciesSource @Inject constructor(
     }
 
     private fun calculateValues(currency: String, todayValue: Float, yesterdayValue: Float): String {
-        val df = DecimalFormat("#.##")
+        val df = DecimalFormat("#.####")
         df.roundingMode = RoundingMode.FLOOR
         return df.format(todayValue - yesterdayValue)
     }

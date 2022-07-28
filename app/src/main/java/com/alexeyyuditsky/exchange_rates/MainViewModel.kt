@@ -21,9 +21,7 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            log("Запрос данных с сервера")
             currenciesSource.getCurrenciesFromNetwork()
-            log("Данные с сервера получены")
             _isLoading.value = false
         }
     }

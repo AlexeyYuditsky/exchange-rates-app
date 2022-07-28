@@ -16,11 +16,13 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = getItem(position) ?: return
-        val context = holder.itemView.context
         holder.binding.apply {
-            currencyValueTextView.text = context.getString(R.string.currency_value, currency.valueToday)
-            currencyNameTextView.text = context.getString(R.string.currency_name, currency.shortName, currency.fullName)
-            currencyValueTodayMinusYesterday.text = currency.valueTodayMinusYesterday
+            currencyShortNameTextView.text = currency.shortName
+            currencyFullNameTextView.text = currency.fullName
+            currencyValueTextView.text = currency.valueToday
+            currencyValueTodayMinusYesterdayTextView.text = currency.valueTodayMinusYesterday
+            if (currency.valueTodayMinusYesterday.toFloat() > 0f) currencyValueTodayMinusYesterdayTextView
+                .setTextColor(holder.itemView.context.getColor(R.color.green))
         }
     }
 
@@ -35,13 +37,6 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
 }
 
 class UsersDiffCallback : DiffUtil.ItemCallback<Currency>() {
-
-    override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean {
-        return oldItem == newItem
-    }
-
+    override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean = oldItem == newItem
 }
