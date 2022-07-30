@@ -3,10 +3,10 @@ package com.alexeyyuditsky.exchange_rates.network
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrenciesDao
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrencyDbEntity
 import com.alexeyyuditsky.exchange_rates.utils.FORMAT
-import com.alexeyyuditsky.exchange_rates.utils.getCurrentDate
-import com.alexeyyuditsky.exchange_rates.utils.getYesterdayDate
+import com.alexeyyuditsky.exchange_rates.utils.getFreshDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import java.util.*
 import javax.inject.Inject
@@ -26,8 +26,13 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
         currencyNames = currenciesApi.getCurrencyNames()
-        currencyCurrentValues = currenciesApi.getCurrencies(getCurrentDate()).currencies
-        currencyYesterdayValues = currenciesApi.getCurrencies(getYesterdayDate()).currencies
+        try {
+            currencyCurrentValues = currenciesApi.getCurrencies(getFreshDate()).currencies
+            currencyYesterdayValues = currenciesApi.getCurrencies(getFreshDate(-1)).currencies
+        } catch (e: HttpException) {
+            currencyCurrentValues = currenciesApi.getCurrencies(getFreshDate(-1)).currencies
+            currencyYesterdayValues = currenciesApi.getCurrencies(getFreshDate(-2)).currencies
+        }
 
         insertCurrenciesIntoDatabase()
     }
