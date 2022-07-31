@@ -23,6 +23,9 @@ interface CurrenciesDao {
     @Query("SELECT * FROM cryptocurrencies")
     suspend fun getCryptocurrencies(): List<CryptocurrencyDbEntity>
 
+    @Query("SELECT * FROM currencies")
+    suspend fun getCurrencies(): List<CurrencyDbEntity>
+
     @Insert(entity = CurrencyDbEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrencies(currenciesList: List<CurrencyDbEntity>): List<Long>
 

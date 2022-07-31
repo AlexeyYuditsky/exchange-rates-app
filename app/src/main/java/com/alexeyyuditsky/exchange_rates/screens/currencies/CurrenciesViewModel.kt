@@ -8,10 +8,12 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
@@ -28,7 +30,11 @@ class CurrenciesViewModel @Inject constructor(
 
     init {
         currenciesFlow = searchBy.asFlow()
-            .flatMapLatest { currenciesRepository.getPagedCurrencies(it) }
+            .debounce(500)
+            .flatMapLatest {
+                log("Запрашиваю список из базы")
+                currenciesRepository.getPagedCurrencies(it)
+            }
             .cachedIn(viewModelScope)
     }
 

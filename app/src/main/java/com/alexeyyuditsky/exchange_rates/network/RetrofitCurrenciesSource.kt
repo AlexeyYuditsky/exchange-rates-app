@@ -3,11 +3,13 @@ package com.alexeyyuditsky.exchange_rates.network
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrenciesDao
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrencyDbEntity
 import com.alexeyyuditsky.exchange_rates.utils.FORMAT
-import com.alexeyyuditsky.exchange_rates.utils.getFreshDate
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.alexeyyuditsky.exchange_rates.utils.getLatestDate
+import com.alexeyyuditsky.exchange_rates.utils.log
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 import retrofit2.Retrofit
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,14 +28,16 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
         currencyNames = currenciesApi.getCurrencyNames()
+
         try {
-            currencyCurrentValues = currenciesApi.getCurrencies(getFreshDate()).currencies
-            currencyYesterdayValues = currenciesApi.getCurrencies(getFreshDate(-1)).currencies
+            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate()).currencies
+            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
         } catch (e: HttpException) {
-            currencyCurrentValues = currenciesApi.getCurrencies(getFreshDate(-1)).currencies
-            currencyYesterdayValues = currenciesApi.getCurrencies(getFreshDate(-2)).currencies
+            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
+            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
         }
 
+        log("Данные с сервера получены")
         insertCurrenciesIntoDatabase()
     }
 
@@ -55,19 +59,13 @@ class RetrofitCurrenciesSource @Inject constructor(
 
         currenciesDao.insertCurrencies(currencyList)
         currenciesDao.insertCryptocurrencies(cryptocurrencyList)
+
+        log("Данные с сервера вставлены в БД")
+        log(currenciesDao.getCurrencies())
     }
 
     private fun calculateValues(todayValue: String, yesterdayValue: String): String {
         return FORMAT.format(Locale.ROOT, todayValue.toBigDecimal() - yesterdayValue.toBigDecimal())
     }
-
-}
-
-fun main() {
-    val a = 0.123123f
-    val b = 0.12312200f
-    val c = FORMAT.format(Locale.ROOT, a.toBigDecimal() - b.toBigDecimal())
-    println(c)
-
 
 }

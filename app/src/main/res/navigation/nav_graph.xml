@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/favorite_currencies">
+    app:startDestination="@id/currencies">
 
     <include app:graph="@navigation/favorite_currencies" />
     <include app:graph="@navigation/converter" />

@@ -7,6 +7,7 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.CurrenciesPageLoader
 import com.alexeyyuditsky.exchange_rates.model.currencies.CurrenciesPagingSource
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
+import com.alexeyyuditsky.exchange_rates.utils.log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -40,6 +41,7 @@ class RoomCurrenciesRepository @Inject constructor(
 
             // get page
             val currencies = currenciesDao.getCurrencies(pageSize, offset, searchBy)
+            log("Получаю список из базы")
 
             // map CurrencyDbEntity to UICurrency
             return@withContext currencies.map(CurrencyDbEntity::toCurrency)
