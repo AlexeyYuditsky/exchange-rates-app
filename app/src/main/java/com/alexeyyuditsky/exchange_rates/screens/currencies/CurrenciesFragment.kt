@@ -2,6 +2,8 @@ package com.alexeyyuditsky.exchange_rates.screens.currencies
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentCurrenciesBinding
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -30,6 +33,7 @@ class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
         binding = FragmentCurrenciesBinding.bind(view)
 
         setupCurrenciesList()
+        setupSearchInput()
     }
 
     private fun setupCurrenciesList() {
@@ -50,6 +54,12 @@ class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
     private fun observeCurrencies(adapter: CurrenciesAdapter) = lifecycleScope.launch {
         viewModel.currenciesFlow.collectLatest { pagingData ->
             adapter.submitData(pagingData)
+        }
+    }
+
+    private fun setupSearchInput() {
+        binding.searchTextInput.searchEditText.addTextChangedListener {
+            viewModel.setSearchBy(it.toString())
         }
     }
 

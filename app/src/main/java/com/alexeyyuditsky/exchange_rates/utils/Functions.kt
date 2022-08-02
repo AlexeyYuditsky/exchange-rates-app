@@ -8,14 +8,17 @@ fun getLatestDate(amount: Int = 0): String {
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
     val cal = Calendar.getInstance()
 
+    val sdfDayOfWeek = SimpleDateFormat("u", Locale.ROOT)
+    val dayOfWeek = sdfDayOfWeek.format(cal.time)
+
     // exchange rates are not updated on weekends
-    return if (Calendar.DAY_OF_WEEK == 7) {
+    return if (dayOfWeek == "7") {
         if (amount == 0) {
             cal.add(Calendar.DATE, -1)
-            sdf.format(cal.time)
+            sdfDayOfWeek.format(cal.time)
         } else {
             cal.add(Calendar.DATE, -2)
-            sdf.format(cal.time)
+            sdfDayOfWeek.format(cal.time)
         }
     } else {
         cal.add(Calendar.DATE, amount)

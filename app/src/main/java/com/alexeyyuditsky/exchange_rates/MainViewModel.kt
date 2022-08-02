@@ -21,11 +21,13 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            log("aaa")
-            currenciesSource.getCurrenciesFromNetwork()
-            log("bbb")
+            isUpdated = currenciesSource.getCurrenciesFromNetwork()
             _isLoading.value = false
         }
+    }
+
+    companion object {
+        var isUpdated = false
     }
 
 }

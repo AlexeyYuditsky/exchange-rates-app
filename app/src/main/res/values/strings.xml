@@ -8,5 +8,6 @@
     <string name="converter">Converter</string>
     <string name="cryptocurrencies">Cryptocurrencies</string>
     <string name="currencies">Currencies</string>
+    <string name="search_by">Search by</string>
 
 </resources>

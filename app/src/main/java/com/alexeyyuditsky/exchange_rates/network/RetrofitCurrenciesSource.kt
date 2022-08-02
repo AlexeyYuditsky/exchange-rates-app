@@ -5,11 +5,12 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.Curr
 import com.alexeyyuditsky.exchange_rates.utils.FORMAT
 import com.alexeyyuditsky.exchange_rates.utils.getLatestDate
 import com.alexeyyuditsky.exchange_rates.utils.log
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import java.text.SimpleDateFormat
-import java.time.LocalDate
+import java.time.Instant
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -37,8 +38,9 @@ class RetrofitCurrenciesSource @Inject constructor(
             currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
         }
 
-        log("Данные с сервера получены")
         insertCurrenciesIntoDatabase()
+
+        return@withContext true
     }
 
     override suspend fun insertCurrenciesIntoDatabase() = withContext(Dispatchers.IO) {
@@ -59,9 +61,6 @@ class RetrofitCurrenciesSource @Inject constructor(
 
         currenciesDao.insertCurrencies(currencyList)
         currenciesDao.insertCryptocurrencies(cryptocurrencyList)
-
-        log("Данные с сервера вставлены в БД")
-        log(currenciesDao.getCurrencies())
     }
 
     private fun calculateValues(todayValue: String, yesterdayValue: String): String {

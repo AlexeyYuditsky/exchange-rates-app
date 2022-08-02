@@ -1,20 +1,20 @@
 package com.alexeyyuditsky.exchange_rates.screens.currencies
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.alexeyyuditsky.exchange_rates.MainViewModel
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
+import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrenciesDao
+import com.alexeyyuditsky.exchange_rates.network.CurrenciesSource
 import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @FlowPreview
@@ -25,17 +25,31 @@ class CurrenciesViewModel @Inject constructor(
 ) : ViewModel() {
 
     val currenciesFlow: Flow<PagingData<Currency>>
-
     private val searchBy = MutableLiveData("")
 
     init {
+        viewModelScope.launch {
+            while (!MainViewModel.isUpdated) {
+                delay(100)
+            }
+            refresh()
+        }
+
         currenciesFlow = searchBy.asFlow()
-            .debounce(500)
+            .debounce(100)
             .flatMapLatest {
-                log("Запрашиваю список из базы")
                 currenciesRepository.getPagedCurrencies(it)
             }
             .cachedIn(viewModelScope)
+    }
+
+    private fun refresh() {
+        this.searchBy.value = this.searchBy.value
+    }
+
+    fun setSearchBy(value: String) {
+        if (this.searchBy.value == value) return
+        this.searchBy.value = value
     }
 
 }

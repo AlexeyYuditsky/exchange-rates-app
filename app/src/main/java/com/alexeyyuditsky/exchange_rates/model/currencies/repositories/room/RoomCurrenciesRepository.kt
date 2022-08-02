@@ -41,7 +41,6 @@ class RoomCurrenciesRepository @Inject constructor(
 
             // get page
             val currencies = currenciesDao.getCurrencies(pageSize, offset, searchBy)
-            log("Получаю список из базы")
 
             // map CurrencyDbEntity to UICurrency
             return@withContext currencies.map(CurrencyDbEntity::toCurrency)
