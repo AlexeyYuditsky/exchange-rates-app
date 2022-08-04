@@ -9,18 +9,18 @@
     <ImageView
         android:id="@+id/currencyImageView"
         android:layout_width="75dp"
-        android:layout_height="55dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/aud"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/aud" />
 
     <TextView
         android:id="@+id/currencyShortNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="8dp"
         android:textColor="@color/black"
         android:textSize="19sp"

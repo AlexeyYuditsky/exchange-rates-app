@@ -141,6 +141,7 @@ class MoshiAdapterCurrencyValues {
             "sand",
             "shib",
             "stx",
+            "sol",
             "theta",
             "trx",
             "ttt",
