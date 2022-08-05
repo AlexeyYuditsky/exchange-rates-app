@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
-import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
 import com.bumptech.glide.Glide
 
 class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()) {
@@ -20,12 +20,12 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
         val currency = getItem(position) ?: return
         val context = holder.itemView.context
         with(holder.binding) {
+            setCurrencyImage(context, currency.shortName, currencyImageView)
+            setCurrencyColor(context, currency.valueDifference, currencyDifferenceTextView)
             currencyShortNameTextView.text = currency.shortName
             currencyFullNameTextView.text = currency.fullName
             currencyValueTextView.text = currency.valueToday
             currencyDifferenceTextView.text = currency.valueDifference
-            setCurrencyImage(context, currency.shortName, currencyImageView)
-            setCurrencyColor(context, currency.valueDifference, currencyDifferenceTextView)
         }
     }
 
@@ -37,16 +37,21 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
 
     private fun setCurrencyImage(context: Context, shortName: String, currencyImageView: ImageView) {
         Glide.with(context)
-            .load(currencyImagesMap[shortName] ?: R.drawable.ic_error)
-            .placeholder(R.drawable.ic_temp)
+            .load(getImageId(context, shortName))
+            .placeholder(R.drawable.ic_error)
             .error(R.drawable.ic_error)
             .into(currencyImageView)
     }
 
+    private fun getImageId(context: Context, shortName: String): Int {
+        val id = context.resources.getIdentifier(shortName.lowercase(), "drawable", context.packageName)
+        return if (id == 0) R.drawable._try else id
+    }
+
     private fun setCurrencyColor(context: Context, value: String, textView: TextView) {
-        if (value.toFloat() > 0f) textView.setTextColor(context.getColor(R.color.green))
-        else if (value.toFloat() < 0f) textView.setTextColor(context.getColor(R.color.red))
-        else textView.setTextColor(context.getColor(android.R.color.tab_indicator_text))
+        if (value.toFloat() > 0f) textView.setTextColor(ContextCompat.getColor(context, R.color.green))
+        else if (value.toFloat() < 0f) textView.setTextColor(ContextCompat.getColor(context, R.color.red))
+        else textView.setTextColor(ContextCompat.getColor(context, android.R.color.tab_indicator_text))
     }
 
     class Holder(val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root)

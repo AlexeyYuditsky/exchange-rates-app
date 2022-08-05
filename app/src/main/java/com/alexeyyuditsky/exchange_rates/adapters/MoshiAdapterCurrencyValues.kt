@@ -30,8 +30,6 @@ class MoshiAdapterCurrencyValues {
         val df = DecimalFormat("#.####")
         df.roundingMode = RoundingMode.FLOOR
 
-        // курс рубля: 59.374973
-
         return declaredMemberProperties
             // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
             .filter {

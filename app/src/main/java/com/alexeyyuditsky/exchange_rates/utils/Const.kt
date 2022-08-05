@@ -1,18 +1,6 @@
 package com.alexeyyuditsky.exchange_rates.utils
 
-import com.alexeyyuditsky.exchange_rates.R
-
 const val FORMAT = "%.4f"
-
-val currencyImagesMap = hashMapOf(
-    "AED" to R.drawable.aed,
-    "AFN" to R.drawable.afn,
-    "ALL" to R.drawable.all,
-    "AMD" to R.drawable.amd,
-    "ANG" to R.drawable.ang,
-    "AOA" to R.drawable.aoa,
-    "ARS" to R.drawable.ars
-)
 
 val cryptocurrencyNames = hashSetOf(
     "1inch",
