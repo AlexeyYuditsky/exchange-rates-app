@@ -19,7 +19,8 @@ class ResponseCurrencies(
     @field:Json(name = "amp") val amp: String, // криптовалюта ("Synereo")
     @field:Json(name = "ang") val ang: String, // валюта ("Netherlands Antillean Guilder")
     @field:Json(name = "aoa") val aoa: String, // валюта ("Angolan kwanza")
-    @field:Json(name = "ar") val ar: String, // криптовалюта ("Arweave")
+    @field:Json(name = "rub") val rub: String, // валюта ("Russian ruble")
+    /*@field:Json(name = "ar") val ar: String, // криптовалюта ("Arweave")
     @field:Json(name = "ars") val ars: String, // валюта ("Argentine peso)
     @field:Json(name = "atom") val atom: String, // криптовалюта ("Atomic Coin")
     @field:Json(name = "aud") val aud: String, // валюта ("Australian dollar")
@@ -266,7 +267,7 @@ class ResponseCurrencies(
     @field:Json(name = "zec") val zec: String, // криптовалюта ("ZCash")
     @field:Json(name = "zil") val zil: String, // криптовалюта ("Zilliqa")
     @field:Json(name = "zmw") val zmw: String, // валюта ("Zambian Kwacha")
-    @field:Json(name = "zwl") val zwl: String, // валюта ("Zimbabwean Dollar")
+    @field:Json(name = "zwl") val zwl: String, // валюта ("Zimbabwean Dollar")*/
 )
 
 class ConvertedRoot(

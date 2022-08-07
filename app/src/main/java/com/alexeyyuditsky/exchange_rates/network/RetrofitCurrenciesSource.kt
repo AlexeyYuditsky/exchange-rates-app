@@ -23,13 +23,10 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
 
-    private lateinit var currencyNames: List<String>
     private lateinit var currencyCurrentValues: List<CurrencyNetworkEntity>
     private lateinit var currencyYesterdayValues: List<CurrencyNetworkEntity>
 
     override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
-        currencyNames = currenciesApi.getCurrencyNames()
-
         try {
             currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate()).currencies
             currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
@@ -50,8 +47,7 @@ class RetrofitCurrenciesSource @Inject constructor(
         currencyCurrentValues.forEachIndexed { index, currency ->
             val currencyDbEntity = CurrencyDbEntity(
                 id = 0,
-                shortName = currency.name,
-                fullName = currencyNames[index],
+                code = currency.name,
                 valueToday = currency.value,
                 valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value)
             )

@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CurrenciesRepository {
 
-    fun getPagedCurrencies(searchBy: String): Flow<PagingData<Currency>>
+    fun getPagedCurrencies(searchBy: List<String>): Flow<PagingData<Currency>>
 
 }

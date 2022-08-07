@@ -19,7 +19,7 @@ class RoomCurrenciesRepository @Inject constructor(
     private val currenciesDao: CurrenciesDao
 ) : CurrenciesRepository {
 
-    override fun getPagedCurrencies(searchBy: String): Flow<PagingData<Currency>> {
+    override fun getPagedCurrencies(searchBy: List<String>): Flow<PagingData<Currency>> {
         val loader: CurrenciesPageLoader = { pageIndex, pageSize ->
             getCurrencies(pageIndex, pageSize, searchBy)
         }
@@ -34,7 +34,7 @@ class RoomCurrenciesRepository @Inject constructor(
         ).flow
     }
 
-    private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: String): List<Currency> =
+    private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: List<String>): List<Currency> =
         withContext(Dispatchers.IO) {
             // calculate offset value required by DAO
             val offset = pageIndex * pageSize

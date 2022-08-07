@@ -9,22 +9,19 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 @Entity(
     tableName = "currencies",
     indices = [
-        Index("shortName", unique = true),
-        Index("fullName", unique = true)
+        Index("code", unique = true)
     ]
 )
 data class CurrencyDbEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(collate = ColumnInfo.NOCASE) val shortName: String,
-    @ColumnInfo(collate = ColumnInfo.NOCASE) val fullName: String,
+    @ColumnInfo(collate = ColumnInfo.NOCASE) val code: String,
     val valueToday: String,
     val valueDifference: String
 ) {
 
     fun toCurrency(): Currency = Currency(
         id = id,
-        shortName = shortName,
-        fullName = fullName,
+        code = code,
         valueToday = valueToday,
         valueDifference = valueDifference
     )

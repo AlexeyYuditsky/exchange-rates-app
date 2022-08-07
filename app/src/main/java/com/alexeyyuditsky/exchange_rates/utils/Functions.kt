@@ -7,6 +7,11 @@ import java.util.*
 fun getLatestDate(amount: Int = 0): String {
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
     val cal = Calendar.getInstance()
+    cal.add(Calendar.DATE, amount)
+    return sdf.format(cal.time)
+
+    /*val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
+    val cal = Calendar.getInstance()
 
     val sdfDayOfWeek = SimpleDateFormat("u", Locale.ROOT)
     val dayOfWeek = sdfDayOfWeek.format(cal.time)
@@ -23,7 +28,7 @@ fun getLatestDate(amount: Int = 0): String {
     } else {
         cal.add(Calendar.DATE, amount)
         sdf.format(cal.time)
-    }
+    }*/
 }
 
 fun <T> log(message: T) {

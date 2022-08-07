@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "282b6d6ca35392c7efa174953d6c6895",
+    "identityHash": "54489c65d8d2e2a542d25e073e3d7199",
     "entities": [
       {
         "tableName": "currencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `shortName` TEXT NOT NULL COLLATE NOCASE, `fullName` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,14 +15,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "shortName",
-            "columnName": "shortName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "fullName",
-            "columnName": "fullName",
+            "fieldPath": "code",
+            "columnName": "code",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -47,29 +41,20 @@
         },
         "indices": [
           {
-            "name": "index_currencies_shortName",
+            "name": "index_currencies_code",
             "unique": true,
             "columnNames": [
-              "shortName"
+              "code"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_currencies_shortName` ON `${TABLE_NAME}` (`shortName`)"
-          },
-          {
-            "name": "index_currencies_fullName",
-            "unique": true,
-            "columnNames": [
-              "fullName"
-            ],
-            "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_currencies_fullName` ON `${TABLE_NAME}` (`fullName`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_currencies_code` ON `${TABLE_NAME}` (`code`)"
           }
         ],
         "foreignKeys": []
       },
       {
         "tableName": "cryptocurrencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `shortName` TEXT NOT NULL COLLATE NOCASE, `fullName` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -78,14 +63,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "shortName",
-            "columnName": "shortName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "fullName",
-            "columnName": "fullName",
+            "fieldPath": "code",
+            "columnName": "code",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -110,22 +89,13 @@
         },
         "indices": [
           {
-            "name": "index_cryptocurrencies_shortName",
+            "name": "index_cryptocurrencies_code",
             "unique": true,
             "columnNames": [
-              "shortName"
+              "code"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cryptocurrencies_shortName` ON `${TABLE_NAME}` (`shortName`)"
-          },
-          {
-            "name": "index_cryptocurrencies_fullName",
-            "unique": true,
-            "columnNames": [
-              "fullName"
-            ],
-            "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cryptocurrencies_fullName` ON `${TABLE_NAME}` (`fullName`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cryptocurrencies_code` ON `${TABLE_NAME}` (`code`)"
           }
         ],
         "foreignKeys": []
@@ -134,7 +104,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '282b6d6ca35392c7efa174953d6c6895')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54489c65d8d2e2a542d25e073e3d7199')"
     ]
   }
 }

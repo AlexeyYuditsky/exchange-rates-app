@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
+import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
+import java.util.*
 
 class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()) {
 
@@ -20,10 +22,10 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
         val currency = getItem(position) ?: return
         val context = holder.itemView.context
         with(holder.binding) {
-            setCurrencyImage(context, currency.shortName, currencyImageView)
+            setCurrencyImage(context, currency.code, currencyImageView)
             setCurrencyColor(context, currency.valueDifference, currencyDifferenceTextView)
-            currencyShortNameTextView.text = currency.shortName
-            currencyFullNameTextView.text = currency.fullName
+            currencyCodeTextView.text = currency.code
+            currencyNameTextView.text = context.getString(getResourceId(context, currency.code, "string"))
             currencyValueTextView.text = currency.valueToday
             currencyDifferenceTextView.text = currency.valueDifference
         }
@@ -37,15 +39,18 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
 
     private fun setCurrencyImage(context: Context, shortName: String, currencyImageView: ImageView) {
         Glide.with(context)
-            .load(getImageId(context, shortName))
+            .load(getResourceId(context, shortName, "drawable"))
             .placeholder(R.drawable.ic_error)
             .error(R.drawable.ic_error)
             .into(currencyImageView)
     }
 
-    private fun getImageId(context: Context, shortName: String): Int {
-        val id = context.resources.getIdentifier(shortName.lowercase(), "drawable", context.packageName)
-        return if (id == 0) R.drawable._try else id
+    private fun getResourceId(context: Context, code: String, resourceName: String): Int {
+        val id = context.resources.getIdentifier(code.lowercase(), resourceName, context.packageName)
+        return if (resourceName == "string")
+            if (id == 0) R.string._try else id
+        else
+            if (id == 0) R.drawable._try else id
     }
 
     private fun setCurrencyColor(context: Context, value: String, textView: TextView) {

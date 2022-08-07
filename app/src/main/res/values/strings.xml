@@ -1,13 +1,283 @@
 <resources>
     <string name="app_name">Exchange rates</string>
-    <string name="currency_value">1$ = %s₽</string>
-    <string name="currency_name">(%s) %s</string>
-    <string name="need_correct_time">For further operation of the application,you need to correct the date and time on the device</string>
-    <string name="change_date_and_time">Change date and time</string>
     <string name="favorite_currencies">Favorite currencies</string>
     <string name="converter">Converter</string>
     <string name="cryptocurrencies">Cryptocurrencies</string>
     <string name="currencies">Currencies</string>
     <string name="search_by">Search by</string>
+
+    <string-array name="currency_names_array">
+        <item>AED|United Arab Emirates Dirham</item>
+        <item>AFN|Afghan afghani</item>
+        <item>ALL|Albanian lek</item>
+        <item>AMD|Armenian dram</item>
+        <item>ANG|Netherlands Antillean Guilder</item>
+        <item>AOA|Angolan kwanza</item>
+    </string-array>
+
+    <string name="aed">United Arab Emirates Dirham</string>
+    <string name="afn">Afghan afghani</string>
+    <string name="all">Albanian lek</string>
+    <string name="amd">Armenian dram</string>
+    <string name="ang">Netherlands Antillean Guilder</string>
+    <string name="aoa">Angolan kwanza</string>
+    <string name="ars">Argentine peso</string>
+    <string name="aud">Australian dollar</string>
+    <string name="awg">Aruban florin</string>
+    <string name="azn">Azerbaijani manat</string>
+    <string name="bam">Bosnia-Herzegovina Convertible Mark</string>
+    <string name="bbd">Bajan dollar</string>
+    <string name="bdt">Bangladeshi taka</string>
+    <string name="bgn">Bulgarian lev</string>
+    <string name="bhd">Bahraini dinar</string>
+    <string name="bif">Burundian Franc</string>
+    <string name="bmd">Bermudan dollar</string>
+    <string name="bnd">Brunei dollar</string>
+    <string name="bob">Bolivian boliviano</string>
+    <string name="brl">Brazilian real</string>
+    <string name="bsd">Bahamian dollar</string>
+    <string name="btn">Bhutan currency</string>
+    <string name="bwp">Botswanan Pula</string>
+    <string name="byn">New Belarusian Ruble</string>
+    <string name="bzd">Belize dollar</string>
+    <string name="cad">Canadian dollar</string>
+    <string name="cdf">Congolese franc</string>
+    <string name="chf">Swiss franc</string>
+    <string name="clp">Chilean peso</string>
+    <string name="cny">Chinese Yuan</string>
+    <string name="cop">Colombian peso</string>
+    <string name="crc">Costa Rican Colón</string>
+    <string name="cup">Cuban Peso</string>
+    <string name="cve">Cape Verdean escudo</string>
+    <string name="czk">Czech koruna</string>
+    <string name="djf">Djiboutian franc</string>
+    <string name="dkk">Danish krone</string>
+    <string name="dop">Dominican peso</string>
+    <string name="dzd">Algerian dinar</string>
+    <string name="egp">Egyptian pound</string>
+    <string name="etb">Ethiopian birr</string>
+    <string name="eur">Euro</string>
+    <string name="fjd">Fijian dollar</string>
+    <string name="fkp">Falkland Islands pound</string>
+    <string name="gbp">Pound sterling</string>
+    <string name="gel">Georgian lari</string>
+    <string name="ghs">Ghanaian cedi</string>
+    <string name="gip">Gibraltar pound</string>
+    <string name="gmd">Gambian dalasi</string>
+    <string name="gnf">Guinean franc</string>
+    <string name="gtq">Guatemalan quetzal</string>
+    <string name="gyd">Guyanaese Dollar</string>
+    <string name="hkd">Hong Kong dollar</string>
+    <string name="hnl">Honduran lempira</string>
+    <string name="hrk">Croatian kuna</string>
+    <string name="htg">Haitian gourde</string>
+    <string name="huf">Hungarian forint</string>
+    <string name="idr">Indonesian rupiah</string>
+    <string name="ils">Israeli New Shekel</string>
+    <string name="inr">Indian rupee</string>
+    <string name="iqd">Iraqi dinar</string>
+    <string name="irr">Iranian rial</string>
+    <string name="isk">Icelandic króna</string>
+    <string name="jep">Jersey Pound</string>
+    <string name="jmd">Jamaican dollar</string>
+    <string name="jod">Jordanian dinar</string>
+    <string name="jpy">Japanese yen</string>
+    <string name="kes">Kenyan shilling</string>
+    <string name="kgs">Kyrgystani Som</string>
+    <string name="khr">Cambodian riel</string>
+    <string name="kmf">Comorian franc</string>
+    <string name="kpw">North Korean won</string>
+    <string name="krw">South Korean won</string>
+    <string name="kwd">Kuwaiti dinar</string>
+    <string name="kyd">Cayman Islands dollar</string>
+    <string name="kzt">Kazakhstani tenge</string>
+    <string name="lak">Laotian Kip</string>
+    <string name="lbp">Lebanese pound</string>
+    <string name="lkr">Sri Lankan rupee</string>
+    <string name="lrd">Liberian dollar</string>
+    <string name="lsl">Lesotho loti</string>
+    <string name="ltl">Lithuanian litas</string>
+    <string name="lvl">Latvian lats</string>
+    <string name="lyd">Libyan dinar</string>
+    <string name="mad">Moroccan dirham</string>
+    <string name="mdl">Moldovan leu</string>
+    <string name="mga">Malagasy ariary</string>
+    <string name="mkd">Macedonian denar</string>
+    <string name="mmk">Myanmar Kyat</string>
+    <string name="mnt">Mongolian tugrik</string>
+    <string name="mop">Macanese pataca</string>
+    <string name="mro">Mauritanian ouguiya</string>
+    <string name="mur">Mauritian rupee</string>
+    <string name="mvr">Maldivian rufiyaa</string>
+    <string name="mwk">Malawian kwacha</string>
+    <string name="mxn">Mexican peso</string>
+    <string name="myr">Malaysian ringgit</string>
+    <string name="mzn">Mozambican Metical</string>
+    <string name="nad">Namibian dollar</string>
+    <string name="ngn">Nigerian naira</string>
+    <string name="nio">Nicaraguan córdoba</string>
+    <string name="nok">Norwegian krone</string>
+    <string name="npr">Nepalese rupee</string>
+    <string name="nzd">New Zealand dollar</string>
+    <string name="omr">Omani rial</string>
+    <string name="pab">Panamanian balboa</string>
+    <string name="pgk">Papua New Guinean kina</string>
+    <string name="php">Philippine peso</string>
+    <string name="pkr">Pakistani rupee</string>
+    <string name="pln">Poland złoty</string>
+    <string name="pyg">Paraguayan guarani</string>
+    <string name="qar">Qatari Rial</string>
+    <string name="ron">Romanian leu</string>
+    <string name="rsd">Serbian dinar</string>
+    <string name="rwf">Rwandan Franc</string>
+    <string name="sar">Saudi riyal</string>
+    <string name="sbd">Solomon Islands dollar</string>
+    <string name="scr">Seychellois rupee</string>
+    <string name="sdg">Sudanese pound</string>
+    <string name="sek">Swedish krona</string>
+    <string name="sgd">Singapore dollar</string>
+    <string name="shp">Saint Helena pound</string>
+    <string name="sll">Sierra Leonean leone</string>
+    <string name="sos">Somali shilling</string>
+    <string name="srd">Surinamese dollar</string>
+    <string name="std">São Tomé and Príncipe Dobra (pre-2018)</string>
+    <string name="svc">Salvadoran Colón</string>
+    <string name="syp">Syrian pound</string>
+    <string name="szl">Swazi lilangeni</string>
+    <string name="thb">Thai baht</string>
+    <string name="tjs">Tajikistani somoni</string>
+    <string name="tmt">Turkmenistani manat</string>
+    <string name="tnd">Tunisian dinar</string>
+    <string name="top">Tongan Paʻanga</string>
+    <string name="_try">Turkish lira</string>
+    <string name="ttd">Trinidad and Tobago Dollar</string>
+    <string name="twd">New Taiwan dollar</string>
+    <string name="tzs">Tanzanian shilling</string>
+    <string name="uah">Ukrainian hryvnia</string>
+    <string name="ugx">Ugandan shilling</string>
+    <string name="usd">United States dollar</string>
+    <string name="uyu">Uruguayan peso</string>
+    <string name="uzs">Uzbekistani som</string>
+    <string name="vnd">Vietnamese dong</string>
+    <string name="vuv">Vanuatu vatu</string>
+    <string name="wst">Samoan tala</string>
+    <string name="xaf">Central African CFA franc</string>
+    <string name="xcd">East Caribbean dollar</string>
+    <string name="yer">Yemeni rial</string>
+    <string name="zar">South African rand</string>
+    <string name="zmw">Zambian Kwacha</string>
+    <string name="zwl">Zimbabwean Dollar</string>
+
+    <!--
+    "1inch": "1inch Network",
+    "aave": "Aave",
+    "ada": "Cardano",
+        "algo": "Algorand",
+    "amp": "Synereo",
+    "ar": "Arweave",
+    "atom": "Atomic Coin",
+    "avax": "Avalanche",
+    "axs": "AXS",
+    "bat": "Basic Attention Token",
+    "bch": "Bitcoin Cash",
+"bsv": "Bitcoin SV",
+    "btc": "Bitcoin",
+    "btcb": "Bitcoin BEP2",
+    "btg": "Bitcoin Gold",
+        "busd": "Binance USD",
+           "bnb": "Binance Coin",
+    "cake": "PancakeSwap",
+    "celo": "Celo",
+    "chz": "Chiliz",
+    "comp": "Compound Coin",
+"cro": "Crypto.com Chain Token",
+    "crv": "Cravy",
+        "cvx": "Convex Finance",
+    "dai": "Dai",
+    "dash": "Dash",
+    "dcr": "Decred",
+    "dfi": "DfiStarter",
+        "doge": "Dogecoin",
+    "dot": "Dotcoin",
+    "egld": "Elrond",
+    "enj": "Enjin Coin",
+    "eos": "EOS",
+    "ern": "Eritrean nakfa",
+        "etc": "Ethereum Classic",
+    "eth": "Ether",
+        "fei": "Fei USD",
+    "fil": "FileCoin",
+        "flow": "Flow",
+    "frax": "Frax",
+    "ftm": "Fantom",
+    "ftt": "FarmaTrust",
+    "gala": "Gala",
+        "ggp": "GGPro",
+    "gno": "Gnosis",
+    "grt": "Golden Ratio Token",
+    "gt": "GateToken",
+        "hbar": "Hedera",
+    "hnt": "Helium",
+    "hot": "Hydro Protocol",
+        "ht": "Huobi Token",
+    "icp": "Internet Computer",
+    "imp": "CoinIMP",
+    "inj": "Injective",
+        "kava": "Kava",
+    "kcs": "Kucoin",
+    "kda": "Kadena",
+        "klay": "Klaytn",
+    "knc": "Kyber Network",
+    "ksm": "Kusama",
+    "leo": "LEOcoin",
+    "link": "ChainLink",
+        "lrc": "Loopring",
+    "ltc": "Litecoin",
+    "luna": "Luna Coin",
+    "mana": "Decentraland",
+    "matic": "Polygon",
+        "mina": "Mina",
+    "miota": "IOTA",
+        "mkr": "Maker",
+    "near": "NEAR Protocol",
+    "neo": "NEO",
+    "nexo": "NEXO",
+        "okb": "Okex",
+    "one": "Menlo One",
+    "paxg": "PAX Gold",
+    "pen": "Sol",
+        "qnt": "Quant",
+    "qtum": "QTUM",
+        "rune": "THORChain (ERC20)",
+    "sand": "BeachCoin",
+    "shib": "Shiba Inu",
+    "sol": "Sola",
+    "stx": "Stox",
+    "theta": "Theta",
+    "trx": "TRON",
+    "ttt": "Tap Project",
+    "tusd": "True USD",
+        "uni": "Universe",
+    "usdc": "USD Coin",
+    "usdp": "USDP Stablecoin",
+    "usdt": "Tether",
+        "vet": "Vechain",
+    "waves": "Waves",
+    "wbtc": "Wrapped Bitcoin",
+    "wemix": "WEMIX",
+        "xag": "Silver Ounce",
+    "xau": "XauCoin",
+        "xdc": "XDC Network",
+    "xdr": "Special Drawing Rights",
+    "xec": "Eternal Coin",
+    "xem": "NEM",
+    "xlm": "Stellar",
+    "xmr": "Monero",
+    "xpf": "CFP franc",
+    "xrp": "XRP",
+    "xtz": "Tezos",
+        "zec": "ZCash",
+    "zil": "Zilliqa",
+    -->
 
 </resources>

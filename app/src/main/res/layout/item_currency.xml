@@ -17,7 +17,7 @@
         tools:src="@drawable/aud" />
 
     <TextView
-        android:id="@+id/currencyShortNameTextView"
+        android:id="@+id/currency_code_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -31,7 +31,7 @@
         tools:text="USD" />
 
     <TextView
-        android:id="@+id/currencyFullNameTextView"
+        android:id="@+id/currency_name_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -41,8 +41,8 @@
         app:autoSizeStepGranularity="0.1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/currencyDifferenceTextView"
-        app:layout_constraintEnd_toEndOf="@+id/currencyShortNameTextView"
-        app:layout_constraintStart_toStartOf="@+id/currencyShortNameTextView"
+        app:layout_constraintEnd_toEndOf="@+id/currency_code_text_view"
+        app:layout_constraintStart_toStartOf="@+id/currency_code_text_view"
         app:layout_constraintTop_toTopOf="@+id/currencyDifferenceTextView"
         tools:text="US Dollar" />
 
