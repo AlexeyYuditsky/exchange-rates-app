@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
-import com.alexeyyuditsky.exchange_rates.utils.currencyCodesNamesMap
-import com.alexeyyuditsky.exchange_rates.utils.log
+import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.bumptech.glide.Glide
-import java.util.*
 
 class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()) {
 
@@ -26,7 +24,7 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
             setCurrencyImage(context, currency.code, currencyImageView)
             setCurrencyColor(context, currency.valueDifference, currencyDifferenceTextView)
             currencyCodeTextView.text = currency.code
-            currencyNameTextView.text = currencyCodesNamesMap[currency.code]
+            currencyNameTextView.text = currencyCodesAndNamesMap[currency.code]
             currencyValueTextView.text = currency.valueToday
             currencyDifferenceTextView.text = currency.valueDifference
         }

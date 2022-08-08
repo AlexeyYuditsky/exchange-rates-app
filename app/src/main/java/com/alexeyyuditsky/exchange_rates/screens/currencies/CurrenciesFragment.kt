@@ -1,9 +1,7 @@
 package com.alexeyyuditsky.exchange_rates.screens.currencies
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentCurrenciesBinding
-import com.alexeyyuditsky.exchange_rates.utils.currencyCodesNamesMap
-import com.alexeyyuditsky.exchange_rates.utils.log
+import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -59,16 +56,16 @@ class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun setupSearchInput() {
         binding.searchTextInput.searchEditText.addTextChangedListener {
             val string = it.toString()
-            val list = mutableListOf<String>()
+            val currencyCodesList = mutableListOf<String>()
 
-            currencyCodesNamesMap.forEach { (key, value) ->
-                if (value.contains(string, true) || key.contains(string, true)) list.add(key)
+            currencyCodesAndNamesMap.forEach { (key, value) ->
+                if (value.contains(string, true) || key.contains(string, true))
+                    currencyCodesList.add(key)
             }
-            viewModel.setSearchBy(list)
+            viewModel.setSearchBy(currencyCodesList)
         }
     }
 

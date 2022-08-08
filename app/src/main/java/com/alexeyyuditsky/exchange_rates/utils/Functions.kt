@@ -7,16 +7,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 val currencyCodesList = mutableListOf<String>()
-val currencyCodesNamesMap = hashMapOf<String, String>()
+val currencyCodesAndNamesMap = hashMapOf<String, String>()
 
-fun initLanguageMap(context: Context) {
+fun loadLanguages(context: Context) {
     val stringsArray = context.resources.getStringArray(R.array.currency_names_array)
     stringsArray.forEach {
         currencyCodesList.add(it.split("|")[0])
     }
     stringsArray.forEach {
         val value = it.split("|")
-        currencyCodesNamesMap[value[0]] = value[1]
+        currencyCodesAndNamesMap[value[0]] = value[1]
     }
 }
 
