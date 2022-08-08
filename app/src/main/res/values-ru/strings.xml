@@ -6,7 +6,20 @@
     <string name="currencies">Валюты</string>
     <string name="search_by">Поиск</string>
 
-    <string name="aed">Дирхам ОАЭ</string>
+    <string-array name="currency_names_array">
+        <item>AED|Дирхам ОАЭ</item>
+        <item>AFN|Афганский афгани</item>
+        <item>ALL|Албанский лек</item>
+        <item>AMD|Армянский драм</item>
+        <item>ANG|Нидерландский антильский гульден</item>
+        <item>AOA|Ангольская кванза</item>
+        <item>ARS|Аргентинское песо</item>
+        <item>AUD|Австралийский доллар</item>
+        <item>AWG|Арубанский флорин</item>
+        <item>AZN|Азербайджанский манат</item>
+    </string-array>
+
+    <!--<string name="aed">Дирхам ОАЭ</string>
     <string name="afn">Афганский афгани</string>
     <string name="all">Албанский лек</string>
     <string name="amd">Армянский драм</string>
@@ -157,5 +170,6 @@
     <string name="yer">Йеменский риал</string>
     <string name="zar">Южноафриканский рэнд</string>
     <string name="zmw">Замбийская квача</string>
-    <string name="zwl">Доллар Зимбабве</string>
+    <string name="zwl">Доллар Зимбабве</string>-->
+
 </resources>

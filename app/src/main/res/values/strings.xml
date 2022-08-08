@@ -13,9 +13,13 @@
         <item>AMD|Armenian dram</item>
         <item>ANG|Netherlands Antillean Guilder</item>
         <item>AOA|Angolan kwanza</item>
+        <item>ARS|Argentine peso</item>
+        <item>AUD|Australian dollar</item>
+        <item>AWG|Aruban florin</item>
+        <item>AZN|Azerbaijani manat</item>
     </string-array>
 
-    <string name="aed">United Arab Emirates Dirham</string>
+    <!--<string name="aed">United Arab Emirates Dirham</string>
     <string name="afn">Afghan afghani</string>
     <string name="all">Albanian lek</string>
     <string name="amd">Armenian dram</string>
@@ -166,7 +170,7 @@
     <string name="yer">Yemeni rial</string>
     <string name="zar">South African rand</string>
     <string name="zmw">Zambian Kwacha</string>
-    <string name="zwl">Zimbabwean Dollar</string>
+    <string name="zwl">Zimbabwean Dollar</string>-->
 
     <!--
     "1inch": "1inch Network",

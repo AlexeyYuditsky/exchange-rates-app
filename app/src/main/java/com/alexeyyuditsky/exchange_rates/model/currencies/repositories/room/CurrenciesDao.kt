@@ -6,11 +6,6 @@ import com.alexeyyuditsky.exchange_rates.room.entities.CryptocurrencyDbEntity
 @Dao
 interface CurrenciesDao {
 
-    /*@Query(
-        "SELECT * FROM currencies " +
-                "WHERE :searchBy = '' OR code LIKE '%' || :searchBy || '%'" +
-                "LIMIT :limit OFFSET :offset"
-    )*/
     @Query("select * from currencies where code in(:searchBy) limit :limit offset :offset")
     suspend fun getCurrencies(limit: Int, offset: Int, searchBy: List<String>): List<CurrencyDbEntity>
 

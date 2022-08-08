@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
+import com.alexeyyuditsky.exchange_rates.utils.currencyCodesNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 import java.util.*
@@ -25,7 +26,7 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
             setCurrencyImage(context, currency.code, currencyImageView)
             setCurrencyColor(context, currency.valueDifference, currencyDifferenceTextView)
             currencyCodeTextView.text = currency.code
-            currencyNameTextView.text = context.getString(getResourceId(context, currency.code, "string"))
+            currencyNameTextView.text = currencyCodesNamesMap[currency.code]
             currencyValueTextView.text = currency.valueToday
             currencyDifferenceTextView.text = currency.valueDifference
         }
@@ -39,18 +40,15 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
 
     private fun setCurrencyImage(context: Context, shortName: String, currencyImageView: ImageView) {
         Glide.with(context)
-            .load(getResourceId(context, shortName, "drawable"))
+            .load(getImageId(context, shortName))
             .placeholder(R.drawable.ic_error)
             .error(R.drawable.ic_error)
             .into(currencyImageView)
     }
 
-    private fun getResourceId(context: Context, code: String, resourceName: String): Int {
-        val id = context.resources.getIdentifier(code.lowercase(), resourceName, context.packageName)
-        return if (resourceName == "string")
-            if (id == 0) R.string._try else id
-        else
-            if (id == 0) R.drawable._try else id
+    private fun getImageId(context: Context, code: String): Int {
+        val id = context.resources.getIdentifier(code.lowercase(), "drawable", context.packageName)
+        return if (id == 0) R.drawable._try else id
     }
 
     private fun setCurrencyColor(context: Context, value: String, textView: TextView) {
