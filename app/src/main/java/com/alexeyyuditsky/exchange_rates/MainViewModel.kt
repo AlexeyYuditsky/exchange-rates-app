@@ -1,11 +1,12 @@
 package com.alexeyyuditsky.exchange_rates
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchange_rates.network.CurrenciesSource
-import com.alexeyyuditsky.exchange_rates.utils.log
+import com.alexeyyuditsky.exchange_rates.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    currenciesSource: CurrenciesSource
+    currenciesSource: CurrenciesSource,
+    @ApplicationContext context: Context
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
@@ -21,13 +23,14 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            loadLanguage(context)
+            loadImages(context)
+        }
+
+        viewModelScope.launch {
             isUpdated = currenciesSource.getCurrenciesFromNetwork()
             _isLoading.value = false
         }
-    }
-
-    companion object {
-        var isUpdated = false
     }
 
 }

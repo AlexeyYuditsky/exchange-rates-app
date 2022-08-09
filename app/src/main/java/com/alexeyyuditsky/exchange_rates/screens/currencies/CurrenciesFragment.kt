@@ -13,6 +13,7 @@ import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentCurrenciesBinding
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

@@ -13,6 +13,7 @@ import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
+import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
 import com.bumptech.glide.Glide
 
 class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()) {
@@ -36,17 +37,10 @@ class CurrenciesAdapter : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(
         return Holder(binding)
     }
 
-    private fun setCurrencyImage(context: Context, shortName: String, currencyImageView: ImageView) {
+    private fun setCurrencyImage(context: Context, code: String, currencyImageView: ImageView) {
         Glide.with(context)
-            .load(getImageId(context, shortName))
-            .placeholder(R.drawable.ic_error)
-            .error(R.drawable.ic_error)
+            .load(currencyImagesMap[code])
             .into(currencyImageView)
-    }
-
-    private fun getImageId(context: Context, code: String): Int {
-        val id = context.resources.getIdentifier(code.lowercase(), "drawable", context.packageName)
-        return if (id == 0) R.drawable._try else id
     }
 
     private fun setCurrencyColor(context: Context, value: String, textView: TextView) {

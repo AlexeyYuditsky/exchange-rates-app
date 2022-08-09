@@ -1,19 +1,16 @@
 package com.alexeyyuditsky.exchange_rates.screens.currencies
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.alexeyyuditsky.exchange_rates.MainViewModel
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesList
-import com.alexeyyuditsky.exchange_rates.utils.loadLanguages
+import com.alexeyyuditsky.exchange_rates.utils.isUpdated
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
@@ -27,18 +24,15 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class CurrenciesViewModel @Inject constructor(
-    currenciesRepository: CurrenciesRepository,
-    @ApplicationContext context: Context
+    currenciesRepository: CurrenciesRepository
 ) : ViewModel() {
 
     val currenciesFlow: Flow<PagingData<Currency>>
     private val searchBy = MutableLiveData(currencyCodesList)
 
     init {
-        viewModelScope.launch { loadLanguages(context) }
-
         viewModelScope.launch {
-            while (!MainViewModel.isUpdated) {
+            while (!isUpdated) {
                 delay(100)
             }
             refresh()
@@ -57,7 +51,7 @@ class CurrenciesViewModel @Inject constructor(
     }
 
     fun setSearchBy(value: MutableList<String>) {
-        //if (this.searchBy.value == value) return
+        if (this.searchBy.value == value) return
         this.searchBy.value = value
     }
 
