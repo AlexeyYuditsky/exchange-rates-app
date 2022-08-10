@@ -8,4 +8,6 @@ interface CurrenciesRepository {
 
     fun getPagedCurrencies(searchBy: List<String>): Flow<PagingData<Currency>>
 
+    suspend fun setIsFavorite(currency: Currency, isFavorite: Boolean)
+
 }

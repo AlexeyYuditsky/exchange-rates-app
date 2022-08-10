@@ -6,24 +6,19 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 
-@Entity(
-    tableName = "currencies",
-    indices = [
-        Index("code", unique = true)
-    ]
-)
+@Entity(tableName = "currencies")
 data class CurrencyDbEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(collate = ColumnInfo.NOCASE) val code: String,
+    @PrimaryKey @ColumnInfo(collate = ColumnInfo.NOCASE) val code: String,
     val valueToday: String,
-    val valueDifference: String
+    val valueDifference: String,
+    val isFavorite: Boolean
 ) {
 
     fun toCurrency(): Currency = Currency(
-        id = id,
         code = code,
         valueToday = valueToday,
-        valueDifference = valueDifference
+        valueDifference = valueDifference,
+        isFavorite = isFavorite
     )
 
 }

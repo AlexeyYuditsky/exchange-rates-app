@@ -15,5 +15,6 @@ data class CryptocurrencyDbEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(collate = ColumnInfo.NOCASE) val code: String,
     val valueToday: String,
-    val valueDifference: Float
+    val valueDifference: Float,
+    val isFavorite: Boolean
 )

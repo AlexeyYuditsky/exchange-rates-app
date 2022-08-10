@@ -37,7 +37,7 @@ class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
     }
 
     private fun setupCurrenciesList() {
-        val adapter = CurrenciesAdapter()
+        val adapter = CurrenciesAdapter(viewModel)
 
         binding.recyclerView.adapter = adapter
         (binding.recyclerView.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false

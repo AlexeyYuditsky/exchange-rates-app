@@ -10,6 +10,8 @@
         android:id="@+id/currencyImageView"
         android:layout_width="75dp"
         android:layout_height="50dp"
+        android:background="@color/gray"
+        android:padding="1dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,18 +19,29 @@
         tools:src="@drawable/aud" />
 
     <TextView
-        android:id="@+id/currency_code_text_view"
-        android:layout_width="0dp"
+        android:id="@+id/currencyCodeTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:textColor="@color/black"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@+id/currencyValueTextView"
-        app:layout_constraintEnd_toStartOf="@+id/currencyValueTextView"
         app:layout_constraintStart_toEndOf="@+id/currencyImageView"
         app:layout_constraintTop_toTopOf="@+id/currencyValueTextView"
         tools:text="USD" />
+
+    <ImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="6dp"
+        android:src="@drawable/ic_favorite_black"
+        app:layout_constraintBottom_toBottomOf="@id/currencyCodeTextView"
+        app:layout_constraintStart_toEndOf="@id/currencyCodeTextView"
+        app:layout_constraintTop_toTopOf="@id/currencyCodeTextView"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/currency_name_text_view"
@@ -43,7 +56,7 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/currencyDifferenceTextView"
         app:layout_constraintEnd_toStartOf="@+id/currencyDifferenceTextView"
-        app:layout_constraintStart_toStartOf="@+id/currency_code_text_view"
+        app:layout_constraintStart_toStartOf="@+id/currencyCodeTextView"
         app:layout_constraintTop_toTopOf="@+id/currencyDifferenceTextView"
         tools:text="US Dollar" />
 

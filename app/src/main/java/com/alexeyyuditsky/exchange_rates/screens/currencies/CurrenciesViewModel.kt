@@ -6,6 +6,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesList
@@ -24,8 +25,8 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class CurrenciesViewModel @Inject constructor(
-    currenciesRepository: CurrenciesRepository
-) : ViewModel() {
+    private val currenciesRepository: CurrenciesRepository
+) : ViewModel(), CurrenciesAdapter.Listener {
 
     val currenciesFlow: Flow<PagingData<Currency>>
     private val searchBy = MutableLiveData(currencyCodesList)
@@ -53,6 +54,13 @@ class CurrenciesViewModel @Inject constructor(
     fun setSearchBy(value: MutableList<String>) {
         if (this.searchBy.value == value) return
         this.searchBy.value = value
+    }
+
+    override fun onToggleFavoriteFlag(currency: Currency) {
+        viewModelScope.launch {
+            val newFlagValue = !currency.isFavorite
+            currenciesRepository.setIsFavorite(currency, newFlagValue)
+        }
     }
 
 }

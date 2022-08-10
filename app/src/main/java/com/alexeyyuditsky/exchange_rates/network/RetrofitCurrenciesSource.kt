@@ -2,6 +2,7 @@ package com.alexeyyuditsky.exchange_rates.network
 
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrenciesDao
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.CurrencyDbEntity
+import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.UpdateCurrencyValueTuple
 import com.alexeyyuditsky.exchange_rates.utils.FORMAT
 import com.alexeyyuditsky.exchange_rates.utils.getLatestDate
 import com.alexeyyuditsky.exchange_rates.utils.log
@@ -9,8 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Retrofit
-import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -28,35 +27,49 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
         try {
-            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate()).currencies
-            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
+            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
+            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
         } catch (e: HttpException) {
             currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
             currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
         }
 
-        insertCurrenciesIntoDatabase()
+        if (currenciesDao.countRows() == 0)
+            insertCurrenciesIntoDatabase()
+        else
+            updateCurrenciesIntoDatabase()
 
         return@withContext true
     }
 
-    override suspend fun insertCurrenciesIntoDatabase() = withContext(Dispatchers.IO) {
-        val currencyList = mutableListOf<CurrencyDbEntity>()
-        val cryptocurrencyList = mutableListOf<CurrencyDbEntity>()
+    override suspend fun updateCurrenciesIntoDatabase() {
+        val currencyList = mutableListOf<UpdateCurrencyValueTuple>()
 
         currencyCurrentValues.forEachIndexed { index, currency ->
-            val currencyDbEntity = CurrencyDbEntity(
-                id = 0,
+            val updateCurrencyValueTuple = UpdateCurrencyValueTuple(
                 code = currency.name,
                 valueToday = currency.value,
                 valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value)
             )
-            if (currency.isCryptocurrency) cryptocurrencyList.add(currencyDbEntity)
-            else currencyList.add(currencyDbEntity)
+            if (!currency.isCryptocurrency) currencyList.add(updateCurrencyValueTuple)
+            currenciesDao.updateCurrencies(currencyList)
+        }
+    }
+
+    override suspend fun insertCurrenciesIntoDatabase() = withContext(Dispatchers.IO) {
+        val currencyList = mutableListOf<CurrencyDbEntity>()
+
+        currencyCurrentValues.forEachIndexed { index, currency ->
+            val currencyDbEntity = CurrencyDbEntity(
+                code = currency.name,
+                valueToday = currency.value,
+                valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value),
+                isFavorite = false
+            )
+            if (!currency.isCryptocurrency) currencyList.add(currencyDbEntity)
         }
 
         currenciesDao.insertCurrencies(currencyList)
-        currenciesDao.insertCryptocurrencies(cryptocurrencyList)
     }
 
     private fun calculateValues(todayValue: String, yesterdayValue: String): String {

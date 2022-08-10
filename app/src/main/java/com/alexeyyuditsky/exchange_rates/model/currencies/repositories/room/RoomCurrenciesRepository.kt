@@ -9,6 +9,7 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
 import com.alexeyyuditsky.exchange_rates.utils.log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -32,6 +33,13 @@ class RoomCurrenciesRepository @Inject constructor(
             ),
             pagingSourceFactory = { CurrenciesPagingSource(loader) }
         ).flow
+    }
+
+    override suspend fun setIsFavorite(currency: Currency, isFavorite: Boolean) = withContext(Dispatchers.IO) {
+        delay(1000)
+
+        val tuple = UpdateCurrencyFavoriteFlagTuple(currency.code, isFavorite)
+        currenciesDao.setIsFavorite(tuple)
     }
 
     private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: List<String>): List<Currency> =

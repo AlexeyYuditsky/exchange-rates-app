@@ -2,18 +2,12 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "54489c65d8d2e2a542d25e073e3d7199",
+    "identityHash": "398a4418d04516ddff1c19f45161b4fb",
     "entities": [
       {
         "tableName": "currencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`code` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`code`))",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "code",
             "columnName": "code",
@@ -31,30 +25,26 @@
             "columnName": "valueDifference",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "code"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
-        "indices": [
-          {
-            "name": "index_currencies_code",
-            "unique": true,
-            "columnNames": [
-              "code"
-            ],
-            "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_currencies_code` ON `${TABLE_NAME}` (`code`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "cryptocurrencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` REAL NOT NULL, `isFavorite` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -78,6 +68,12 @@
             "fieldPath": "valueDifference",
             "columnName": "valueDifference",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -104,7 +100,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54489c65d8d2e2a542d25e073e3d7199')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '398a4418d04516ddff1c19f45161b4fb')"
     ]
   }
 }
