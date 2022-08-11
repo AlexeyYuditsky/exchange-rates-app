@@ -12,6 +12,7 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesList
 import com.alexeyyuditsky.exchange_rates.utils.isUpdated
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -34,6 +35,7 @@ class CurrenciesViewModel @Inject constructor(
     private val searchBy = MutableLiveData(currencyCodesList)
 
     init {
+        // пытаемся получить список валют когда данные по сети будут получены
         viewModelScope.launch {
             while (!isUpdated) {
                 delay(100)
@@ -53,9 +55,9 @@ class CurrenciesViewModel @Inject constructor(
         )
     }
 
-    private fun merge(currencies: PagingData<Currency>, localChanges: OnChange<LocalChanges>): PagingData<Currency> {
+    private fun merge(currencies: PagingData<Currency>, onChange: OnChange): PagingData<Currency> {
         return currencies.map { currency ->
-            val localFavoriteFlag = localChanges.value.favoriteFlags[currency.code]
+            val localFavoriteFlag = onChange.localChanges.favoriteFlags[currency.code]
 
             return@map if (localFavoriteFlag == null)
                 currency
@@ -76,13 +78,13 @@ class CurrenciesViewModel @Inject constructor(
     override fun onToggleFavoriteFlag(currency: Currency) {
         viewModelScope.launch {
             val newFlagValue = !currency.isFavorite
-            currenciesRepository.setIsFavorite(currency, newFlagValue)
+            currenciesRepository.setIsFavoriteCurrency(currency, newFlagValue)
             localChanges.favoriteFlags[currency.code] = newFlagValue
             localChangesFlow.value = OnChange(localChanges)
         }
     }
 
-    class OnChange<T>(val value: T)
+    class OnChange(val localChanges: LocalChanges)
 
     class LocalChanges {
         val favoriteFlags = mutableMapOf<String, Boolean>()

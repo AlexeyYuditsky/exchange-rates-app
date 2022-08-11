@@ -14,6 +14,7 @@ import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
+import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 
 class CurrenciesAdapter(
@@ -28,6 +29,7 @@ class CurrenciesAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = getItem(position) ?: return
+        log(currency)
         with(holder.binding) {
             currencyCodeTextView.text = currency.code
             currencyNameTextView.text = currencyCodesAndNamesMap[currency.code]

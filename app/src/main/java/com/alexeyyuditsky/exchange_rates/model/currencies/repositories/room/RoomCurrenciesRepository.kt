@@ -33,7 +33,7 @@ class RoomCurrenciesRepository @Inject constructor(
         ).flow
     }
 
-    override suspend fun setIsFavorite(currency: Currency, isFavorite: Boolean) = withContext(Dispatchers.IO) {
+    override suspend fun setIsFavoriteCurrency(currency: Currency, isFavorite: Boolean) = withContext(Dispatchers.IO) {
         val tuple = UpdateCurrencyFavoriteFlagTuple(currency.code, isFavorite)
         currenciesDao.setIsFavoriteCurrency(tuple)
     }
