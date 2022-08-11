@@ -14,7 +14,6 @@ import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
-import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 
 class CurrenciesAdapter(
@@ -29,16 +28,15 @@ class CurrenciesAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = getItem(position) ?: return
-        log(currency)
         with(holder.binding) {
-            currencyCodeTextView.text = currency.code
-            currencyNameTextView.text = currencyCodesAndNamesMap[currency.code]
-            currencyValueTextView.text = currency.valueToday
-            currencyDifferenceTextView.text = currency.valueDifference
+            codeTextView.text = currency.code
+            nameTextView.text = currencyCodesAndNamesMap[currency.code]
+            valueTextView.text = currency.valueToday
+            rateTextView.text = currency.valueDifference
 
-            setCurrencyImage(currency.code, currencyImageView)
-            setCurrencyColor(currency.valueDifference, currencyDifferenceTextView)
-            setIsFavorite(currency.isFavorite, favoriteImageView)
+            setCurrencyImage(currency.code, pictureImageView)
+            setCurrencyColor(currency.valueDifference, rateTextView)
+            setIsFavoriteCurrency(currency.isFavorite, favoriteImageView)
 
             favoriteImageView.tag = currency
         }
@@ -66,7 +64,7 @@ class CurrenciesAdapter(
             textView.setTextColor(ContextCompat.getColor(textView.context, android.R.color.tab_indicator_text))
     }
 
-    private fun setIsFavorite(isFavorite: Boolean, favoriteImageView: ImageView) {
+    private fun setIsFavoriteCurrency(isFavorite: Boolean, favoriteImageView: ImageView) {
         if (isFavorite)
             favoriteImageView.setImageResource(R.drawable.ic_favorite_red)
         else

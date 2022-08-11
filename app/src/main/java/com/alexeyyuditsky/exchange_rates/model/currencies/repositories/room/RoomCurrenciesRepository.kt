@@ -46,7 +46,7 @@ class RoomCurrenciesRepository @Inject constructor(
         }
 
     private companion object {
-        const val PAGE_SIZE = 40
+        const val PAGE_SIZE = 30
     }
 
 }
