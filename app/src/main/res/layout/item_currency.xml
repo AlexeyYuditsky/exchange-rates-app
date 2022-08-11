@@ -37,7 +37,7 @@
         android:layout_height="30dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:padding="6dp"
-        android:src="@drawable/ic_favorite_black"
+        android:src="@drawable/ic_favorite_grey"
         app:layout_constraintBottom_toBottomOf="@id/currencyCodeTextView"
         app:layout_constraintStart_toEndOf="@id/currencyCodeTextView"
         app:layout_constraintTop_toTopOf="@id/currencyCodeTextView"

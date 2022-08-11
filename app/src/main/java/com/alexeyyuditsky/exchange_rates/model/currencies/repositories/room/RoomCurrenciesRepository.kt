@@ -7,9 +7,7 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.CurrenciesPageLoader
 import com.alexeyyuditsky.exchange_rates.model.currencies.CurrenciesPagingSource
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
-import com.alexeyyuditsky.exchange_rates.utils.log
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -28,7 +26,7 @@ class RoomCurrenciesRepository @Inject constructor(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false,
-                prefetchDistance = PAGE_SIZE / 3,
+                prefetchDistance = PAGE_SIZE / 2,
                 initialLoadSize = PAGE_SIZE
             ),
             pagingSourceFactory = { CurrenciesPagingSource(loader) }
@@ -36,26 +34,19 @@ class RoomCurrenciesRepository @Inject constructor(
     }
 
     override suspend fun setIsFavorite(currency: Currency, isFavorite: Boolean) = withContext(Dispatchers.IO) {
-        delay(1000)
-
         val tuple = UpdateCurrencyFavoriteFlagTuple(currency.code, isFavorite)
-        currenciesDao.setIsFavorite(tuple)
+        currenciesDao.setIsFavoriteCurrency(tuple)
     }
 
     private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: List<String>): List<Currency> =
         withContext(Dispatchers.IO) {
-            // calculate offset value required by DAO
             val offset = pageIndex * pageSize
-
-            // get page
             val currencies = currenciesDao.getCurrencies(pageSize, offset, searchBy)
-
-            // map CurrencyDbEntity to UICurrency
-            return@withContext currencies.map(CurrencyDbEntity::toCurrency)
+            return@withContext currencies.map { it.toCurrency() }
         }
 
     private companion object {
-        const val PAGE_SIZE = 30
+        const val PAGE_SIZE = 40
     }
 
 }

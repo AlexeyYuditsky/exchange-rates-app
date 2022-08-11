@@ -16,10 +16,10 @@ interface CurrenciesDao {
     suspend fun insertCryptocurrencies(cryptocurrenciesList: List<CurrencyDbEntity>)*/
 
     @Update(entity = CurrencyDbEntity::class)
-    suspend fun setIsFavorite(tuple: UpdateCurrencyFavoriteFlagTuple)
+    suspend fun setIsFavoriteCurrency(tuple: UpdateCurrencyFavoriteFlagTuple)
 
-    @Query("select count(*) from currencies")
-    suspend fun countRows(): Int
+    @Query("select count(*) = 0 from currencies")
+    suspend fun currenciesTableIsEmpty(): Boolean
 
     @Update(entity = CurrencyDbEntity::class)
     suspend fun updateCurrencies(tuple: List<UpdateCurrencyValueTuple>)

@@ -27,14 +27,14 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
         try {
-            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
-            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
+            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate()).currencies
+            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
         } catch (e: HttpException) {
             currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
             currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
         }
 
-        if (currenciesDao.countRows() == 0)
+        if (currenciesDao.currenciesTableIsEmpty())
             insertCurrenciesIntoDatabase()
         else
             updateCurrenciesIntoDatabase()

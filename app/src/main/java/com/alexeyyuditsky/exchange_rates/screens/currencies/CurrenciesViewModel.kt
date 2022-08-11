@@ -6,6 +6,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
@@ -15,9 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,6 +26,9 @@ import javax.inject.Inject
 class CurrenciesViewModel @Inject constructor(
     private val currenciesRepository: CurrenciesRepository
 ) : ViewModel(), CurrenciesAdapter.Listener {
+
+    private val localChanges = LocalChanges()
+    private val localChangesFlow = MutableStateFlow(OnChange(localChanges))
 
     val currenciesFlow: Flow<PagingData<Currency>>
     private val searchBy = MutableLiveData(currencyCodesList)
@@ -39,12 +41,27 @@ class CurrenciesViewModel @Inject constructor(
             refresh()
         }
 
-        currenciesFlow = searchBy.asFlow()
-            .debounce(100)
-            .flatMapLatest {
-                currenciesRepository.getPagedCurrencies(it)
-            }
+        val originCurrenciesFlow = searchBy.asFlow()
+            .debounce(300)
+            .flatMapLatest { currenciesRepository.getPagedCurrencies(it) }
             .cachedIn(viewModelScope)
+
+        currenciesFlow = combine(
+            originCurrenciesFlow,
+            localChangesFlow.debounce(50),
+            this::merge
+        )
+    }
+
+    private fun merge(currencies: PagingData<Currency>, localChanges: OnChange<LocalChanges>): PagingData<Currency> {
+        return currencies.map { currency ->
+            val localFavoriteFlag = localChanges.value.favoriteFlags[currency.code]
+
+            return@map if (localFavoriteFlag == null)
+                currency
+            else
+                currency.copy(isFavorite = localFavoriteFlag)
+        }
     }
 
     private fun refresh() {
@@ -60,7 +77,15 @@ class CurrenciesViewModel @Inject constructor(
         viewModelScope.launch {
             val newFlagValue = !currency.isFavorite
             currenciesRepository.setIsFavorite(currency, newFlagValue)
+            localChanges.favoriteFlags[currency.code] = newFlagValue
+            localChangesFlow.value = OnChange(localChanges)
         }
+    }
+
+    class OnChange<T>(val value: T)
+
+    class LocalChanges {
+        val favoriteFlags = mutableMapOf<String, Boolean>()
     }
 
 }

@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/favorite_currencies"
-        android:icon="@drawable/ic_favorite_black"
+        android:icon="@drawable/ic_favorite_grey"
         android:title="@string/favorite_currencies" />
 
     <item

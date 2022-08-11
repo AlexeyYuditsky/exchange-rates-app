@@ -14,7 +14,6 @@ import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
-import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 
 class CurrenciesAdapter(
@@ -22,21 +21,22 @@ class CurrenciesAdapter(
 ) : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()), View.OnClickListener {
 
     override fun onClick(v: View) {
-        listener.onToggleFavoriteFlag(v.tag as Currency)
-        (v as ImageView).setImageResource(R.drawable.ic_favorite_red)
+        val currency = v.tag as Currency
+        if (v.id == R.id.favoriteImageView)
+            listener.onToggleFavoriteFlag(currency)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = getItem(position) ?: return
         with(holder.binding) {
-           // log("${currency.code} ${currency.isFavorite}")
-            setCurrencyImage(currency.code, currencyImageView)
             currencyCodeTextView.text = currency.code
             currencyNameTextView.text = currencyCodesAndNamesMap[currency.code]
             currencyValueTextView.text = currency.valueToday
             currencyDifferenceTextView.text = currency.valueDifference
+
+            setCurrencyImage(currency.code, currencyImageView)
             setCurrencyColor(currency.valueDifference, currencyDifferenceTextView)
-            setIsFavorite(favoriteImageView, currency.isFavorite)
+            setIsFavorite(currency.isFavorite, favoriteImageView)
 
             favoriteImageView.tag = currency
         }
@@ -56,20 +56,19 @@ class CurrenciesAdapter(
     }
 
     private fun setCurrencyColor(value: String, textView: TextView) {
-        if (value.toFloat() > 0f) textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green))
-        else if (value.toFloat() < 0f) textView.setTextColor(ContextCompat.getColor(textView.context, R.color.red))
-        else textView.setTextColor(ContextCompat.getColor(textView.context, android.R.color.tab_indicator_text))
+        if (value.toFloat() > 0f)
+            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green))
+        else if (value.toFloat() < 0f)
+            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.red))
+        else
+            textView.setTextColor(ContextCompat.getColor(textView.context, android.R.color.tab_indicator_text))
     }
 
-    private fun setIsFavorite(favoriteImageView: ImageView, isFavorite: Boolean) {
-        val context = favoriteImageView.context
-        if (isFavorite) {
+    private fun setIsFavorite(isFavorite: Boolean, favoriteImageView: ImageView) {
+        if (isFavorite)
             favoriteImageView.setImageResource(R.drawable.ic_favorite_red)
-            // favoriteImageView.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.active))
-        } else {
-            favoriteImageView.setImageResource(R.drawable.ic_favorite_black)
-            // favoriteImageView.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.inactive))
-        }
+        else
+            favoriteImageView.setImageResource(R.drawable.ic_favorite_grey)
     }
 
     class Holder(val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root)
