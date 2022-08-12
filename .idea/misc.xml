@@ -19,6 +19,8 @@
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/drawable/ic_favorite.xml" value="0.1675" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/drawable/ic_favorite_black.xml" value="0.1695" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/drawable/ic_favorite_grey.xml" value="0.1695" />
+        <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/drawable/ic_favorite_outline.xml" value="0.1695" />
+        <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/drawable/ic_favorite_red.xml" value="0.1695" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/drawable/ic_splash.xml" value="0.2425" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/drawable/ic_temp.xml" value="0.153" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/activity_main.xml" value="0.2574074074074074" />
@@ -30,11 +32,13 @@
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/fragment_converter.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/fragment_cryptocurrencies.xml" value="0.2" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/fragment_currencies.xml" value="0.2351851851851852" />
+        <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/fragment_favorite.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/fragment_favorite_currencies.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/item_currency.xml" value="0.33" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/item_shimmer_currency.xml" value="0.3776041666666667" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/search_textinput_layout.xml" value="0.3776041666666667" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/shimmer_currency_layout.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/shimmer_item_currency.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/layout/shimmer_placeholder_layout.xml" value="0.2074074074074074" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/app/src/main/res/menu/tabs_menu.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/1/Desktop/exchange-rates/test/src/main/res/layout/activity_main.xml" value="0.3728205128205128" />

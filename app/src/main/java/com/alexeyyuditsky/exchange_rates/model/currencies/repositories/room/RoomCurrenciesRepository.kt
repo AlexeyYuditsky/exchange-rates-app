@@ -9,6 +9,7 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,6 +39,10 @@ class RoomCurrenciesRepository @Inject constructor(
         currenciesDao.setIsFavoriteCurrency(tuple)
     }
 
+    override fun getFavoriteCurrencies(): Flow<List<Currency>> {
+        return currenciesDao.getFavoriteCurrencies().flowOn(Dispatchers.IO)
+    }
+
     private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: List<String>): List<Currency> =
         withContext(Dispatchers.IO) {
             val offset = pageIndex * pageSize
@@ -46,7 +51,7 @@ class RoomCurrenciesRepository @Inject constructor(
         }
 
     private companion object {
-        const val PAGE_SIZE = 30
+        const val PAGE_SIZE = 40
     }
 
 }

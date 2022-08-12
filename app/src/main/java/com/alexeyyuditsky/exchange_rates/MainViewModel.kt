@@ -22,13 +22,10 @@ class MainViewModel @Inject constructor(
     val isLoading = _isLoading.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            loadLanguage(context)
-            loadImages(context)
-        }
+        viewModelScope.launch { loadImages(context) }
 
         viewModelScope.launch {
-            isUpdated = currenciesSource.getCurrenciesFromNetwork()
+            isUpdated = /*currenciesSource.getCurrenciesFromNetwork()*/ true
             _isLoading.value = false
         }
     }

@@ -11,7 +11,9 @@ import com.alexeyyuditsky.exchange_rates.adapters.CurrenciesAdapter
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesList
+import com.alexeyyuditsky.exchange_rates.utils.deleteCodesMap
 import com.alexeyyuditsky.exchange_rates.utils.isUpdated
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -34,7 +36,7 @@ class CurrenciesViewModel @Inject constructor(
     private val searchBy = MutableLiveData(currencyCodesList)
 
     init {
-        // пытаемся получить список валют когда данные по сети будут получены
+        // пытаемся получить список валют, но получим его, когда данные по сети будут получены и обработаны
         viewModelScope.launch {
             while (!isUpdated) {
                 delay(100)
@@ -44,25 +46,37 @@ class CurrenciesViewModel @Inject constructor(
 
         val originCurrenciesFlow = searchBy.asFlow()
             .debounce(300)
-            .flatMapLatest { currenciesRepository.getPagedCurrencies(it) }
+            .flatMapLatest {
+                currenciesRepository.getPagedCurrencies(it)
+            }
             .cachedIn(viewModelScope)
 
         currenciesFlow = combine(
             originCurrenciesFlow,
-            localChangesFlow.debounce(50),
+            localChangesFlow,
             this::merge
         )
     }
 
     private fun merge(currencies: PagingData<Currency>, onChange: OnChange): PagingData<Currency> {
-        return currencies.map { currency ->
-            val localFavoriteFlag = onChange.localChanges.favoriteFlags[currency.code]
+        val res = currencies.map { currency ->
+            if (deleteCodesMap[currency.code] == onChange.localChanges.favoriteFlags[currency.code]) {
+                return@map currency.copy(isFavorite = false)
+            } else {
+                val localFavoriteFlag = onChange.localChanges.favoriteFlags[currency.code]
+                if (currency.code == "AED") {
+                    log("merge $currency")
+                    log("localFavoriteFlag = $localFavoriteFlag")
+                }
 
-            return@map if (localFavoriteFlag == null)
-                currency
-            else
-                currency.copy(isFavorite = localFavoriteFlag)
+                return@map if (localFavoriteFlag == null) {
+                    currency
+                } else {
+                    currency.copy(isFavorite = localFavoriteFlag)
+                }
+            }
         }
+        return res
     }
 
     private fun refresh() {

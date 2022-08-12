@@ -11,7 +11,7 @@ data class CurrencyDbEntity(
     @PrimaryKey @ColumnInfo(collate = ColumnInfo.NOCASE) val code: String,
     val valueToday: String,
     val valueDifference: String,
-    val isFavorite: Boolean
+    val isFavorite: Boolean = false
 ) {
 
     fun toCurrency(): Currency = Currency(

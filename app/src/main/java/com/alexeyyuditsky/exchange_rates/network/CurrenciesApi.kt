@@ -5,10 +5,7 @@ import retrofit2.http.Path
 
 interface CurrenciesApi {
 
-    @GET("{date}/currencies/usd.min.json")
+    @GET("{date}/currencies/usd.json")
     suspend fun getCurrencies(@Path("date") date: String): ConvertedRoot
-
-    @GET("latest/currencies.min.json")
-    suspend fun getCurrencyNames(): List<String>
 
 }

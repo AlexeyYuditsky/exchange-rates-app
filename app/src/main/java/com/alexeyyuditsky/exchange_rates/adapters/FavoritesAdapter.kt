@@ -7,20 +7,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
+import com.alexeyyuditsky.exchange_rates.screens.favorite_currencies.FavoritesDiffCallback
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
-import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 
-class CurrenciesAdapter(
+class FavoritesAdapter(
     private val listener: Listener
-) : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()), View.OnClickListener {
+) : RecyclerView.Adapter<FavoritesAdapter.Holder>(), View.OnClickListener {
+
+    private var currencies: List<Currency> = emptyList()
 
     override fun onClick(v: View) {
         val currency = v.tag as Currency
@@ -29,8 +30,7 @@ class CurrenciesAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val currency = getItem(position) ?: return
-        if (currency.code == "AED") log("adapter AED = ${currency.isFavorite}")
+        val currency = currencies[position]
         val context = holder.itemView.context
         with(holder.binding) {
             codeTextView.text = currency.code
@@ -52,6 +52,8 @@ class CurrenciesAdapter(
         binding.favoriteImageView.setOnClickListener(this)
         return Holder(binding)
     }
+
+    override fun getItemCount(): Int = currencies.size
 
     private fun setCurrencyImage(code: String, currencyImageView: ImageView) {
         Glide.with(currencyImageView.context)
@@ -82,15 +84,16 @@ class CurrenciesAdapter(
         }
     }
 
+    fun renderSettings(currencies: List<Currency>) {
+        val diffResult = DiffUtil.calculateDiff(FavoritesDiffCallback(this.currencies, currencies))
+        this.currencies = currencies
+        diffResult.dispatchUpdatesTo(this)
+    }
+
     class Holder(val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root)
 
     interface Listener {
         fun onToggleFavoriteFlag(currency: Currency)
     }
 
-}
-
-class CurrenciesDiffCallback : DiffUtil.ItemCallback<Currency>() {
-    override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean = oldItem.code == newItem.code
-    override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean = oldItem == newItem
 }

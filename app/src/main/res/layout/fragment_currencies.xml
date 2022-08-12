@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/search_textInput"
-        layout="@layout/search_textinput_layout"
+        layout="@layout/search_text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

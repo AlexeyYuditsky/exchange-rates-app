@@ -41,7 +41,7 @@
         app:layout_constraintStart_toEndOf="@id/codeTextView"
         app:layout_constraintTop_toTopOf="@id/codeTextView"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_favorite_grey" />
+        tools:src="@drawable/ic_favorite_outline" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toStartOf="@+id/rateTextView"
         app:layout_constraintStart_toEndOf="@+id/pictureImageView"
         app:layout_constraintTop_toTopOf="@+id/rateTextView"
-        tools:text="US Dollar" />
+        tools:text="1 US Dollar" />
 
     <TextView
         android:id="@+id/valueTextView"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:text="59.3749" />
+        tools:text="59.3749 ₽" />
 
     <TextView
         android:id="@+id/rateTextView"

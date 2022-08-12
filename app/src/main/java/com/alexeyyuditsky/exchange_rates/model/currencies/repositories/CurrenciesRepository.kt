@@ -10,4 +10,6 @@ interface CurrenciesRepository {
 
     suspend fun setIsFavoriteCurrency(currency: Currency, isFavorite: Boolean)
 
+    fun getFavoriteCurrencies(): Flow<List<Currency>>
+
 }

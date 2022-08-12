@@ -63,8 +63,7 @@ class RetrofitCurrenciesSource @Inject constructor(
             val currencyDbEntity = CurrencyDbEntity(
                 code = currency.name,
                 valueToday = currency.value,
-                valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value),
-                isFavorite = false
+                valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value)
             )
             if (!currency.isCryptocurrency) currencyList.add(currencyDbEntity)
         }
