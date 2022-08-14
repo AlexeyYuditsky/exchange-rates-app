@@ -12,21 +12,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
-import com.alexeyyuditsky.exchange_rates.screens.favorite_currencies.FavoritesDiffCallback
+import com.alexeyyuditsky.exchange_rates.screens.FavoriteListener
+import com.alexeyyuditsky.exchange_rates.screens.favorite.FavoritesDiffCallback
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
 import com.bumptech.glide.Glide
 
 class FavoritesAdapter(
-    private val listener: Listener
+    private val favoriteListener: FavoriteListener
 ) : RecyclerView.Adapter<FavoritesAdapter.Holder>(), View.OnClickListener {
 
     private var currencies: List<Currency> = emptyList()
 
     override fun onClick(v: View) {
         val currency = v.tag as Currency
-        if (v.id == R.id.favoriteImageView)
-            listener.onToggleFavoriteFlag(currency)
+        if (v.id == R.id.favoriteImageView) {
+            favoriteListener.onToggleFavoriteFlag(currency)
+        }
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -62,12 +64,13 @@ class FavoritesAdapter(
     }
 
     private fun setCurrencyColor(value: String, textView: TextView) {
-        if (value.toFloat() > 0f)
+        if (value.toFloat() > 0f) {
             textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green))
-        else if (value.toFloat() < 0f)
+        } else if (value.toFloat() < 0f) {
             textView.setTextColor(ContextCompat.getColor(textView.context, R.color.red))
-        else
+        } else {
             textView.setTextColor(ContextCompat.getColor(textView.context, android.R.color.tab_indicator_text))
+        }
     }
 
     private fun setIsFavoriteCurrency(isFavorite: Boolean, favoriteImageView: ImageView) {
@@ -91,9 +94,5 @@ class FavoritesAdapter(
     }
 
     class Holder(val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root)
-
-    interface Listener {
-        fun onToggleFavoriteFlag(currency: Currency)
-    }
 
 }

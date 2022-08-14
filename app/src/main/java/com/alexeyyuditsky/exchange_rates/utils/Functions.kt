@@ -41,5 +41,3 @@ fun getLatestDate(amount: Int = 0): String {
 fun <T> log(message: T) {
     Log.d("MyLog", message.toString())
 }
-
-val deleteCodesMap = mutableMapOf<String, Boolean>()

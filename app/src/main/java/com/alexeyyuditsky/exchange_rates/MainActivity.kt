@@ -7,6 +7,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.alexeyyuditsky.exchange_rates.databinding.ActivityMainBinding
+import com.alexeyyuditsky.exchange_rates.utils.loadImages
 import com.alexeyyuditsky.exchange_rates.utils.loadLanguage
 import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loadLanguage(this)
+        loadImages(this)
         installSplashScreen().apply { setKeepOnScreenCondition { viewModel.isLoading.value } }
         setContentView(binding.root)
 

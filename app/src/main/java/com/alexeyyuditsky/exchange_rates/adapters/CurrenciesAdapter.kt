@@ -8,29 +8,29 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
+import com.alexeyyuditsky.exchange_rates.screens.FavoriteListener
+import com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesDiffCallback
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
-import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 
 class CurrenciesAdapter(
-    private val listener: Listener
+    private val favoriteListener: FavoriteListener
 ) : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()), View.OnClickListener {
 
     override fun onClick(v: View) {
         val currency = v.tag as Currency
-        if (v.id == R.id.favoriteImageView)
-            listener.onToggleFavoriteFlag(currency)
+        if (v.id == R.id.favoriteImageView) {
+            favoriteListener.onToggleFavoriteFlag(currency)
+        }
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = getItem(position) ?: return
-        if (currency.code == "AED") log("adapter AED = ${currency.isFavorite}")
         val context = holder.itemView.context
         with(holder.binding) {
             codeTextView.text = currency.code
@@ -60,12 +60,13 @@ class CurrenciesAdapter(
     }
 
     private fun setCurrencyColor(value: String, textView: TextView) {
-        if (value.toFloat() > 0f)
+        if (value.toFloat() > 0f) {
             textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green))
-        else if (value.toFloat() < 0f)
+        } else if (value.toFloat() < 0f) {
             textView.setTextColor(ContextCompat.getColor(textView.context, R.color.red))
-        else
+        } else {
             textView.setTextColor(ContextCompat.getColor(textView.context, android.R.color.tab_indicator_text))
+        }
     }
 
     private fun setIsFavoriteCurrency(isFavorite: Boolean, favoriteImageView: ImageView) {
@@ -84,13 +85,4 @@ class CurrenciesAdapter(
 
     class Holder(val binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(binding.root)
 
-    interface Listener {
-        fun onToggleFavoriteFlag(currency: Currency)
-    }
-
-}
-
-class CurrenciesDiffCallback : DiffUtil.ItemCallback<Currency>() {
-    override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean = oldItem.code == newItem.code
-    override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean = oldItem == newItem
 }

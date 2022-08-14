@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.exchange_rates.screens.favorite_currencies
+package com.alexeyyuditsky.exchange_rates.screens.favorite
 
 import android.os.Bundle
 import android.view.View
@@ -11,12 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.FavoritesAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentFavoriteBinding
-import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @FlowPreview

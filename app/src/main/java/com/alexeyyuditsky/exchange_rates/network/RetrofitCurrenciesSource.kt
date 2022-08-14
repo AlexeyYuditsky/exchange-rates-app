@@ -34,10 +34,11 @@ class RetrofitCurrenciesSource @Inject constructor(
             currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
         }
 
-        if (currenciesDao.currenciesTableIsEmpty())
+        if (currenciesDao.currenciesTableIsEmpty()) {
             insertCurrenciesIntoDatabase()
-        else
+        } else {
             updateCurrenciesIntoDatabase()
+        }
 
         return@withContext true
     }
@@ -63,7 +64,8 @@ class RetrofitCurrenciesSource @Inject constructor(
             val currencyDbEntity = CurrencyDbEntity(
                 code = currency.name,
                 valueToday = currency.value,
-                valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value)
+                valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value),
+                isFavorite = currency.name == "USD" || currency.name == "EUR" || currency.name == "GBP"
             )
             if (!currency.isCryptocurrency) currencyList.add(currencyDbEntity)
         }

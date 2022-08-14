@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.exchange_rates.screens.favorite_currencies
+package com.alexeyyuditsky.exchange_rates.screens.favorite
 
 import androidx.recyclerview.widget.DiffUtil
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
