@@ -7,10 +7,10 @@
     android:padding="12dp">
 
     <ImageView
-        android:id="@+id/pictureImageView"
+        android:id="@+id/flagImageView"
         android:layout_width="75dp"
         android:layout_height="50dp"
-        android:background="@android:color/tab_indicator_text"
+        android:background="@color/grey"
         android:padding="0.1dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@id/rateTextView"
@@ -27,7 +27,7 @@
         android:textColor="@android:color/black"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@+id/valueTextView"
-        app:layout_constraintStart_toEndOf="@+id/pictureImageView"
+        app:layout_constraintStart_toEndOf="@+id/flagImageView"
         app:layout_constraintTop_toTopOf="@+id/valueTextView"
         tools:text="USD" />
 
@@ -57,7 +57,7 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/rateTextView"
         app:layout_constraintEnd_toStartOf="@+id/rateTextView"
-        app:layout_constraintStart_toEndOf="@+id/pictureImageView"
+        app:layout_constraintStart_toEndOf="@+id/flagImageView"
         app:layout_constraintTop_toTopOf="@+id/rateTextView"
         tools:text="1 US Dollar" />
 

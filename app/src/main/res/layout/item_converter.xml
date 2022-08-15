@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/flagImageView"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:background="@color/grey"
+        android:padding="0.1dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/usd" />
+
+    <TextView
+        android:id="@+id/codeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@android:color/black"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@+id/flagImageView"
+        app:layout_constraintStart_toEndOf="@+id/flagImageView"
+        app:layout_constraintTop_toTopOf="@+id/flagImageView"
+        tools:text="USD" />
+
+    <EditText
+        android:id="@+id/valueTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:cursorVisible="false"
+        android:gravity="end|center_vertical"
+        android:hint="0"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:longClickable="false"
+        android:maxLength="10"
+        android:textColor="@drawable/edit_text_focused"
+        android:textColorHint="@drawable/edit_text_focused"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/flagImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/codeTextView"
+        app:layout_constraintTop_toTopOf="@+id/flagImageView" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valueTextView"
+        tools:text="Доллар США" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

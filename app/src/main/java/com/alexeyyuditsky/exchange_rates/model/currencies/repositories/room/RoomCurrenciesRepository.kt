@@ -43,6 +43,10 @@ class RoomCurrenciesRepository @Inject constructor(
         return currenciesDao.getFavoriteCurrencies().flowOn(Dispatchers.IO)
     }
 
+    override suspend fun getCurrencies(): List<Currency> = withContext(Dispatchers.IO) {
+        currenciesDao.getCurrencies()
+    }
+
     private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: List<String>): List<Currency> =
         withContext(Dispatchers.IO) {
             val offset = pageIndex * pageSize

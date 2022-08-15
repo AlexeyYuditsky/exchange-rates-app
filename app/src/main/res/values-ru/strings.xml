@@ -7,6 +7,8 @@
     <string name="search_by">Поиск</string>
     <string name="currency_name">1 %1$s</string>
     <string name="currency_value">%1$s ₽</string>
+    <string name="currency_name_2">%1$s</string>
+    <string name="russian_ruble">Российский рубль</string>
 
     <string-array name="currency_names_array">
         <item>AED|Дирхам ОАЭ</item>

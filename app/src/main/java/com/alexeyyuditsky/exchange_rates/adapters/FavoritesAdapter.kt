@@ -40,7 +40,7 @@ class FavoritesAdapter(
             valueTextView.text = context.getString(R.string.currency_value, currency.valueToday)
             rateTextView.text = currency.valueDifference
 
-            setCurrencyImage(currency.code, pictureImageView)
+            setCurrencyImage(currency.code, flagImageView)
             setCurrencyColor(currency.valueDifference, rateTextView)
             setIsFavoriteCurrency(currency.isFavorite, favoriteImageView)
 

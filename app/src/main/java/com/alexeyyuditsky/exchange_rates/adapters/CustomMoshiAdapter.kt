@@ -11,7 +11,7 @@ import java.util.*
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
 
-class MoshiAdapterCurrencyValues {
+class CustomMoshiAdapter {
 
     @FromJson
     fun fromJson(

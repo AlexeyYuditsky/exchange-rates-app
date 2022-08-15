@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            isUpdated = currenciesSource.getCurrenciesFromNetwork()
+            isUpdated = /*currenciesSource.getCurrenciesFromNetwork()*/ true
             _isLoading.value = false
         }
     }

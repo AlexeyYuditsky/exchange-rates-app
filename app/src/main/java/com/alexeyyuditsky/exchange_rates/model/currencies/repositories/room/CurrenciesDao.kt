@@ -26,4 +26,7 @@ interface CurrenciesDao {
     @Query("select * from currencies where isFavorite = 1")
     fun getFavoriteCurrencies(): Flow<List<Currency>>
 
+    @Query("select * from currencies")
+    fun getCurrencies(): List<Currency>
+
 }

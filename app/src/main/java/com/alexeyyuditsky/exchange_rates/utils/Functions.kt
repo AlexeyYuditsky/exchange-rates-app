@@ -22,6 +22,7 @@ fun loadLanguage(context: Context) {
         val value = it.split("|")
         currencyCodesAndNamesMap[value[0]] = value[1]
     }
+    currencyCodesAndNamesMap["RUB"] = context.getString(R.string.russian_ruble)
 }
 
 fun loadImages(context: Context) {
@@ -29,6 +30,7 @@ fun loadImages(context: Context) {
         val id = context.resources.getIdentifier(key.lowercase(), "drawable", context.packageName)
         currencyImagesMap[key] = if (id == 0) R.drawable._try else id
     }
+    currencyImagesMap["RUB"] = R.drawable.rub
 }
 
 fun getLatestDate(amount: Int = 0): String {
