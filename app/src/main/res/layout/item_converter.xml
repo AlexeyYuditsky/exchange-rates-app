@@ -30,25 +30,24 @@
         app:layout_constraintTop_toTopOf="@+id/flagImageView"
         tools:text="USD" />
 
-    <EditText
-        android:id="@+id/valueTextView"
+    <com.alexeyyuditsky.exchange_rates.screens.converter.CustomEditText
+        android:id="@+id/valueEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:cursorVisible="false"
         android:gravity="end|center_vertical"
         android:hint="0"
-        android:importantForAutofill="no"
         android:inputType="numberDecimal"
         android:longClickable="false"
         android:maxLength="10"
         android:textColor="@drawable/edit_text_focused"
         android:textColorHint="@drawable/edit_text_focused"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/flagImageView"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/codeTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/codeTextView"
-        app:layout_constraintTop_toTopOf="@+id/flagImageView" />
+        app:layout_constraintTop_toTopOf="@+id/codeTextView" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -56,7 +55,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valueTextView"
+        app:layout_constraintTop_toBottomOf="@+id/valueEditText"
         tools:text="Доллар США" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

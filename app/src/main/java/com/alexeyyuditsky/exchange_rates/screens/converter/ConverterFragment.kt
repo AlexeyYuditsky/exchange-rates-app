@@ -1,5 +1,6 @@
 package com.alexeyyuditsky.exchange_rates.screens.converter
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.ConverterAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentConverterBinding
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -36,19 +38,16 @@ class ConverterFragment : Fragment(R.layout.fragment_converter) {
 
         binding.recyclerView.adapter = adapter
         (binding.recyclerView.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                binding.recyclerView.context,
-                RecyclerView.VERTICAL
-            )
-        )
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         observeConverter(adapter)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observeConverter(adapter: ConverterAdapter) = lifecycleScope.launch {
         viewModel.converterCurrencies.observe(viewLifecycleOwner) {
             adapter.currencies = it
+            adapter.notifyDataSetChanged()
         }
     }
 

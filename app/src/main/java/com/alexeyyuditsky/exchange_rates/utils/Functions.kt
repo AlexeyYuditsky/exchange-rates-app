@@ -40,6 +40,6 @@ fun getLatestDate(amount: Int = 0): String {
     return sdf.format(cal.time)
 }
 
-fun <T> log(message: T) {
-    Log.d("MyLog", message.toString())
+fun log(message: String) {
+    Log.d("MyLog", message)
 }

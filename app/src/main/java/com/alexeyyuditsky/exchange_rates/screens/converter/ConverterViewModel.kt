@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexeyyuditsky.exchange_rates.model.currencies.ConverterCurrency
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
 import com.alexeyyuditsky.exchange_rates.screens.FavoriteListener
@@ -24,8 +25,8 @@ class ConverterViewModel @Inject constructor(
     private val currenciesRepository: CurrenciesRepository
 ) : ViewModel() {
 
-    private val _converterCurrencies = MutableLiveData<List<Currency>>()
-    val converterCurrencies = _converterCurrencies as LiveData<List<Currency>>
+    private val _converterCurrencies = MutableLiveData<List<ConverterCurrency>>()
+    val converterCurrencies = _converterCurrencies as LiveData<List<ConverterCurrency>>
 
     init {
         viewModelScope.launch {
@@ -35,11 +36,11 @@ class ConverterViewModel @Inject constructor(
         }
     }
 
-    private suspend fun formatCurrencyList(favoriteList: MutableSet<Currency>): List<Currency> {
+    private suspend fun formatCurrencyList(favoriteList: MutableSet<Currency>): List<ConverterCurrency> {
         val currencyList = currenciesRepository.getCurrencies()
         favoriteList.addAll(currencyList)
-        val finalList = favoriteList.toMutableList()
-        finalList.add(0, Currency(code = "RUB", "0", "0", false))
+        val finalList = favoriteList.map { it.toConverterCurrency() }.toMutableList()
+        finalList.add(0, ConverterCurrency(code = "RUB", "62.1613"))
 
         return finalList.toList()
     }
