@@ -32,9 +32,7 @@ class CustomMoshiAdapter {
 
         return declaredMemberProperties
             // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
-            .filter {
-                it.name != "rub" && it.call(currencies) != null
-            }
+            .filter { it.name != "rub" && it.call(currencies) != null }
             .map {
                 CurrencyNetworkEntity(
                     name = it.name.uppercase(),
