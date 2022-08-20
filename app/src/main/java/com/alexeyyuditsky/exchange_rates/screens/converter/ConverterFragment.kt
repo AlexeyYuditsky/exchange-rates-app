@@ -47,7 +47,6 @@ class ConverterFragment : Fragment(R.layout.fragment_converter) {
     private fun observeConverter(adapter: ConverterAdapter) = lifecycleScope.launch {
         viewModel.converterCurrencies.observe(viewLifecycleOwner) {
             adapter.currencies = it
-            adapter.notifyDataSetChanged()
         }
     }
 

@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/flagImageView"
         tools:text="USD" />
 
-    <com.alexeyyuditsky.exchange_rates.screens.converter.CustomEditText
+    <EditText
         android:id="@+id/valueEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
