@@ -1,8 +1,12 @@
 package com.alexeyyuditsky.exchange_rates.screens.converter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.ConverterAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentConverterBinding
-import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -41,6 +44,16 @@ class ConverterFragment : Fragment(R.layout.fragment_converter) {
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         observeConverter(adapter)
+        observeRecyclerView()
+    }
+
+    private fun observeRecyclerView() = binding.recyclerView.setOnScrollChangeListener { _, _, _, _, oldScrollY ->
+        if (oldScrollY != 0) hideKeyboard()
+    }
+
+    private fun hideKeyboard() {
+        (requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(binding.recyclerView.windowToken, 0)
     }
 
     @SuppressLint("NotifyDataSetChanged")

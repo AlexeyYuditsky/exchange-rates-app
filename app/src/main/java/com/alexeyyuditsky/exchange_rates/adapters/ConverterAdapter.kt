@@ -1,7 +1,9 @@
 package com.alexeyyuditsky.exchange_rates.adapters
 
+import android.annotation.SuppressLint
 import android.text.Editable
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
@@ -18,7 +20,6 @@ import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.util.*
 
 class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
 
@@ -29,6 +30,8 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
             diffResult.dispatchUpdatesTo(this)
         }
 
+    private lateinit var previousEditText: EditText
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = currencies[position]
         val context = holder.itemView.context
@@ -36,7 +39,7 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
             setCurrencyImage(currency.code, flagImageView)
             codeTextView.text = currency.code
             nameTextView.text = context.getString(R.string.currency_name_2, currencyCodesAndNamesMap[currency.code])
-            valueEditText.hint = if (currency.valueShow.toFloat() == 0f) "0" else currency.valueShow
+            valueEditText.hint = if (currency.valueShow == "0") "0" else currency.valueShow
         }
     }
 
@@ -44,7 +47,8 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemConverterBinding.inflate(inflater, parent, false)
         addTextChangeListener(binding.valueEditText, binding.codeTextView)
-        addFocusChangeListener(binding.valueEditText)
+        addTouchListener(binding.valueEditText)
+        addKeyListener(binding.valueEditText)
         return Holder(binding)
     }
 
@@ -56,40 +60,53 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
             .into(currencyImageView)
     }
 
-    private fun addTextChangeListener(valueShowEditText: EditText, codeTextView: TextView) =
-        valueShowEditText.addTextChangedListener { text ->
+    private fun addKeyListener(valueEditText: EditText) {
+        valueEditText.setOnKeyListener { _, _, _ ->
+            valueEditText.setSelection(valueEditText.text.length)
+            return@setOnKeyListener false
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun addTouchListener(valueEditText: EditText) {
+        valueEditText.setOnTouchListener { v, event ->
+            if (v is EditText && !v.isFocused && v.hint != "0" && event.action == MotionEvent.ACTION_UP) {
+                previousEditText.text.clear()
+            }
+            return@setOnTouchListener false
+        }
+    }
+
+    private fun addTextChangeListener(valueEditText: EditText, codeTextView: TextView) =
+        valueEditText.addTextChangedListener { text ->
+            previousEditText = valueEditText
+
             if (text!!.startsWith('.')) {
-                //log("startsWith .")
                 text.replace(0, 0, "0.")
                 return@addTextChangedListener
             }
 
             if (text.startsWith("0") && text.length == 1) {
-                //log("startsWith 0 && text.length == 1")
                 text.clear()
                 return@addTextChangedListener
             }
 
-            if (text.endsWith('.')) {
-                //log("endsWith .")
-                return@addTextChangedListener
-            }
+            if (text.endsWith('.')) return@addTextChangedListener
 
             if (text.isBlank()) {
-                //log("isBlank")
                 currencies = currencies.map { it.copy(valueShow = "0") }
                 return@addTextChangedListener
             }
 
             val currency = currencies.first { codeTextView.text == it.code }
             updateCurrencies(currency, text)
+            //valueEditText.text.clear()
             return@addTextChangedListener
         }
 
     private fun updateCurrencies(currency: ConverterCurrency, text: Editable) {
-        //log("updateCurrencies")
         currencies = currencies.map {
-            if (it.code == currency.code) return@map it
+            if (it.code == currency.code) return@map it.copy(valueShow = text.toString())
             if (it.code == "RUB") return@map it.copy(
                 valueShow = (currency.valueToday.toFloat() * text.toString().toFloat()).toBigDecimal().toString()
             )
@@ -104,14 +121,6 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
     }
 
     private fun Float.toBigDecimal(): BigDecimal = BigDecimal(this.toString()).setScale(4, RoundingMode.HALF_UP)
-
-    private fun addFocusChangeListener(valueShowEditText: EditText) =
-        valueShowEditText.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus && (v as EditText).text.isNotBlank()) {
-                //log("focusChangeListener")
-                valueShowEditText.text.clear()
-            }
-        }
 
     class Holder(val binding: ItemConverterBinding) : RecyclerView.ViewHolder(binding.root)
 
