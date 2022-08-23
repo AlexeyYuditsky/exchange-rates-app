@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -77,7 +79,7 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
         }
     }
 
-    private fun addTextChangeListener(valueEditText: EditText, codeTextView: TextView) =
+    private fun addTextChangeListener(valueEditText: EditText, codeTextView: TextView) {
         valueEditText.addTextChangedListener { text ->
             previousEditText = valueEditText
 
@@ -100,9 +102,9 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
 
             val currency = currencies.first { codeTextView.text == it.code }
             updateCurrencies(currency, text)
-            //valueEditText.text.clear()
             return@addTextChangedListener
         }
+    }
 
     private fun updateCurrencies(currency: ConverterCurrency, text: Editable) {
         currencies = currencies.map {
@@ -120,7 +122,7 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
         }
     }
 
-    private fun Float.toBigDecimal(): BigDecimal = BigDecimal(this.toString()).setScale(4, RoundingMode.HALF_UP)
+    private fun Float.toBigDecimal(): BigDecimal = BigDecimal(toString()).setScale(2, RoundingMode.HALF_UP)
 
     class Holder(val binding: ItemConverterBinding) : RecyclerView.ViewHolder(binding.root)
 
