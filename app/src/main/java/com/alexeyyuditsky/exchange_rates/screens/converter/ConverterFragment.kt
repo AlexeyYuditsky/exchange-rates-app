@@ -1,13 +1,9 @@
 package com.alexeyyuditsky.exchange_rates.screens.converter
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -35,6 +31,7 @@ class ConverterFragment : Fragment(R.layout.fragment_converter) {
         binding = FragmentConverterBinding.bind(view)
 
         setupConverterList()
+        observeRecyclerView()
     }
 
     private fun setupConverterList() {
@@ -45,7 +42,6 @@ class ConverterFragment : Fragment(R.layout.fragment_converter) {
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         observeConverter(adapter)
-        observeRecyclerView()
     }
 
     private fun observeRecyclerView() = binding.recyclerView.setOnScrollChangeListener { _, _, _, _, oldScrollY ->
@@ -57,7 +53,6 @@ class ConverterFragment : Fragment(R.layout.fragment_converter) {
             .hideSoftInputFromWindow(binding.recyclerView.windowToken, 0)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun observeConverter(adapter: ConverterAdapter) = lifecycleScope.launch {
         viewModel.converterCurrencies.observe(viewLifecycleOwner) {
             adapter.currencies = it

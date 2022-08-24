@@ -36,12 +36,13 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = currencies[position]
-        val context = holder.itemView.context
         with(holder.binding) {
             setCurrencyImage(currency.code, flagImageView)
             codeTextView.text = currency.code
-            nameTextView.text = context.getString(R.string.currency_name_2, currencyCodesAndNamesMap[currency.code])
-            valueEditText.hint = if (currency.valueShow == "0") "0" else currency.valueShow
+            nameTextView.text =
+                holder.itemView.context.getString(R.string.currency_name_2, currencyCodesAndNamesMap[currency.code])
+            valueEditText.hint = currency.valueShow
+            setupAuxiliaryEditText(valueEditText, valueAuxiliaryEditText, currency.valueShow)
         }
     }
 
@@ -51,10 +52,34 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
         addTextChangeListener(binding.valueEditText, binding.codeTextView)
         addTouchListener(binding.valueEditText)
         addKeyListener(binding.valueEditText)
+        addAuxiliaryListener(binding.valueEditText, binding.valueAuxiliaryEditText)
         return Holder(binding)
     }
 
     override fun getItemCount(): Int = currencies.size
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun addAuxiliaryListener(valueEditText: EditText, valueAuxiliaryEditText: EditText) =
+        valueAuxiliaryEditText.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                valueEditText.text.clear()
+                valueAuxiliaryEditText.isGone = true
+                valueEditText.isVisible = true
+                valueEditText.requestFocus()
+            }
+            return@setOnTouchListener false
+        }
+
+    private fun setupAuxiliaryEditText(valueEditText: EditText, valueAuxiliaryEditText: EditText, value: String) {
+        valueAuxiliaryEditText.hint = value
+        if (valueEditText.text.isNotBlank() && !valueEditText.isFocused) {
+            valueAuxiliaryEditText.isVisible = true
+            valueEditText.isGone = true
+        } else {
+            valueAuxiliaryEditText.isGone = true
+            valueEditText.isVisible = true
+        }
+    }
 
     private fun setCurrencyImage(code: String, currencyImageView: ImageView) {
         Glide.with(currencyImageView.context)
@@ -122,9 +147,11 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
         }
     }
 
-    private fun Float.toBigDecimal(): BigDecimal = BigDecimal(toString()).setScale(2, RoundingMode.HALF_UP)
-
     class Holder(val binding: ItemConverterBinding) : RecyclerView.ViewHolder(binding.root)
+
+    private companion object {
+        fun Float.toBigDecimal(): BigDecimal = BigDecimal(toString()).setScale(2, RoundingMode.HALF_UP)
+    }
 
 }
 
