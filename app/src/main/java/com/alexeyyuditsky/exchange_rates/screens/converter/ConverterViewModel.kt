@@ -7,15 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchange_rates.model.currencies.ConverterCurrency
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
-import com.alexeyyuditsky.exchange_rates.screens.FavoriteListener
-import com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesViewModel
-import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @FlowPreview

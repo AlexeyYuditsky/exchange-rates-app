@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemConverterBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.ConverterCurrency
+import com.alexeyyuditsky.exchange_rates.screens.converter.ConverterDiffCallback
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
-import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -27,7 +27,7 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
 
     var currencies = emptyList<ConverterCurrency>()
         set(newValue) {
-            val diffResult = DiffUtil.calculateDiff(CurrencyDiffCallback(field, newValue), false)
+            val diffResult = DiffUtil.calculateDiff(ConverterDiffCallback(field, newValue), false)
             field = newValue
             diffResult.dispatchUpdatesTo(this)
         }
@@ -151,25 +151,6 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
 
     private companion object {
         fun Float.toBigDecimal(): BigDecimal = BigDecimal(toString()).setScale(2, RoundingMode.HALF_UP)
-    }
-
-}
-
-class CurrencyDiffCallback(
-    private val oldList: List<ConverterCurrency>,
-    private val newList: List<ConverterCurrency>
-) : DiffUtil.Callback() {
-
-    override fun getOldListSize(): Int = oldList.size
-
-    override fun getNewListSize(): Int = newList.size
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].code == newList[newItemPosition].code
-    }
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 
 }

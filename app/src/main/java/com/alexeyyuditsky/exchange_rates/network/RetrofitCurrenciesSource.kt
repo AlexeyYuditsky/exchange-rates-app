@@ -53,8 +53,8 @@ class RetrofitCurrenciesSource @Inject constructor(
                 valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value)
             )
             if (!currency.isCryptocurrency) currencyList.add(updateCurrencyValueTuple)
-            currenciesDao.updateCurrencies(currencyList)
         }
+        currenciesDao.updateCurrencies(currencyList)
     }
 
     override suspend fun insertCurrenciesIntoDatabase() = withContext(Dispatchers.IO) {
@@ -69,7 +69,6 @@ class RetrofitCurrenciesSource @Inject constructor(
             )
             if (!currency.isCryptocurrency) currencyList.add(currencyDbEntity)
         }
-
         currenciesDao.insertCurrencies(currencyList)
     }
 

@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchange_rates.network.CurrenciesSource
 import com.alexeyyuditsky.exchange_rates.utils.isUpdated
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -12,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    currenciesSource: CurrenciesSource,
+    currenciesSource: CurrenciesSource
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
@@ -20,8 +22,13 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            isUpdated = /*currenciesSource.getCurrenciesFromNetwork()*/ true
-            _isLoading.value = false
+            launch {
+                isUpdated = currenciesSource.getCurrenciesFromNetwork()
+            }
+            launch {
+                delay(500)
+                _isLoading.value = false
+            }
         }
     }
 

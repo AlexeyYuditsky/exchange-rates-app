@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.databinding.ItemCurrencyBinding
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
-import com.alexeyyuditsky.exchange_rates.screens.FavoriteListener
+import com.alexeyyuditsky.exchange_rates.screens.favorite.FavoriteListener
 import com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesDiffCallback
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap

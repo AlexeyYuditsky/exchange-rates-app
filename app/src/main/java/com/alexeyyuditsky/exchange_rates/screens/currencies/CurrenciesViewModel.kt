@@ -9,7 +9,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
 import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.CurrenciesRepository
-import com.alexeyyuditsky.exchange_rates.screens.FavoriteListener
+import com.alexeyyuditsky.exchange_rates.screens.favorite.FavoriteListener
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesList
 import com.alexeyyuditsky.exchange_rates.utils.isUpdated
 import dagger.hilt.android.lifecycle.HiltViewModel

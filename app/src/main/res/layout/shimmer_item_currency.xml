@@ -4,39 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:background="@color/grey">
+    android:padding="12dp">
 
-    <TextView
-        android:id="@+id/currencyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+    <ImageView
+        android:id="@+id/flagImageView"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@id/rateTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Rub: " />
+        app:layout_constraintTop_toTopOf="@id/valueTextView"
+        tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/currencyValue"
-        android:layout_width="wrap_content"
+        android:id="@+id/codeTextView"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/currencyName"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="55.50334" />
+        android:layout_marginStart="12dp"
+        android:background="@color/grey"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@+id/valueTextView"
+        app:layout_constraintStart_toEndOf="@+id/flagImageView"
+        app:layout_constraintTop_toTopOf="@+id/valueTextView"
+        tools:text="USD" />
+
+    <ImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@id/codeTextView"
+        app:layout_constraintStart_toEndOf="@id/codeTextView"
+        app:layout_constraintTop_toTopOf="@id/codeTextView"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_favorite_outline" />
 
     <TextView
-        android:id="@+id/differenceValue"
+        android:id="@+id/nameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:gravity="end"
-        android:textColor="@color/purple_700"
-        android:textSize="20sp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rateTextView"
+        app:layout_constraintEnd_toStartOf="@+id/rateTextView"
+        app:layout_constraintStart_toEndOf="@+id/flagImageView"
+        app:layout_constraintTop_toTopOf="@+id/rateTextView"
+        tools:text="1 US Dollar" />
+
+    <TextView
+        android:id="@+id/valueTextView"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@id/rateTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/currencyValue"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="+3.4543" />
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:text="59.3749 ₽" />
+
+    <TextView
+        android:id="@+id/rateTextView"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valueTextView"
+        tools:text="-0.0315" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
