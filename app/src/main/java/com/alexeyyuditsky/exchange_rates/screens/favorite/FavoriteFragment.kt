@@ -2,6 +2,7 @@ package com.alexeyyuditsky.exchange_rates.screens.favorite
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,8 +38,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     private fun stopShimmer() {
         binding.shimmer.stopShimmer()
-        binding.shimmer.isVisible = false
-        binding.recyclerView.isVisible = true
+        binding.shimmer.isGone = true
     }
 
     private fun setupFavoritesList() {
@@ -49,6 +49,11 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         observeFavorites(adapter)
+    }
+
+    override fun onPause() {
+        stopShimmer()
+        super.onPause()
     }
 
     private fun observeFavorites(adapter: FavoritesAdapter) = lifecycleScope.launch {

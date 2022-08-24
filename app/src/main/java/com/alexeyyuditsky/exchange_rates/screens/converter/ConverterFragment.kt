@@ -4,6 +4,7 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.exchange_rates.R
 import com.alexeyyuditsky.exchange_rates.adapters.ConverterAdapter
 import com.alexeyyuditsky.exchange_rates.databinding.FragmentConverterBinding
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @FlowPreview
@@ -53,8 +56,20 @@ class ConverterFragment : Fragment(R.layout.fragment_converter) {
             .hideSoftInputFromWindow(binding.recyclerView.windowToken, 0)
     }
 
+    override fun onPause() {
+        stopShimmer()
+        super.onPause()
+    }
+
+    private fun stopShimmer() {
+        binding.shimmer.stopShimmer()
+        binding.shimmer.isGone = true
+        binding.recyclerView.isGone = false
+    }
+
     private fun observeConverter(adapter: ConverterAdapter) = lifecycleScope.launch {
-        viewModel.converterCurrencies.observe(viewLifecycleOwner) {
+        viewModel.converterCurrencies.collectLatest {
+            if (it.size > 1) stopShimmer()
             adapter.currencies = it
         }
     }

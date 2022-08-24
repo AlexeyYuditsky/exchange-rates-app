@@ -1,7 +1,5 @@
 package com.alexeyyuditsky.exchange_rates.screens.converter
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchange_rates.model.currencies.ConverterCurrency
@@ -10,7 +8,10 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.Currencie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,13 +22,13 @@ class ConverterViewModel @Inject constructor(
     private val currenciesRepository: CurrenciesRepository
 ) : ViewModel() {
 
-    private val _converterCurrencies = MutableLiveData<List<ConverterCurrency>>()
-    val converterCurrencies = _converterCurrencies as LiveData<List<ConverterCurrency>>
+    private val _converterCurrencies = MutableSharedFlow<List<ConverterCurrency>>(1, 1)
+    val converterCurrencies = _converterCurrencies.asSharedFlow()
 
     init {
         viewModelScope.launch {
             currenciesRepository.getFavoriteCurrencies().collectLatest {
-                _converterCurrencies.value = formatCurrencyList(it.toMutableSet())
+                _converterCurrencies.emit(formatCurrencyList(it.toMutableSet()))
             }
         }
     }
@@ -36,7 +37,8 @@ class ConverterViewModel @Inject constructor(
         val currencyList = currenciesRepository.getCurrencies()
         favoriteList.addAll(currencyList)
         val finalList = favoriteList.map { it.toConverterCurrency() }.toMutableList()
-        finalList.add(0, ConverterCurrency(code = "RUB", "62.1613"))
+        // make the ruble the first currency
+        finalList.add(0, ConverterCurrency(code = "RUB"))
 
         return finalList.toList()
     }

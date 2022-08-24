@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <include layout="@layout/shimmer_item_currency" />
@@ -45,11 +45,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context=".screens.favorite.FavoriteFragment"
-        tools:itemCount="5"
+        tools:itemCount="3"
         tools:listitem="@layout/item_currency" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
