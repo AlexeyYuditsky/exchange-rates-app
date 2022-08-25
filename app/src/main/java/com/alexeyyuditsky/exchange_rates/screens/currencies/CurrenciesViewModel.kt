@@ -1,9 +1,6 @@
 package com.alexeyyuditsky.exchange_rates.screens.currencies
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
@@ -12,6 +9,7 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.Currencie
 import com.alexeyyuditsky.exchange_rates.screens.favorite.FavoriteListener
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesList
 import com.alexeyyuditsky.exchange_rates.utils.isUpdated
+import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -35,10 +33,7 @@ class CurrenciesViewModel @Inject constructor(
     init {
         // каждые 100мс пытаемся отобразим список валют когда данные по сети будут получены и обработаны
         viewModelScope.launch {
-            while (!isUpdated) {
-                delay(100)
-            }
-            refresh()
+            while (!isUpdated) delay(100); refresh()
         }
 
         val originCurrenciesFlow = searchBy.asFlow()

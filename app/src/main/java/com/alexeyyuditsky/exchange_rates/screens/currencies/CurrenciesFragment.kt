@@ -2,10 +2,14 @@ package com.alexeyyuditsky.exchange_rates.screens.currencies
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +21,6 @@ import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -31,23 +34,23 @@ class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentCurrenciesBinding.bind(view)
+        binding = FragmentCurrenciesBinding.bind(view).apply { recyclerView.scrollToPosition(0) }
 
         setupCurrenciesList()
         setupSearchInput()
     }
 
+    override fun onPause() {
+        stopShimmer()
+        super.onPause()
+    }
+
     private fun setupCurrenciesList() {
-        val adapter = CurrenciesAdapter(viewModel)
+        val adapter = CurrenciesAdapter(viewModel, ::stopShimmer)
 
         binding.recyclerView.adapter = adapter
         (binding.recyclerView.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                binding.recyclerView.context,
-                RecyclerView.VERTICAL
-            )
-        )
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireActivity(), RecyclerView.VERTICAL))
 
         observeCurrencies(adapter)
     }
@@ -56,6 +59,11 @@ class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
         viewModel.currenciesFlow.collectLatest { pagingData ->
             adapter.submitData(pagingData)
         }
+    }
+
+    private fun stopShimmer() {
+        binding.shimmer.stopShimmer()
+        binding.shimmer.isGone = true
     }
 
     private fun setupSearchInput() {

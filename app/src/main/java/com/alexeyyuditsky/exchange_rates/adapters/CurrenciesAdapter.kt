@@ -16,10 +16,12 @@ import com.alexeyyuditsky.exchange_rates.screens.favorite.FavoriteListener
 import com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesDiffCallback
 import com.alexeyyuditsky.exchange_rates.utils.currencyCodesAndNamesMap
 import com.alexeyyuditsky.exchange_rates.utils.currencyImagesMap
+import com.alexeyyuditsky.exchange_rates.utils.log
 import com.bumptech.glide.Glide
 
 class CurrenciesAdapter(
-    private val favoriteListener: FavoriteListener
+    private val favoriteListener: FavoriteListener,
+    private val stopShimmer: () -> Unit
 ) : PagingDataAdapter<Currency, CurrenciesAdapter.Holder>(CurrenciesDiffCallback()), View.OnClickListener {
 
     override fun onClick(v: View) {
@@ -31,6 +33,7 @@ class CurrenciesAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val currency = getItem(position) ?: return
+        if (position == 0) stopShimmer()
         val context = holder.itemView.context
         with(holder.binding) {
             codeTextView.text = currency.code

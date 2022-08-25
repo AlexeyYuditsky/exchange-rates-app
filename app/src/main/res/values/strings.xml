@@ -10,6 +10,7 @@
     <string name="currency_value">%1$s ₽</string>
     <string name="russian_ruble">Russian ruble</string>
     <string name="zero">0</string>
+    <string name="appear_in_the_next_update">Appear in the next update</string>
 
     <string-array name="currency_names_array">
         <item>AED|United Arab Emirates dirham</item>

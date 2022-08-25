@@ -79,13 +79,6 @@
                 android:layout_height="1dp"
                 android:background="@color/grey" />
 
-            <include layout="@layout/shimmer_item_converter" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey" />
-
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
