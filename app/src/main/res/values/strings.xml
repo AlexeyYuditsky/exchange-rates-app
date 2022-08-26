@@ -11,6 +11,11 @@
     <string name="russian_ruble">Russian ruble</string>
     <string name="zero">0</string>
     <string name="appear_in_the_next_update">Appear in the next update</string>
+    <string name="menu">Menu</string>
+    <string name="rate">Rate</string>
+    <string name="share">Share</string>
+    <string name="night_mode">Night mode</string>
+    <string name="write_vk">Write me VK</string>
 
     <string-array name="currency_names_array">
         <item>AED|United Arab Emirates dirham</item>

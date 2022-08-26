@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
                 isUpdated = currenciesSource.getCurrenciesFromNetwork()
             }
             launch {
-                delay(500)
+                //delay(500)
                 _isLoading.value = false
             }
         }
