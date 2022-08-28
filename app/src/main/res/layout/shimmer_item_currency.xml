@@ -41,7 +41,7 @@
         tools:src="@drawable/ic_favorite_outline" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/appNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"

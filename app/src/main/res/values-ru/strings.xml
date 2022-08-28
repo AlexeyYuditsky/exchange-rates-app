@@ -15,7 +15,8 @@
     <string name="rate">Оценить приложение</string>
     <string name="share">Поделиться</string>
     <string name="night_mode">Ночной режим</string>
-    <string name="write_vk">Написать мне VK</string>
+    <string name="write_vk">Написать в VK</string>
+    <string name="version">версия: %1$s</string>
 
     <string-array name="currency_names_array">
         <item>AED|Дирхам ОАЭ</item>

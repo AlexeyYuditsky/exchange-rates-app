@@ -11,4 +11,9 @@
     <color name="red">#C50000</color>
     <color name="green">#1B9700</color>
     <color name="grey">#dddddd</color>
+
+    <color name="main_background">#DDD</color>
+    <color name="line_background">#FFF</color>
+    <color name="text">#000</color>
+
 </resources>

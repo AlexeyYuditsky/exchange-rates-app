@@ -15,7 +15,8 @@
     <string name="rate">Rate</string>
     <string name="share">Share</string>
     <string name="night_mode">Night mode</string>
-    <string name="write_vk">Write me VK</string>
+    <string name="write_vk">Write to VK</string>
+    <string name="version">version: %1$s</string>
 
     <string-array name="currency_names_array">
         <item>AED|United Arab Emirates dirham</item>

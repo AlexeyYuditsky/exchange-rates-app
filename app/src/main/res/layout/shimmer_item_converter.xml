@@ -43,7 +43,7 @@
         tools:ignore="Autofill,LabelFor,TextFields" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/appNameTextView"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:background="@color/grey"
