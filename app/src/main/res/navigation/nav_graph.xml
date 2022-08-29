@@ -7,7 +7,6 @@
     <include app:graph="@navigation/favorite" />
     <include app:graph="@navigation/converter" />
     <include app:graph="@navigation/currencies" />
-    <include app:graph="@navigation/cryptocurrencies" />
     <include app:graph="@navigation/menu" />
 
 </navigation>

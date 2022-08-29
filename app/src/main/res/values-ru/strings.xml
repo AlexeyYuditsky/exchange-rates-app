@@ -2,7 +2,6 @@
     <string name="app_name">Курсы валют</string>
     <string name="favorite">Избранное</string>
     <string name="converter">Конвертер</string>
-    <string name="cryptocurrencies">Криптовалюты</string>
     <string name="currencies">Валюты</string>
     <string name="search_by">Поиск</string>
     <string name="currency_name">1 %1$s</string>

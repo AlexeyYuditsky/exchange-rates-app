@@ -17,11 +17,6 @@
         android:title="@string/currencies" />
 
     <item
-        android:id="@+id/cryptocurrencies"
-        android:icon="@drawable/ic_cryptocurrencies"
-        android:title="@string/cryptocurrencies" />
-
-    <item
         android:id="@+id/menu"
         android:icon="@drawable/ic_menu"
         android:title="@string/menu" />

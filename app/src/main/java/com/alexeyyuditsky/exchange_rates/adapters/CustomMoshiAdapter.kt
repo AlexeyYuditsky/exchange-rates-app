@@ -2,8 +2,6 @@ package com.alexeyyuditsky.exchange_rates.adapters
 
 import com.alexeyyuditsky.exchange_rates.network.*
 import com.alexeyyuditsky.exchange_rates.utils.FORMAT
-import com.alexeyyuditsky.exchange_rates.utils.cryptocurrencyNames
-import com.alexeyyuditsky.exchange_rates.utils.log
 import com.squareup.moshi.FromJson
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -27,9 +25,6 @@ class CustomMoshiAdapter {
         val declaredMemberProperties = currencies::class.declaredMemberProperties
         val rubleExchangeRate = findRubleExchangeRate(declaredMemberProperties, currencies)
 
-        val df = DecimalFormat("#.####")
-        df.roundingMode = RoundingMode.FLOOR
-
         return declaredMemberProperties
             // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
             .filter { it.name != "rub" && it.call(currencies) != null }
@@ -51,6 +46,117 @@ class CustomMoshiAdapter {
             .call(currencies)
             .toString()
             .toFloat()
+    }
+
+    companion object {
+        val cryptocurrencyNames = hashSetOf(
+            "1inch",
+            "aave",
+            "ada",
+            "algo",
+            "amp",
+            "ar",
+            "atom",
+            "avax",
+            "axs",
+            "bat",
+            "bch",
+            "bnb",
+            "bsv",
+            "btc",
+            "btcb",
+            "btg",
+            "busd",
+            "cake",
+            "celo",
+            "chz",
+            "comp",
+            "cro",
+            "crv",
+            "cvx",
+            "dai",
+            "dash",
+            "dcr",
+            "dfi",
+            "doge",
+            "dot",
+            "egld",
+            "enj",
+            "eos",
+            "ern",
+            "etc",
+            "eth",
+            "fei",
+            "fil",
+            "flow",
+            "frax",
+            "ftm",
+            "ftt",
+            "gala",
+            "ggp",
+            "gno",
+            "grt",
+            "gt",
+            "hbar",
+            "hnt",
+            "hot",
+            "ht",
+            "icp",
+            "imp",
+            "inj",
+            "kava",
+            "kcs",
+            "kda",
+            "klay",
+            "knc",
+            "ksm",
+            "leo",
+            "link",
+            "lrc",
+            "ltc",
+            "luna",
+            "mana",
+            "matic",
+            "mina",
+            "miota",
+            "mkr",
+            "near",
+            "neo",
+            "nexo",
+            "okb",
+            "one",
+            "paxg",
+            "pen",
+            "qnt",
+            "qtum",
+            "rune",
+            "sand",
+            "shib",
+            "stx",
+            "sol",
+            "theta",
+            "trx",
+            "ttt",
+            "tusd",
+            "uni",
+            "usdc",
+            "usdp",
+            "usdt",
+            "vet",
+            "waves",
+            "wbtc",
+            "wemix",
+            "xag",
+            "xdc",
+            "xec",
+            "xem",
+            "xlm",
+            "xmr",
+            "xrp",
+            "xtz",
+            "zec",
+            "zil"
+        )
     }
 
 }

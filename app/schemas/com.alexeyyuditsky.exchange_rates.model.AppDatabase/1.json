@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "398a4418d04516ddff1c19f45161b4fb",
+    "identityHash": "9830db686b6cef7b5f18456d3ff537d2",
     "entities": [
       {
         "tableName": "currencies",
@@ -41,66 +41,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "cryptocurrencies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` TEXT NOT NULL COLLATE NOCASE, `valueToday` TEXT NOT NULL, `valueDifference` REAL NOT NULL, `isFavorite` INTEGER NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "code",
-            "columnName": "code",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "valueToday",
-            "columnName": "valueToday",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "valueDifference",
-            "columnName": "valueDifference",
-            "affinity": "REAL",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isFavorite",
-            "columnName": "isFavorite",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [
-          {
-            "name": "index_cryptocurrencies_code",
-            "unique": true,
-            "columnNames": [
-              "code"
-            ],
-            "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cryptocurrencies_code` ON `${TABLE_NAME}` (`code`)"
-          }
-        ],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '398a4418d04516ddff1c19f45161b4fb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9830db686b6cef7b5f18456d3ff537d2')"
     ]
   }
 }

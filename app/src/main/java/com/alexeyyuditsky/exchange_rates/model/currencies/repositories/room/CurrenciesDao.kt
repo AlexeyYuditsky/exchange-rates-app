@@ -2,7 +2,6 @@ package com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room
 
 import androidx.room.*
 import com.alexeyyuditsky.exchange_rates.model.currencies.Currency
-import com.alexeyyuditsky.exchange_rates.room.entities.CryptocurrencyDbEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
