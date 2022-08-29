@@ -17,6 +17,10 @@
     <string name="night_mode">Night mode</string>
     <string name="write_vk">Write to VK</string>
     <string name="version">version: %1$s</string>
+    <string name="share_message">App: Exchange rates https://play.google.com/store/apps/details?id=com.alexeyyuditsky.catsounds</string>
+    <string name="share_subject">App: Exchange rates</string>
+    <string name="no_app_for_open">You don\'t have an app to open the link</string>
+
 
     <string-array name="currency_names_array">
         <item>AED|United Arab Emirates dirham</item>

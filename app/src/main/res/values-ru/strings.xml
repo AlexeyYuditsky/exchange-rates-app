@@ -17,6 +17,10 @@
     <string name="night_mode">Ночной режим</string>
     <string name="write_vk">Написать в VK</string>
     <string name="version">версия: %1$s</string>
+    <string name="share_message">Приложение: Курсы валют https://play.google.com/store/apps/details?id=com.alexeyyuditsky.catsounds</string>
+    <string name="share_subject">Приложение: Курсы валют</string>
+    <string name="no_app_for_open">У вас нет приложения для открытия этой ссылки</string>
+
 
     <string-array name="currency_names_array">
         <item>AED|Дирхам ОАЭ</item>

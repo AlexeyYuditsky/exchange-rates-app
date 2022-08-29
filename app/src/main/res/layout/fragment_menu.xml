@@ -41,7 +41,7 @@
             tools:text="версия: 1.0" />
 
         <LinearLayout
-            android:id="@+id/nightMode"
+            android:id="@+id/nightModeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -73,6 +73,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/shareLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/line_background"
@@ -100,6 +101,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rateAppLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/line_background"
@@ -125,6 +127,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/writeVKLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/linear_bg_bottom"
