@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchange_rates.network.CurrenciesSource
 import com.alexeyyuditsky.exchange_rates.utils.isUpdated
-import com.alexeyyuditsky.exchange_rates.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +25,7 @@ class MainViewModel @Inject constructor(
                 isUpdated = currenciesSource.getCurrenciesFromNetwork()
             }
             launch {
-                //delay(500)
+                delay(500)
                 _isLoading.value = false
             }
         }

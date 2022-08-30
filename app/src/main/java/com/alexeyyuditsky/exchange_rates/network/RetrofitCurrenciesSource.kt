@@ -52,7 +52,7 @@ class RetrofitCurrenciesSource @Inject constructor(
                 valueToday = currency.value,
                 valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value)
             )
-            if (!currency.isCryptocurrency) currencyList.add(updateCurrencyValueTuple)
+            currencyList.add(updateCurrencyValueTuple)
         }
         currenciesDao.updateCurrencies(currencyList)
     }
@@ -67,7 +67,7 @@ class RetrofitCurrenciesSource @Inject constructor(
                 valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value),
                 isFavorite = currency.name == "USD" || currency.name == "EUR" || currency.name == "GBP"
             )
-            if (!currency.isCryptocurrency) currencyList.add(currencyDbEntity)
+            currencyList.add(currencyDbEntity)
         }
         currenciesDao.insertCurrencies(currencyList)
     }

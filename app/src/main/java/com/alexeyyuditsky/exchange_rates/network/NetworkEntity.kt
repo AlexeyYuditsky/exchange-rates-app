@@ -171,6 +171,5 @@ class ConvertedRoot(
 
 data class CurrencyNetworkEntity(
     val name: String,
-    val value: String,
-    val isCryptocurrency: Boolean
+    val value: String
 )

@@ -2,8 +2,8 @@ package com.alexeyyuditsky.exchange_rates.model.settings
 
 interface AppSettings {
 
-    fun checkNightMode(): Boolean
+    fun checkNightMode(): Int
 
-    fun setNightMode(isNightModeOn: Boolean)
+    fun setNightMode(mode: Int)
 
 }
