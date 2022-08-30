@@ -1,6 +1,7 @@
 package com.alexeyyuditsky.exchange_rates.screens.menu
 
 import android.content.Intent
+import android.content.pm.ResolveInfo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchange_rates.model.settings.AppSettings
@@ -29,12 +30,9 @@ class MenuViewModel @Inject constructor(
     private val _startNewActivity = MutableSharedFlow<Intent>()
     val startNewActivity = _startNewActivity.asSharedFlow()
 
-    fun startNewActivity(intent: Intent) = viewModelScope.launch {
-        _startNewActivity.emit(intent)
-    }
-
-    fun showErrorToast() = viewModelScope.launch {
-        _showErrorToast.emit(Unit)
+    fun startActivity(findRequiredActivities: (Intent) -> List<ResolveInfo>, intent: Intent) = viewModelScope.launch {
+        val listActivities = findRequiredActivities(intent)
+        if (listActivities.isEmpty()) _showErrorToast.emit(Unit) else _startNewActivity.emit(intent)
     }
 
     fun setNightMode(mode: Int) = viewModelScope.launch {

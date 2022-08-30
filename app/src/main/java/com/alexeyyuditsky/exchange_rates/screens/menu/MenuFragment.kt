@@ -1,8 +1,8 @@
 package com.alexeyyuditsky.exchange_rates.screens.menu
 
-import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
@@ -77,22 +77,22 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
             putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
         }
-        if (findRequiredActivity(intent)) viewModel.startNewActivity(intent) else viewModel.showErrorToast()
+        viewModel.startActivity(::findRequiredActivity, intent)
     }
 
     private fun onRateAppButtonPressed() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_ADDRESS))
-        if (findRequiredActivity(intent)) viewModel.startNewActivity(intent) else viewModel.showErrorToast()
+        viewModel.startActivity(::findRequiredActivity, intent)
+
     }
 
     private fun onWriteVKButtonPressed() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(VK_ADDRESS))
-        if (findRequiredActivity(intent)) viewModel.startNewActivity(intent) else viewModel.showErrorToast()
+        viewModel.startActivity(::findRequiredActivity, intent)
     }
 
-    private fun findRequiredActivity(intent: Intent): Boolean {
-        val componentNames = requireContext().packageManager.queryIntentActivities(intent, PackageManager.MATCH_ALL)
-        return componentNames.isNotEmpty()
+    private fun findRequiredActivity(intent: Intent): List<ResolveInfo> {
+        return requireContext().packageManager.queryIntentActivities(intent, PackageManager.MATCH_ALL)
     }
 
 }
