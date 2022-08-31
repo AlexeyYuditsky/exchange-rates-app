@@ -77,18 +77,17 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
             putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
         }
-        viewModel.startActivity(::findRequiredActivity, intent)
+        viewModel.launchActivity(::findRequiredActivity, intent)
     }
 
     private fun onRateAppButtonPressed() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_ADDRESS))
-        viewModel.startActivity(::findRequiredActivity, intent)
-
+        viewModel.launchActivity(::findRequiredActivity, intent)
     }
 
     private fun onWriteVKButtonPressed() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(VK_ADDRESS))
-        viewModel.startActivity(::findRequiredActivity, intent)
+        viewModel.launchActivity(::findRequiredActivity, intent)
     }
 
     private fun findRequiredActivity(intent: Intent): List<ResolveInfo> {

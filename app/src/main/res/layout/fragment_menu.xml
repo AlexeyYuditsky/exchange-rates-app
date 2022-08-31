@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/app_name"
-            android:textColor="@color/text"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -37,7 +36,6 @@
             android:id="@+id/appVersionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text"
             tools:text="версия: 1.0" />
 
         <LinearLayout
@@ -45,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/linear_bg_top"
+            android:background="@drawable/layout_bg_top"
             android:foreground="?android:attr/selectableItemBackground"
             android:padding="16dp">
 
@@ -60,7 +58,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:text="@string/night_mode"
-                android:textColor="@color/text"
                 android:textSize="16sp" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
@@ -76,10 +73,10 @@
             android:id="@+id/shareLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/line_background"
+            android:background="@color/layout_background"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
             android:padding="16dp">
 
             <ImageView
@@ -95,7 +92,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/share"
-                android:textColor="@color/text"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -104,7 +100,7 @@
             android:id="@+id/rateAppLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/line_background"
+            android:background="@color/layout_background"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -121,7 +117,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/rate"
-                android:textColor="@color/text"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -147,7 +142,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/write_vk"
-                android:textColor="@color/text"
                 android:textSize="16sp" />
 
         </LinearLayout>

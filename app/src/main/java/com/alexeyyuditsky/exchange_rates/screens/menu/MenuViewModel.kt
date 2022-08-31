@@ -30,7 +30,7 @@ class MenuViewModel @Inject constructor(
     private val _startNewActivity = MutableSharedFlow<Intent>()
     val startNewActivity = _startNewActivity.asSharedFlow()
 
-    fun startActivity(findRequiredActivities: (Intent) -> List<ResolveInfo>, intent: Intent) = viewModelScope.launch {
+    fun launchActivity(findRequiredActivities: (Intent) -> List<ResolveInfo>, intent: Intent) = viewModelScope.launch {
         val listActivities = findRequiredActivities(intent)
         if (listActivities.isEmpty()) _showErrorToast.emit(Unit) else _startNewActivity.emit(intent)
     }

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="main_background">#141414</color>
-    <color name="line_background">#212121</color>
+    <color name="layout_background">#212121</color>
     <color name="text">#FFF</color>
+    <color name="toolbar_background">#141414</color>
+    <color name="navigation_bar">#141414</color>
 
 </resources>
