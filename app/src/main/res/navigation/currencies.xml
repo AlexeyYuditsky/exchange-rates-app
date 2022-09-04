@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/currenciesFragment"
-        android:name="com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesFragment"
+        android:name="com.alexeyyuditsky.exchangerates.screens.currencies.CurrenciesFragment"
         android:label="fragment_currencies"
         tools:layout="@layout/fragment_currencies" />
 

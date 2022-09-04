@@ -18,6 +18,7 @@
     <color name="text">#000</color>
     <color name="toolbar_background">#4562FF</color>
     <color name="main_blue">#4562FF</color>
-    <color name="navigation_bar">#4562FF</color>
+    <color name="status_bar">#4562FF</color>
+    <color name="navigation_bar">#DDD</color>
 
 </resources>

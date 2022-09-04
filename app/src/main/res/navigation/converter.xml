@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/converterFragment"
-        android:name="com.alexeyyuditsky.exchange_rates.screens.converter.ConverterFragment"
+        android:name="com.alexeyyuditsky.exchangerates.screens.converter.ConverterFragment"
         android:label="fragment_converter"
         tools:layout="@layout/fragment_converter" />
 

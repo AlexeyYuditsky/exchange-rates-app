@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.alexeyyuditsky.exchange_rates.screens.favorite.FavoriteFragment"
+        android:name="com.alexeyyuditsky.exchangerates.screens.favorite.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
 

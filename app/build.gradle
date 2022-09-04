@@ -10,7 +10,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.alexeyyuditsky.exchange_rates"
+        applicationId "com.alexeyyuditsky.exchangerates"
         minSdk 23
         targetSdk 32
         versionCode 1
@@ -22,12 +22,19 @@ android {
             }
         }
 
+        resConfigs "en", "ru"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

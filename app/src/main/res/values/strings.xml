@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Converter and exchange rates</string>
+    <string name="app_name">Exchange rates</string>
     <string name="favorite">Favorite</string>
     <string name="converter">Converter</string>
     <string name="currencies">Currencies</string>
