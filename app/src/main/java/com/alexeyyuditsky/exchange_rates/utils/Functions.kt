@@ -6,7 +6,7 @@ import com.alexeyyuditsky.exchange_rates.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-var isUpdated = false
+var isUpdatedRates = false
 
 val currencyCodesList = mutableListOf<String>()
 val currencyCodesAndNamesMap = hashMapOf<String, String>()
@@ -27,8 +27,10 @@ fun loadLanguage(context: Context) {
 
 fun loadImages(context: Context) {
     currencyCodesAndNamesMap.forEach { (key, _) ->
-        val id = context.resources.getIdentifier(key.lowercase(), "drawable", context.packageName)
-        currencyImagesMap[key] = if (id == 0) R.drawable._try else id
+        val id =
+            if (key == "TRY") context.resources.getIdentifier("_${key.lowercase()}", "drawable", context.packageName)
+            else context.resources.getIdentifier(key.lowercase(), "drawable", context.packageName)
+        currencyImagesMap[key] = if (id != 0) id else R.drawable.ic_error
     }
     currencyImagesMap["RUB"] = R.drawable.rub
 }

@@ -6,8 +6,7 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.room.Upda
 import com.alexeyyuditsky.exchange_rates.utils.FORMAT
 import com.alexeyyuditsky.exchange_rates.utils.getLatestDate
 import com.alexeyyuditsky.exchange_rates.utils.log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import java.util.*
@@ -25,20 +24,31 @@ class RetrofitCurrenciesSource @Inject constructor(
     private lateinit var currencyCurrentValues: List<CurrencyNetworkEntity>
     private lateinit var currencyYesterdayValues: List<CurrencyNetworkEntity>
 
-    override suspend fun getCurrenciesFromNetwork() = withContext(Dispatchers.IO) {
+    override suspend fun getCurrenciesFromNetwork(): Boolean = withContext(Dispatchers.IO) {
         try {
-            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate()).currencies
-            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
+            awaitAll(
+                async {
+                    currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate()).currencies
+                },
+                async {
+                    currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
+                }
+            )
         } catch (e: HttpException) {
-            currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
-            currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
+            awaitAll(
+                async {
+                    currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
+                },
+                async {
+                    currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
+                }
+            )
         }
 
-        if (currenciesDao.currenciesTableIsEmpty()) {
+        if (currenciesDao.currenciesTableIsEmpty())
             insertCurrenciesIntoDatabase()
-        } else {
+        else
             updateCurrenciesIntoDatabase()
-        }
 
         return@withContext true
     }

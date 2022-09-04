@@ -8,7 +8,6 @@ import com.alexeyyuditsky.exchange_rates.model.currencies.repositories.Currencie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -28,19 +27,19 @@ class ConverterViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             currenciesRepository.getFavoriteCurrencies().collectLatest {
-                _converterCurrencies.emit(formatCurrencyList(it.toMutableSet()))
+                _converterCurrencies.emit(formatCurrencyList(it.toMutableList()))
             }
         }
     }
 
-    private suspend fun formatCurrencyList(favoriteList: MutableSet<Currency>): List<ConverterCurrency> {
+    private suspend fun formatCurrencyList(favoriteList: MutableList<Currency>): List<ConverterCurrency> {
         val currencyList = currenciesRepository.getCurrencies()
         favoriteList.addAll(currencyList)
-        val finalList = favoriteList.map { it.toConverterCurrency() }.toMutableList()
+        val newCurrencyList = favoriteList.map { it.toConverterCurrency() }.toMutableList()
         // make the ruble the first currency
-        finalList.add(0, ConverterCurrency(code = "RUB"))
+        newCurrencyList.add(0, ConverterCurrency(code = "RUB"))
 
-        return finalList.toList()
+        return newCurrencyList
     }
 
 }

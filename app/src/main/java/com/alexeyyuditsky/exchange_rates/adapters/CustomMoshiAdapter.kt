@@ -2,6 +2,7 @@ package com.alexeyyuditsky.exchange_rates.adapters
 
 import com.alexeyyuditsky.exchange_rates.network.*
 import com.alexeyyuditsky.exchange_rates.utils.FORMAT
+import com.alexeyyuditsky.exchange_rates.utils.log
 import com.squareup.moshi.FromJson
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -27,7 +28,9 @@ class CustomMoshiAdapter {
 
         return declaredMemberProperties
             // exclude the ruble exchange rate from the list && exclude currency that are missing from the server
-            .filter { it.name != "rub" && it.call(currencies) != null }
+            .filter {
+                it.name != "rub" && it.call(currencies) != null
+            }
             .map {
                 CurrencyNetworkEntity(
                     name = it.name.uppercase(),

@@ -47,6 +47,10 @@ class RoomCurrenciesRepository @Inject constructor(
         currenciesDao.getCurrencies()
     }
 
+    override fun getConverterCurrencies(): Flow<List<Currency>> {
+        return currenciesDao.getConverterCurrencies().flowOn(Dispatchers.IO)
+    }
+
     private suspend fun getCurrencies(pageIndex: Int, pageSize: Int, searchBy: List<String>): List<Currency> =
         withContext(Dispatchers.IO) {
             val offset = pageIndex * pageSize

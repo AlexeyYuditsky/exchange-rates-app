@@ -3,22 +3,25 @@ package com.alexeyyuditsky.exchange_rates
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.alexeyyuditsky.exchange_rates.databinding.ActivityMainBinding
-import com.alexeyyuditsky.exchange_rates.model.settings.SharedPreferencesAppSettings
 import com.alexeyyuditsky.exchange_rates.model.settings.SharedPreferencesAppSettings.Companion.SETTINGS
 import com.alexeyyuditsky.exchange_rates.screens.currencies.CurrenciesFragment
 import com.alexeyyuditsky.exchange_rates.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @FlowPreview

@@ -39,8 +39,7 @@ class ConverterAdapter : RecyclerView.Adapter<ConverterAdapter.Holder>() {
         with(holder.binding) {
             setCurrencyImage(currency.code, flagImageView)
             codeTextView.text = currency.code
-            nameTextView.text =
-                holder.itemView.context.getString(R.string.currency_name_2, currencyCodesAndNamesMap[currency.code])
+            nameTextView.text = holder.itemView.context.getString(R.string.currency_name_2, currencyCodesAndNamesMap[currency.code])
             valueEditText.hint = currency.valueShow
             setupAuxiliaryEditText(valueEditText, valueAuxiliaryEditText, currency.valueShow)
         }

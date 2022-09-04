@@ -19,6 +19,7 @@
     <string name="share_message">Приложение: Курсы валют https://play.google.com/store/apps/details?id=com.alexeyyuditsky.catsounds</string>
     <string name="share_subject">Приложение: Курсы валют</string>
     <string name="no_app_for_open">У вас нет приложения для открытия этой ссылки</string>
+    <string name="exchange_rates_updated">Курсы валют обновлены</string>
 
 
     <string-array name="currency_names_array">
@@ -145,6 +146,7 @@
         <item>SGD|Сингапурский доллар</item>
         <item>SHP|Фунт Святой Елены</item>
         <item>SLL|Сьерра-леонский леоне</item>
+        <item>SOL|Перуанский соль</item>
         <item>SOS|Сомалийский шиллинг</item>
         <item>SRD|Суринамский доллар</item>
         <item>STD|Добра Сан-Томе и Принсипи</item>

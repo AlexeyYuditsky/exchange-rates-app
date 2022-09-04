@@ -19,6 +19,7 @@
     <string name="share_message">App: Exchange rates https://play.google.com/store/apps/details?id=com.alexeyyuditsky.catsounds</string>
     <string name="share_subject">App: Exchange rates</string>
     <string name="no_app_for_open">You don\'t have an app to open the link</string>
+    <string name="exchange_rates_updated">Exchange rates updated</string>
 
 
     <string-array name="currency_names_array">
@@ -145,6 +146,7 @@
         <item>SGD|Singapore dollar</item>
         <item>SHP|Saint Helena pound</item>
         <item>SLL|Sierra Leonean leone</item>
+        <item>SOL|Peruanischer Sol</item>
         <item>SOS|Somali shilling</item>
         <item>SRD|Surinamese dollar</item>
         <item>STD|São Tomé and Príncipe dobra</item>

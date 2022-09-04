@@ -65,8 +65,8 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // okhttp
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.7'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.7'
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -79,7 +79,7 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.4.3'
 
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
 
     // navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'

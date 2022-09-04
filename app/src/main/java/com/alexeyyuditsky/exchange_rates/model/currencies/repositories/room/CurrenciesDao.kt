@@ -28,4 +28,7 @@ interface CurrenciesDao {
     @Query("select * from currencies")
     fun getCurrencies(): List<Currency>
 
+    @Query("select * from currencies")
+    fun getConverterCurrencies(): Flow<List<Currency>>
+
 }

@@ -3,10 +3,12 @@ package com.alexeyyuditsky.exchange_rates
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchange_rates.network.CurrenciesSource
-import com.alexeyyuditsky.exchange_rates.utils.isUpdated
+import com.alexeyyuditsky.exchange_rates.utils.isUpdatedRates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,10 +24,10 @@ class MainViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             launch {
-                isUpdated = currenciesSource.getCurrenciesFromNetwork()
+                isUpdatedRates = currenciesSource.getCurrenciesFromNetwork()
             }
             launch {
-                delay(500)
+                delay(100)
                 _isLoading.value = false
             }
         }

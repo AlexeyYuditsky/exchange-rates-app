@@ -12,6 +12,8 @@ interface CurrenciesRepository {
 
     fun getFavoriteCurrencies(): Flow<List<Currency>>
 
+    fun getConverterCurrencies(): Flow<List<Currency>>
+
     suspend fun getCurrencies(): List<Currency>
 
 }
