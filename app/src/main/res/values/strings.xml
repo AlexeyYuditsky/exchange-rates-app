@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Exchange rates</string>
+    <string name="app_name">Converter and exchange rates</string>
     <string name="favorite">Favorite</string>
     <string name="converter">Converter</string>
     <string name="currencies">Currencies</string>
@@ -16,8 +16,8 @@
     <string name="night_mode">Night mode</string>
     <string name="write_vk">Write to VK</string>
     <string name="version">version: %1$s</string>
-    <string name="share_message">App: Exchange rates https://play.google.com/store/apps/details?id=com.alexeyyuditsky.catsounds</string>
-    <string name="share_subject">App: Exchange rates</string>
+    <string name="share_message">App: Converter and Exchange rates https://play.google.com/store/apps/details?id=com.alexeyyuditsky.exchange-rates</string>
+    <string name="share_subject">App: Converter and Exchange rates</string>
     <string name="no_app_for_open">You don\'t have an app to open the link</string>
     <string name="exchange_rates_updated">Exchange rates updated</string>
 

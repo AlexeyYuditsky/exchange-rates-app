@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Курсы валют</string>
+    <string name="app_name">Конвертер и курсы валют</string>
     <string name="favorite">Избранное</string>
     <string name="converter">Конвертер</string>
     <string name="currencies">Валюты</string>
@@ -16,8 +16,8 @@
     <string name="night_mode">Ночной режим</string>
     <string name="write_vk">Написать в VK</string>
     <string name="version">версия: %1$s</string>
-    <string name="share_message">Приложение: Курсы валют https://play.google.com/store/apps/details?id=com.alexeyyuditsky.catsounds</string>
-    <string name="share_subject">Приложение: Курсы валют</string>
+    <string name="share_message">Приложение: Конвертер и курсы валют https://play.google.com/store/apps/details?id=com.alexeyyuditsky.exchange-rates</string>
+    <string name="share_subject">Приложение: Конвертер и курсы валют</string>
     <string name="no_app_for_open">У вас нет приложения для открытия этой ссылки</string>
     <string name="exchange_rates_updated">Курсы валют обновлены</string>
 
