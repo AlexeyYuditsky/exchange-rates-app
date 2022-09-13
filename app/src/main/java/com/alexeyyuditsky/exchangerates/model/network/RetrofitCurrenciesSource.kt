@@ -5,9 +5,13 @@ import com.alexeyyuditsky.exchangerates.model.currencies.repositories.room.Curre
 import com.alexeyyuditsky.exchangerates.model.currencies.repositories.room.UpdateCurrencyValueTuple
 import com.alexeyyuditsky.exchangerates.utils.CURRENCY_FORMAT
 import com.alexeyyuditsky.exchangerates.utils.getLatestDate
-import kotlinx.coroutines.*
+import com.alexeyyuditsky.exchangerates.utils.log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Retrofit
+import java.net.UnknownHostException
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,29 +24,14 @@ class RetrofitCurrenciesSource @Inject constructor(
 
     private val currenciesApi = retrofit.create(CurrenciesApi::class.java)
 
-    private lateinit var currencyCurrentValues: List<CurrencyNetworkEntity>
-    private lateinit var currencyYesterdayValues: List<CurrencyNetworkEntity>
+    private val currencyCurrentValues = mutableListOf<CurrencyNetworkEntity>()
+    private val currencyYesterdayValues = mutableListOf<CurrencyNetworkEntity>()
 
-    override suspend fun getCurrenciesFromNetwork(): Boolean = withContext(Dispatchers.IO) {
-        try {
-            awaitAll(
-                async {
-                    currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate()).currencies
-                },
-                async {
-                    currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
-                }
-            )
-        } catch (e: HttpException) {
-            awaitAll(
-                async {
-                    currencyCurrentValues = currenciesApi.getCurrencies(getLatestDate(-1)).currencies
-                },
-                async {
-                    currencyYesterdayValues = currenciesApi.getCurrencies(getLatestDate(-2)).currencies
-                }
-            )
-        }
+    override suspend fun getCurrenciesFromNetwork(date: Int): Boolean = withContext(Dispatchers.IO) {
+        val todayCurrencies = async { currenciesApi.getCurrencies(getLatestDate(date)).currencies }
+        val yesterdayCurrencies = async { currenciesApi.getCurrencies(getLatestDate(date - 1)).currencies }
+        currencyCurrentValues.addAll(todayCurrencies.await())
+        currencyYesterdayValues.addAll(yesterdayCurrencies.await())
 
         if (currenciesDao.currenciesTableIsEmpty())
             insertCurrenciesIntoDatabase()
@@ -74,7 +63,7 @@ class RetrofitCurrenciesSource @Inject constructor(
                 code = currency.name,
                 valueToday = currency.value,
                 valueDifference = calculateValues(currency.value, currencyYesterdayValues[index].value),
-                isFavorite = currency.name == "USD" || currency.name == "EUR" || currency.name == "GBP"
+                isFavorite = currency.name == "USD" || currency.name == "EUR"
             )
             currencyList.add(currencyDbEntity)
         }

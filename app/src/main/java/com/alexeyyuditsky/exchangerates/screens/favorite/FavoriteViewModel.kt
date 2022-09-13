@@ -1,9 +1,9 @@
 package com.alexeyyuditsky.exchangerates.screens.favorite
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchangerates.model.currencies.Currency
 import com.alexeyyuditsky.exchangerates.model.currencies.repositories.CurrenciesRepository
+import com.alexeyyuditsky.exchangerates.BaseViewModel
 import com.alexeyyuditsky.exchangerates.screens.currencies.CurrenciesViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     private val currenciesRepository: CurrenciesRepository
-) : ViewModel(), FavoriteListener {
+) : BaseViewModel(), FavoriteListener {
 
     private val _favoriteCurrencies = MutableSharedFlow<List<Currency>>(replay = 1, extraBufferCapacity = 1)
     val favoriteCurrencies = _favoriteCurrencies.asSharedFlow()

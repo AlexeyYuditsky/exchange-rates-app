@@ -8,7 +8,7 @@ import com.alexeyyuditsky.exchangerates.model.currencies.Currency
 import com.alexeyyuditsky.exchangerates.model.currencies.repositories.CurrenciesRepository
 import com.alexeyyuditsky.exchangerates.screens.favorite.FavoriteListener
 import com.alexeyyuditsky.exchangerates.utils.codesList
-import com.alexeyyuditsky.exchangerates.utils.isUpdatedRates
+import com.alexeyyuditsky.exchangerates.utils.isUpdatedCurrencies
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -32,7 +32,7 @@ class CurrenciesViewModel @Inject constructor(
     init {
         // каждые 100мс пытаемся отобразим список валют когда данные по сети будут получены и обработаны
         viewModelScope.launch {
-            while (!isUpdatedRates) delay(100); refresh()
+            while (!isUpdatedCurrencies) delay(100); refresh()
         }
 
         val originCurrenciesFlow = searchBy.asFlow()

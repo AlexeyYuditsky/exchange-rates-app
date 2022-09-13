@@ -30,13 +30,6 @@
                 android:layout_height="1dp"
                 android:background="@color/grey" />
 
-            <include layout="@layout/shimmer_item_currency" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey" />
-
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -47,7 +40,7 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context=".screens.favorite.FavoriteFragment"
-        tools:itemCount="3"
+        tools:itemCount="2"
         tools:listitem="@layout/item_currency" />
 
 </FrameLayout>

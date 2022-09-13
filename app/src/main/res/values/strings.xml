@@ -20,6 +20,10 @@
     <string name="share_subject">App: Converter and Exchange rates</string>
     <string name="no_app_for_open">You don\'t have an app to open the link</string>
     <string name="exchange_rates_updated">Exchange rates updated</string>
+    <string name="internal_error">Internal error! Please try again later.</string>
+    <string name="connection_error">Can\'t connect to the server</string>
+    <string name="no_internet">Check your internet connection</string>
+    <string name="check_date">Update the date and time on your phone</string>
 
 
     <string-array name="currency_names_array">

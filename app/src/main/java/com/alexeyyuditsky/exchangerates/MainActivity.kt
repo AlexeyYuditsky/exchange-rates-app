@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
@@ -22,9 +21,9 @@ import kotlinx.coroutines.FlowPreview
 @ExperimentalCoroutinesApi
 @FlowPreview
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    override val viewModel by viewModels<MainViewModel>()
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private val sharedPreferences by lazy { getSharedPreferences(SETTINGS, Context.MODE_PRIVATE) }

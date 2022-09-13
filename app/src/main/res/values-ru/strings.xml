@@ -20,7 +20,10 @@
     <string name="share_subject">Приложение: Конвертер и курсы валют</string>
     <string name="no_app_for_open">У вас нет приложения для открытия этой ссылки</string>
     <string name="exchange_rates_updated">Курсы валют обновлены</string>
-
+    <string name="internal_error">Внутренняя ошибка! Пожалуйста повторите позже.</string>
+    <string name="connection_error">Не могу установить соединение с сервером</string>
+    <string name="no_internet">Проверьте подключение к интернету</string>
+    <string name="check_date">Обновите дату и время на телефоне</string>
 
     <string-array name="currency_names_array">
         <item>AED|Дирхам ОАЭ</item>
