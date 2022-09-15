@@ -2,7 +2,6 @@ package com.alexeyyuditsky.exchangerates
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alexeyyuditsky.exchangerates.utils.log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -18,7 +17,7 @@ open class BaseViewModel : ViewModel() {
     private val _showErrorMessage = MutableSharedFlow<Int>()
     val showErrorMessage = _showErrorMessage.asSharedFlow()
 
-    fun CoroutineScope.safeLaunch(block: suspend CoroutineScope.(date: Int) -> Unit) = viewModelScope.launch {
+    fun safeLaunch(block: suspend CoroutineScope.(date: Int) -> Unit) = viewModelScope.launch {
         try {
             block.invoke(this, 0)
         } catch (e: UnknownHostException) {

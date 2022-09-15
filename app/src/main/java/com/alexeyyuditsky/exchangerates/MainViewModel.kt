@@ -1,6 +1,5 @@
 package com.alexeyyuditsky.exchangerates
 
-import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.exchangerates.model.network.CurrenciesSource
 import com.alexeyyuditsky.exchangerates.utils.isUpdatedCurrencies
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,7 @@ class MainViewModel @Inject constructor(
     val isLoading = _isLoading.asStateFlow()
 
     init {
-        viewModelScope.safeLaunch { date ->
+        safeLaunch { date ->
             _isLoading.value = false
             isUpdatedCurrencies = currenciesSource.getCurrenciesFromNetwork(date)
         }
