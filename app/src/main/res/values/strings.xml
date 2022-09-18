@@ -9,18 +9,17 @@
     <string name="currency_value">%1$s ₽</string>
     <string name="russian_ruble">Russian ruble</string>
     <string name="zero">0</string>
-    <string name="appear_in_the_next_update">Appear in the next update</string>
     <string name="menu">Menu</string>
     <string name="rate">Rate</string>
     <string name="share">Share</string>
     <string name="night_mode">Night mode</string>
     <string name="write_vk">Write to VK</string>
     <string name="version">version: %1$s</string>
-    <string name="share_message">App: Converter and Exchange rates https://play.google.com/store/apps/details?id=com.alexeyyuditsky.exchange-rates</string>
-    <string name="share_subject">App: Converter and Exchange rates</string>
+    <string name="share_message">App: Converter &amp; Exchange rates https://play.google.com/store/apps/details?id=com.alexeyyuditsky.exchangerates</string>
+    <string name="share_subject">App: Converter &amp; Exchange rates</string>
     <string name="no_app_for_open">You don\'t have an app to open the link</string>
     <string name="exchange_rates_updated">Exchange rates updated</string>
-    <string name="internal_error">Internal error! Please try again later.</string>
+    <string name="internal_error">Internal error! Please try again later</string>
     <string name="connection_error">Can\'t connect to the server</string>
     <string name="no_internet">Check your internet connection</string>
     <string name="check_date">Update the date and time on your phone</string>

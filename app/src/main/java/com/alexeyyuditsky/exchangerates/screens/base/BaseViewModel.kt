@@ -1,7 +1,8 @@
-package com.alexeyyuditsky.exchangerates
+package com.alexeyyuditsky.exchangerates.screens.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexeyyuditsky.exchangerates.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

@@ -9,18 +9,18 @@
     <string name="currency_name_2">%1$s</string>
     <string name="russian_ruble">Российский рубль</string>
     <string name="zero">0</string>
-    <string name="appear_in_the_next_update">Появится в следующем обновлении</string>
     <string name="menu">Меню</string>
     <string name="rate">Оценить приложение</string>
     <string name="share">Поделиться</string>
     <string name="night_mode">Ночной режим</string>
     <string name="write_vk">Написать в VK</string>
+    https://play.google.com/store/apps/details?id=com.alexeyyuditsky.catsounds
     <string name="version">версия: %1$s</string>
-    <string name="share_message">Приложение: Конвертер и курсы валют https://play.google.com/store/apps/details?id=com.alexeyyuditsky.exchange-rates</string>
-    <string name="share_subject">Приложение: Конвертер и курсы валют</string>
+    <string name="share_message">Приложение: Конвертер &amp; Курсы валют https://play.google.com/store/apps/details?id=com.alexeyyuditsky.exchangerates</string>
+    <string name="share_subject">Приложение: Конвертер &amp; Курсы валют</string>
     <string name="no_app_for_open">У вас нет приложения для открытия этой ссылки</string>
     <string name="exchange_rates_updated">Курсы валют обновлены</string>
-    <string name="internal_error">Внутренняя ошибка! Пожалуйста повторите позже.</string>
+    <string name="internal_error">Внутренняя ошибка! Пожалуйста повторите позже</string>
     <string name="connection_error">Не могу установить соединение с сервером</string>
     <string name="no_internet">Проверьте подключение к интернету</string>
     <string name="check_date">Обновите дату и время на телефоне</string>

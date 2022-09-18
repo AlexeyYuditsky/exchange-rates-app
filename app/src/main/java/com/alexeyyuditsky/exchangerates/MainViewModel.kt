@@ -1,6 +1,7 @@
 package com.alexeyyuditsky.exchangerates
 
 import com.alexeyyuditsky.exchangerates.model.network.CurrenciesSource
+import com.alexeyyuditsky.exchangerates.screens.base.BaseViewModel
 import com.alexeyyuditsky.exchangerates.utils.isUpdatedCurrencies
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

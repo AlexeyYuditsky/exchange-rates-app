@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.exchangerates
+package com.alexeyyuditsky.exchangerates.screens.base
 
 import android.os.Bundle
 import android.widget.Toast

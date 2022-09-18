@@ -30,9 +30,12 @@ class CurrenciesViewModel @Inject constructor(
     private val searchBy = MutableLiveData(codesList)
 
     init {
-        // каждые 100мс пытаемся отобразим список валют когда данные по сети будут получены и обработаны
+        // every 100ms we try to display a list of currencies when data over the network is received and processed
         viewModelScope.launch {
-            while (!isUpdatedCurrencies) delay(100); refresh()
+            while (!isUpdatedCurrencies) {
+                delay(100)
+                refresh()
+            }
         }
 
         val originCurrenciesFlow = searchBy.asFlow()

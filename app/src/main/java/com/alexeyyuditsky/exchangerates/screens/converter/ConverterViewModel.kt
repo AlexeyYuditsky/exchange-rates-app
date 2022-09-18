@@ -21,7 +21,7 @@ class ConverterViewModel @Inject constructor(
     private val currenciesRepository: CurrenciesRepository
 ) : ViewModel() {
 
-    private val _converterCurrencies = MutableSharedFlow<List<ConverterCurrency>>(1, 1)
+    private val _converterCurrencies = MutableSharedFlow<List<ConverterCurrency>>(1)
     val converterCurrencies = _converterCurrencies.asSharedFlow()
 
     init {

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.alexeyyuditsky.exchangerates.databinding.ActivityMainBinding
 import com.alexeyyuditsky.exchangerates.model.settings.SharedPreferencesAppSettings.Companion.SETTINGS
+import com.alexeyyuditsky.exchangerates.screens.base.BaseActivity
 import com.alexeyyuditsky.exchangerates.screens.currencies.CurrenciesFragment
 import com.alexeyyuditsky.exchangerates.utils.*
 import dagger.hilt.android.AndroidEntryPoint
