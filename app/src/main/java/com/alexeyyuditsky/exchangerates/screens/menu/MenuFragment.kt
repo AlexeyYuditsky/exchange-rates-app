@@ -1,6 +1,5 @@
 package com.alexeyyuditsky.exchangerates.screens.menu
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -23,8 +22,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.System.load
-import java.lang.System.loadLibrary
 
 @ExperimentalCoroutinesApi
 @FlowPreview

@@ -37,7 +37,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/")
+            .baseUrl("https://cdn.jsdelivr.net/npm/@fawazahmed0/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
