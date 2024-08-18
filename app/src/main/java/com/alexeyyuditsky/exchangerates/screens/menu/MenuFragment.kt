@@ -39,7 +39,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             nightModeLayout.setOnClickListener { onNightModeSwitchPressed() }
             shareLayout.setOnClickListener { onShareButtonPressed() }
             rateAppLayout.setOnClickListener { onRateAppButtonPressed() }
-            writeVKLayout.setOnClickListener { onWriteVKButtonPressed() }
         }
 
         setAppImage()
@@ -95,19 +94,12 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         viewModel.launchActivity(::findRequiredActivity, intent)
     }
 
-    private fun onWriteVKButtonPressed() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(VK_ADDRESS))
-        viewModel.launchActivity(::findRequiredActivity, intent)
-    }
-
     private fun findRequiredActivity(intent: Intent): List<ResolveInfo> {
         return requireContext().packageManager.queryIntentActivities(intent, PackageManager.MATCH_ALL)
     }
 
     private companion object {
-        const val VK_ADDRESS = "https://vk.com/alexeyyuditsky"
         const val GOOGLE_PLAY_ADDRESS = "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
     }
 
 }
-

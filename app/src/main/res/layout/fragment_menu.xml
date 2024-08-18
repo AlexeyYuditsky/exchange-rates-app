@@ -20,8 +20,8 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ang"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ang" />
 
         <TextView
             android:id="@+id/appNameTextView"
@@ -36,7 +36,7 @@
             android:id="@+id/appVersionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="версия: 1.0" />
+            tools:text="версия: 2.0" />
 
         <LinearLayout
             android:id="@+id/nightModeLayout"
@@ -100,7 +100,7 @@
             android:id="@+id/rateAppLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/layout_background"
+            android:background="@drawable/linear_bg_bottom"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -117,31 +117,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/rate"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/writeVKLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/linear_bg_bottom"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:padding="16dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_message"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/write_vk"
                 android:textSize="16sp" />
 
         </LinearLayout>
